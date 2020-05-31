@@ -1,10 +1,169 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/includes.html :: header_include(${page_title})">
+
 </head>
 <body>
-<h1 th:text="${message}"></h1>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Подробности</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col"> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Соц.Сеть</td>
+                        <td>VK</td>
+                    </tr>
+                    <tr>
+                        <td>Имя</td>
+                        <td>Алексей</td>
+                    </tr>
+                    <tr>
+                        <td>Фамилия</td>
+                        <td>Агеев</td>
+                    </tr>
+                    <tr>
+                        <td>Id</td>
+                        <td>654654</td>
+                    </tr>
+                    <tr>
+                        <td>Права</td>
+                        <td>Стена, Сообщения, Группы, Друзья</td>
+                    </tr>
+                    <tr>
+                        <td>Id приложения</td>
+                        <td>6546548676451</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="left-wrapper d-none d-sm-none d-md-block ">
+    <div class="logo shadow">SocShared</div>
+
+    <nav>
+        <ul class="nav flex-column menu">
+            <li class="nav-item menu-item">
+                <a class="nav-link active icon-options" href="#">Настройки</a>
+            </li>
+            <li class="nav-item menu-item">
+                <a class="nav-link icon-stat" href="#">Статистика</a>
+            </li>
+            <li class="nav-item menu-item">
+                <a class="nav-link icon-support"  href="#">Поддержка</a>
+            </li>
+            <li class="nav-item menu-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+<div >
+
+
+    <div class="container-flux ">
+
+        <nav class="navbar navbar-expand-lg navbar-light  bar shadow">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="#">Features</a>
+                    <a class="nav-item nav-link" href="#">Pricing</a>
+                    <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <div class="row">
+
+            <!-- блок с кнопками для добавления социальных сетей-->
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb sh-breadcrumb shadow">
+                        <li class="breadcrumb-item"><a href="#">Профиль</a></li>
+                        <li class="breadcrumb-item"><a href="#">Настройки</a></li>
+                        <li class="breadcrumb-item sh-active" aria-current="page">Подключение социального аккаунта</li>
+                    </ol>
+                </nav>
+
+            </div>
+            <div class="col">
+                <div class ="row">
+                    <div class = "col-6">
+                        <button type="button" class="btn sh-btn sh-btn-fb shadow">Подключить
+                            <img src="../static/img/ico-fb.svg" width="30px" height="30px"></button>
+                        <button type="button" class="btn sh-btn sh-btn-vk shadow">Подключить
+                            <img src="../static/img/ico-vk.ico" width="30px" height="30px"></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- таблица со списком подключенных аккаунтов-->
+
+        <div class="row ">
+            <div class="col content shadow">
+                <center><h3>Подключенные аккаунты</h1></center>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Соц.Сеть</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Идентификатор</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  data-toggle="modal" data-target="#exampleModal">
+                        <th scope="row">1</th>
+                        <td>VK</td>
+                        <td>Алексей</td>
+                        <td>Агеев</td>
+                        <td>6546517</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Facebook</td>
+                        <td>Алексей</td>
+                        <td>Агеев</td>
+                        <td>898879</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<th:block th:replace="fragments/includes.html :: footer_include" />
 </body>
 </html>

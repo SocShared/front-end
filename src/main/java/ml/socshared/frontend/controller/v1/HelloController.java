@@ -23,7 +23,9 @@ public class HelloController implements HelloApi {
     @Override
     @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public String printHelloWorld(Model model) {
+
         model.addAttribute("message", "Hello, world from spring with Thymeleaf");
+        model.addAttribute("page_title", "Hello_Controller");
         return "hello";
     }
     @GetMapping(value = "/feign", produces = MediaType.APPLICATION_JSON_VALUE)

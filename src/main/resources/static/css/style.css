@@ -253,3 +253,14 @@ a:hover{
 	font-size: 25pt;
 	margin: 15px;
 }
+
+.sh-question-form {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+@media (min-width: 768px) {
+	.sh-question-form {
+		margin-left: 260px;
+	}
+}

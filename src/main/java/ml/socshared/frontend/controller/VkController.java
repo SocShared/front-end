@@ -1,5 +1,6 @@
 package ml.socshared.frontend.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.domain.model.form.AppId;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@Slf4j
 public class VkController {
 
     GatewayServiceClient client;
@@ -37,12 +39,13 @@ public class VkController {
 
     @PostMapping("/social/connection/vk")
     public String applicationUrl(@ModelAttribute AppUrlAccess appUrl,
-                                @CookieValue("token") String token, Model model) {
+                                @CookieValue(value = "token", required = false) String token, Model model) {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
         model.addAttribute("success_added_app", true);
-        Integer tokenVk = 4646;
+        String tokenVk = "4646";
         client.sendTokenForVk(tokenVk, token);
+        log.info("appId: " + String.valueOf(appUrl.getUrl()));
         return "connection_vk";
     }
 }

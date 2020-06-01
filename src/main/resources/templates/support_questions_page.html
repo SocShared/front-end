@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <th:block th:each="question : ${questions_list}">
+        <div class="row ">
+            <div class="col content shadow" >
+                <a class="sh-title-block" th:text="${question.title}"
+                   th:href="@{/support/questions/{path}(path=${question.id})}"></a>
+                <div class="sh-info" th:text="${question.haveResponse}"></div>
+                <div class="sh-info" th:text="${question.time}"></div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:if="${questions_list.isEmpty()}">
+        <div class="row">
+            <div class="col shadow" >
+                <center>Вопросы никто не задавал</center>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+
+</body>
+</html>

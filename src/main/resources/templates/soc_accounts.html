@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+
+        <!-- блок с кнопками для добавления социальных сетей-->
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb sh-breadcrumb shadow">
+                    <li class="breadcrumb-item"><a href="#">Профиль</a></li>
+                    <li class="breadcrumb-item"><a href="#">Настройки</a></li>
+                    <li class="breadcrumb-item sh-active" aria-current="page">Подключение социального аккаунта</li>
+                </ol>
+            </nav>
+
+        </div>
+        <div class="col">
+            <div class ="row">
+                <div class = "col-6">
+                    <button type="button" class="btn sh-btn sh-btn-fb shadow">Подключить
+                        <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></button>
+                    <a th:href="@{/social/connection/vk}" type="button" class="btn sh-btn sh-btn-vk shadow">Подключить
+                        <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--Блок содержащий таблицу подклбченных социальных сетей -->
+    <div class="row">
+    <div class="col content shadow">
+        <center><h3>Подключенные аккаунты</h3></center>
+        <table class="table table-hover" th:unless="${accounts_list.isEmpty()}">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Соц.Сеть</th>
+                <th scope="col">Имя Пользователя</th>
+                <th scope="col">Идентификатор</th>
+            </tr>
+            </thead>
+            <tbody th:each=" account, i : ${accounts_list}">
+            <tr  data-toggle="modal" data-target="#exampleModal">
+                <th scope="row" th:text="${i.index + 1}"></th>
+                <td th:text="${account.getType()}"></td>
+                <td th:text="${account.getUsername()}"></td>
+                <td th:text="${account.getAccountId()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${accounts_list.isEmpty()}">Ни один аккаунт не подключен к системе!</p>
+    </div>
+
+    </div>
+
+
+</th:block>
+
+</body>
+</html>

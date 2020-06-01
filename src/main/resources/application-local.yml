@@ -12,3 +12,9 @@ spring:
       name: ${spring.application.name}
   main:
     allow-bean-definition-overriding: true
+  thymeleaf:
+    cache: false
+
+feign:
+  gateway:
+    url: http://localhost:8083/

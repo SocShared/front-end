@@ -1,0 +1,266 @@
+body, html{
+	background-color: rgba(203, 203, 210, 0.15);
+	height: 100%;
+}
+
+.left-wrapper {
+	width: 260px;
+	height: 100%;
+	margin: 0;
+	float: left;
+	background-color: #0C2946;/*#343A40;*/
+	font-size: 2em;
+	color: white;
+		display: inline-block;
+}
+a{
+	color: white;
+}
+a:hover{
+	color: #9086FD;
+}
+
+
+
+
+.logo {
+	height: 55px;
+	text-align: center;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.content {
+	margin-left: 15px;
+	padding-left: 7px;
+	margin-right: 15px;
+	padding-right: 7px;
+	background-color: white;
+	border-radius: 15px;
+	margin-top: 10px;
+}
+
+.nav-link {
+	display: flex;
+	align-items: center;
+}
+
+.icon-options:before {
+     position: relative;
+     display: inline-block;
+     width: 30px;
+     height: 30px;
+     background: url("../img/tools-2.svg") center no-repeat;
+     background-size: cover;
+     content: "";
+     vertical-align: center;
+     margin-right: 10px;
+ }
+ .icon-stat:before {
+     position: relative;
+     display: inline-block;
+     width: 30px;
+     height: 23px;
+     background: url("../img/stat.svg") center no-repeat;
+     background-size: cover;
+     content: "";
+     vertical-align: center;
+     margin-right: 10px;
+ }
+
+  .icon-support:before {
+     position: relative;
+     display: inline-block;
+     width: 30px;
+     height: 30px;
+     background: url("../img/support.svg") center no-repeat;
+     background-size: cover;
+     content: "";
+     vertical-align: center;
+     margin-right: 10px;
+ }
+
+.menu {
+	text-align: left;
+	margin-left:15px;
+	margin-right: 15px;
+	display: block;
+	vertical-align: center;
+	font-size: large;
+}
+
+.menu-item:hover {
+	background-color: #001A34;
+	border-radius: 15px;
+	vertical-align: center;
+	color: white;
+}
+
+.sh-btn-outline {
+	background-color: rgba(0, 0, 0, 0);
+	color: #9086FD;
+	outline-color: red;
+	border: #9086FD solid 1px;
+}
+
+.sh-btn-outline:hover {
+	background-color: #9086FD;
+	color: white;
+}
+
+
+
+.bar {
+	background-color: white;
+}
+.shadow {
+	-webkit-box-shadow: -1px 7px 14px -7px rgba(34, 60, 80, 0.41);
+	-moz-box-shadow: -1px 7px 14px -7px rgba(34, 60, 80, 0.41);
+	box-shadow: -1px 7px 14px -7px rgba(34, 60, 80, 0.41);
+}
+
+.sh-breadcrumb {
+	margin-top: 15px;
+	background-color: #0C2946; 
+}
+
+.sh-active {
+	font-style: italic;
+	color: white;
+}
+
+.sh-btn {
+	margin: 5px;
+}
+
+.sh-btn-fb {
+	background-color: #3b5998;
+	color: white;
+}
+
+
+
+.sh-btn-vk {
+	background-color: #4d7198;
+	color: white;
+}
+
+.sh-min-width {
+	min-width: 160px;
+}
+
+.sh-img-svg {
+	fill: black;
+}
+
+.sh-form {
+	margin-top: 15px;
+}
+
+.sh-align-right {
+	float: none;
+	margin-right: 0;
+	margin-left: auto;
+	text-align: right;
+}
+
+.sh-navbar {
+	background-color: #0C2946;
+}
+
+.sh-navbar-logo {
+	color: white;
+	font-weight: bold;
+	font-size: 20pt;
+}
+
+.sh-navbar-form button{
+	margin-right: 10px;
+}
+
+
+
+.sh-main-background {
+		filter: brightness(80%);
+		height: 700px;
+		background: url("../img/maxresdefault.jpg") no-repeat;
+		background-size: auto, 100%;
+		background-color: #030D5A;
+		background-position: 50% 30%;
+		margin: auto;
+}
+
+
+.sh-logo {
+	font-size: 50pt;
+	color: white;
+	margin: auto;
+	text-align: center;
+	-webkit-text-stroke: #1e4d72;
+    -webkit-text-stroke-width: 2px;
+}
+
+.sh-devis {
+	display: block;
+	left: center;
+	position: relative;
+	left: -5%;
+	top: -4%;
+	font-size: 12pt;
+}
+
+.sh-features {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 20pt;
+	max-width: 1200px;
+}
+
+.sh-features ul li { 
+	background: url(../img/tick.png) no-repeat left 8px;
+	background-position: 0% 50%;
+}
+.sh-features ul li { 
+	border-bottom: 1px solid #ADABC5;
+	font-size: 20pt;
+	list-style: none;
+	padding: 10px 0 10px 40px;
+	text-align: center;
+
+}
+
+
+.sh-soc-block {
+	background-color: white;
+	text-align: center;
+}
+
+.sh-soc-block img {
+	margin: 25px;
+}
+
+.sh-connect {
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+.sh-connect button {
+	font-size: 25pt;
+	margin: 15px;
+}
+
+.sh-question-form {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+@media (min-width: 768px) {
+	.sh-question-form {
+		margin-left: 260px;
+	}
+}

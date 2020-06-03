@@ -32,7 +32,7 @@ dependencies {
 }
 
 bootJar {
-    baseName = 'front-end'
+    baseName = 'socshared-frontend'
     version = '1.0.0-SNAPSHOT'
 }
 

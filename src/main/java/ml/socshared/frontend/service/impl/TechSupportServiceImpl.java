@@ -1,17 +1,25 @@
 package ml.socshared.frontend.service.impl;
 
 import ml.socshared.frontend.client.GatewayServiceClient;
+import ml.socshared.frontend.domain.model.BreadcrumbElement;
+import ml.socshared.frontend.domain.model.Breadcrumbs;
+import ml.socshared.frontend.domain.model.form.tect_support.FormAddComment;
+import ml.socshared.frontend.domain.model.form.tect_support.FormCreateQuestion;
 import ml.socshared.frontend.domain.model.tech_support.Comment;
 import ml.socshared.frontend.domain.model.tech_support.FullQuestion;
 import ml.socshared.frontend.domain.model.tech_support.QuestionResponse;
 import ml.socshared.frontend.domain.model.tech_support.ShortQuestion;
+import ml.socshared.frontend.domain.request.tech_support.QuestionCreateRequest;
 import ml.socshared.frontend.service.TechSupportService;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.UUID;
 
 @Service
 public class TechSupportServiceImpl implements TechSupportService {
@@ -27,7 +35,8 @@ public class TechSupportServiceImpl implements TechSupportService {
     public String questionsPage(Pageable page, Model model, String token) {
         Page<ShortQuestion> qustions =  client.getQuestionsPage(page.getPageNumber(), page.getPageSize(), token);
 
-        model.addAttribute("questions_list", qustions.getContent());
+        model.addAttribute("questions_page", qustions);
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Техническая поддержка"));
         return "support_questions_page";
     }
 
@@ -35,17 +44,41 @@ public class TechSupportServiceImpl implements TechSupportService {
     public String fullQuestionPage(Integer qid, Pageable pageable, Model model, String token) {
         FullQuestion q = client.getFullQuestionPage(qid, pageable.getPageNumber(), pageable.getPageSize(), token);
         model.addAttribute("question", q);
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
+                new BreadcrumbElement("support", "Техническая поддержка")),
+                q.getTitle()));
+       model.addAttribute("formAddComment", new FormAddComment());
         return "support_full_question_page";
     }
 
     @Override
-    public String addQuestion(FullQuestion question, Model model, String token) {
-        return null;
+    public String pageAddQuestion(UUID systemUserId, Model model, String token) {
+        model.addAttribute("formAddQuestion", new FormCreateQuestion());
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
+                new BreadcrumbElement("support", "Техническая поддержка")),
+                "Создание нового вопроса"));
+        return "support_add_question";
     }
 
     @Override
-    public String addComment(Comment comment, Model model, String token) {
-        return null;
+    public Integer addQuestion(FormCreateQuestion question, UUID systemUserId, Model model, String token) {
+        QuestionCreateRequest qr = new QuestionCreateRequest();
+        qr.setAuthorId(systemUserId);
+        qr.setTitle(question.getTitle());
+        qr.setText(question.getText());
+        return client.addQuestion(qr, token);
+    }
+
+
+    @Override
+    public String addComment(Integer questionId, FormAddComment formComment, Pageable pageable, UUID systemUserId, Model model, String token) {
+       Comment comment = new Comment();
+       comment.setAuthorId(systemUserId);
+       comment.setText(formComment.getText());
+       comment.setAuthorId(systemUserId);
+        client.addCommentToQuestion(questionId, comment, token);
+        fullQuestionPage(questionId, pageable, model, token);
+        return "support_full_question_page";
     }
 
     @Override

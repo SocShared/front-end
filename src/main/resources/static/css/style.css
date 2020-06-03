@@ -89,6 +89,7 @@ a:hover{
 	display: block;
 	vertical-align: center;
 	font-size: large;
+	position: sticky;
 }
 
 .menu-item:hover {
@@ -263,4 +264,9 @@ a:hover{
 	.sh-question-form {
 		margin-left: 260px;
 	}
+}
+
+
+.sh-pagination-block {
+	margin: 5px;
 }

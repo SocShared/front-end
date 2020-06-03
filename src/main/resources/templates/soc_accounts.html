@@ -9,16 +9,8 @@
     <div class="row">
 
         <!-- блок с кнопками для добавления социальных сетей-->
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb sh-breadcrumb shadow">
-                    <li class="breadcrumb-item"><a href="#">Профиль</a></li>
-                    <li class="breadcrumb-item"><a href="#">Настройки</a></li>
-                    <li class="breadcrumb-item sh-active" aria-current="page">Подключение социального аккаунта</li>
-                </ol>
-            </nav>
+        <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
 
-        </div>
         <div class="col">
             <div class ="row">
                 <div class = "col-6">

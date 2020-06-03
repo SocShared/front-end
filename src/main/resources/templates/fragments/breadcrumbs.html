@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<th:block th:fragment="breadcrumbs(bread)">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb sh-breadcrumb shadow" >
+                <th:block th:each="el : ${bread.getPath()}">
+                    <li class="breadcrumb-item"><a th:href="@{/{p}(p=${el.getHref()})}" th:text="${el.getText()}"></a></li>
+                </th:block>
+                <li class="breadcrumb-item sh-active" aria-current="page" th:text="${bread.getPageText()}"></li>
+            </ol>
+        </nav>
+    </div>
+
+    </div>
+
+</th:block>
+
+</body>
+</html>

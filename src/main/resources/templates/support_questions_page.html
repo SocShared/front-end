@@ -6,23 +6,41 @@
 
 <th:block layout:fragment="content">
 
-    <th:block th:each="question : ${questions_list}">
+    <div class="row">
+        <div class="col">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <a th:href="@{/support/questions}" type="button" class="btn sh-btn sh-btn-vk shadow">Задать вопрос</a>
+        </div>
+    </div>
+
+
+    <th:block th:each="question : ${questions_page.content}">
         <div class="row ">
             <div class="col content shadow" >
                 <a class="sh-title-block" th:text="${question.title}"
-                   th:href="@{/support/questions/{path}(path=${question.id})}"></a>
+                   th:href="@{/support/questions/{path}/(path=${question.id}, size=${10})}"></a>
                 <div class="sh-info" th:text="${question.haveResponse}"></div>
                 <div class="sh-info" th:text="${question.time}"></div>
             </div>
         </div>
     </th:block>
-    <th:block th:if="${questions_list.isEmpty()}">
+    <th:block th:if="${questions_page.getTotalElements() == 0}">
         <div class="row">
             <div class="col shadow" >
                 <center>Вопросы никто не задавал</center>
             </div>
         </div>
     </th:block>
+
+    <div class="row">
+        <div th:insert="~{fragments/pagination :: pagination(${questions_page})}" class="col sh-pagination-block"></div>
+    </div>
+
 </th:block>
 
 </body>

@@ -1,17 +1,17 @@
 package ml.socshared.frontend.client;
 
 import ml.socshared.frontend.domain.model.SocialAccount;
+import ml.socshared.frontend.domain.model.tech_support.Comment;
 import ml.socshared.frontend.domain.model.tech_support.FullQuestion;
+import ml.socshared.frontend.domain.model.tech_support.QuestionResponse;
 import ml.socshared.frontend.domain.model.tech_support.ShortQuestion;
+import ml.socshared.frontend.domain.request.tech_support.QuestionCreateRequest;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.response.SuccessResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,5 +34,16 @@ public interface GatewayServiceClient {
     FullQuestion getFullQuestionPage(@PathVariable Integer questionId,
                                                        @PathVariable Integer page, @PathVariable Integer size,
                                                        @RequestHeader("Authorization") String token);
+
+    @PostMapping("api/v1/protected/support/questions/{questionId}/comments")
+    Integer addCommentToQuestion(@PathVariable Integer questionId,
+                                 @RequestBody Comment comment,
+                                 @RequestHeader("Authorization") String token);
+
+    @PostMapping("api/v1/protected/support/questions/")
+    Integer addQuestion(@RequestBody QuestionCreateRequest question,
+                        @RequestHeader("Authorization") String token);
+
+
 
 }

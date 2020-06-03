@@ -26,7 +26,8 @@ public class SocPage {
     private final SocAccountService accountService;
 
     @GetMapping("/social")
-    public String socConnectedPage(Model model, @CookieValue(name = "token", required = false) String token) {
+    public String socConnectedPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                                                @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
        // List<SocialAccount> accounts = accountService.getAccounts(token);
         List<SocialAccount> accs = new LinkedList<>();
         accs.add(new SocialAccount(AccountType.FACEBOOK, "465464", "Test User Facebook"));

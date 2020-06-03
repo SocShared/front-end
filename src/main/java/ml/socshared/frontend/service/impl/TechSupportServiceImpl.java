@@ -1,5 +1,6 @@
 package ml.socshared.frontend.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
@@ -21,14 +22,10 @@ import java.util.Collections;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class TechSupportServiceImpl implements TechSupportService {
 
-    GatewayServiceClient client;
-
-    @Autowired
-    TechSupportServiceImpl(GatewayServiceClient client) {
-        this.client = client;
-    }
+    private final GatewayServiceClient client;
 
     @Override
     public String questionsPage(Pageable page, Model model, String token) {

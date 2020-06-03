@@ -1,5 +1,6 @@
 package ml.socshared.frontend.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.domain.model.SocialAccount;
 import ml.socshared.frontend.service.SocAccountService;
@@ -10,14 +11,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class SocAccountServiceImpl implements SocAccountService {
 
-    GatewayServiceClient client;
-
-    @Autowired
-    SocAccountServiceImpl(GatewayServiceClient gc) {
-        client = gc;
-    }
+    private final GatewayServiceClient client;
 
     @Override
     public List<SocialAccount> getAccounts(String token) {

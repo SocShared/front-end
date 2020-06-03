@@ -21,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class VkController {
 
-    private final GatewayServiceClient client;
-
     private final VkService service;
 
 

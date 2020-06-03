@@ -25,14 +25,18 @@ public class VkController {
 
 
     @PostMapping(value = "/social/connection/vk/redirect")
-    public void connectionVkAccount(@ModelAttribute AppId appId, HttpServletResponse httpServletResponse) {
+    public void connectionVkAccount(@ModelAttribute AppId appId, HttpServletResponse httpServletResponse,
+                                    @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                                    @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
         String url = "https://oauth.vk.com/authorize?client_id=" +String.valueOf(appId.getId()) + "&response_type=token&scope=offline,groups,wall&v=103.5";
         httpServletResponse.setHeader("Location", url);
         httpServletResponse.setStatus(302);
     }
 
     @GetMapping("/social/connection/vk")
-    public String connectionVkAccount(Model model, @CookieValue(name = "token", required = false) String token) {
+    public String connectionVkAccount(Model model,
+                                      @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                                      @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
         return "connection_vk";
@@ -40,10 +44,11 @@ public class VkController {
 
     @PostMapping("/social/connection/vk")
     public String applicationUrl(@ModelAttribute AppUrlAccess appUrl,
-                                @CookieValue(value = "token", required = false) String token, Model model) {
+                                 @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                                 @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken, Model model) {
         log.info("appId: " + String.valueOf(appUrl.getUrl()));
 
-        service.vkConnection(model, token);
+        service.vkConnection(model, accessToken);
 
         return "connection_vk";
     }
@@ -52,7 +57,8 @@ public class VkController {
 
     @GetMapping("/social/vk/groups")
     public String getPageOfConnectedVkGroups(Pageable pageable, Model model,
-                                             @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
+                                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                                             @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
 
         log.info("Request get page of connected vk groups");
         service.getConnectedPageUserGroups(MockConstants.user1, pageable, model);
@@ -60,9 +66,9 @@ public class VkController {
     }
 
     @GetMapping("/social/vk/groups/{groupId}")
-    public String getPageOfConnectedVkGroups(@PathVariable String groupId,
-                                            Pageable pageable, Model model,
-                                             @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
+    public String getPageOfConnectedVkGroups(@PathVariable String groupId, Pageable pageable, Model model,
+                                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                                             @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
 
         log.info("Request get page of connected vk groups");
         service.getStatGroupPageAndPostList(groupId, pageable, model, "");

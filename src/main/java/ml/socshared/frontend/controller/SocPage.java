@@ -32,7 +32,9 @@ public class SocPage {
     @GetMapping("/social")
     public String socConnectedPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                                                 @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
-       // List<SocialAccount> accounts = accountService.getAccounts(token);
+        if (accessToken.isEmpty() && refreshToken.isEmpty())
+            return "redirect:/";
+
         List<SocialAccount> accs = new LinkedList<>();
         accs.add(new SocialAccount(AccountType.FACEBOOK, "465464", "Test User Facebook"));
         accs.add(new SocialAccount(AccountType.VKONTAKTE, "98946484", "Test User Vkontakte"));

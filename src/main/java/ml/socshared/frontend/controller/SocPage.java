@@ -1,5 +1,6 @@
 package ml.socshared.frontend.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.domain.model.AccountType;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
@@ -19,16 +20,10 @@ import java.util.*;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class SocPage {
 
-    SocAccountService accountService;
-
-    @Autowired
-    SocPage(SocAccountService account) {
-        accountService = account;
-    }
-
-
+    private final SocAccountService accountService;
 
     @GetMapping("/social")
     public String socConnectedPage(Model model, @CookieValue(name = "token", required = false) String token) {

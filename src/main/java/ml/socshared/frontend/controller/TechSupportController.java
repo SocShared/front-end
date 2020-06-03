@@ -1,5 +1,6 @@
 package ml.socshared.frontend.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.domain.tech_support.model.form.FormAddComment;
 import ml.socshared.frontend.domain.tech_support.model.form.FormCreateQuestion;
@@ -15,13 +16,10 @@ import java.util.UUID;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class TechSupportController {
-    private TechSupportService service;
 
-    @Autowired
-    TechSupportController(TechSupportService service) {
-        this.service = service;
-    }
+    private final TechSupportService service;
 
     @GetMapping("support")
     public String questionsPage(Pageable pageable, Model model,

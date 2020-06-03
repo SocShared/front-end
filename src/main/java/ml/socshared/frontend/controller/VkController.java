@@ -21,8 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class VkController {
 
-    GatewayServiceClient client;
-    final private VkService service;
+    private final GatewayServiceClient client;
+
+    private final VkService service;
 
 
     @PostMapping(value = "/social/connection/vk/redirect")

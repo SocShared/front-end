@@ -11,4 +11,5 @@ public class BstatController  {
     public String pageGroupStat(Model model) {
         return "bstat_group_stat";
     }
+
 }

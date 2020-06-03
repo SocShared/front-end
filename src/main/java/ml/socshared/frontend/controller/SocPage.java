@@ -7,12 +7,14 @@ import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.SocialAccount;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
 import ml.socshared.frontend.service.SocAccountService;
+import ml.socshared.frontend.service.VkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.awt.print.Pageable;
 import java.util.*;
 
 @Controller
@@ -40,5 +42,7 @@ public class SocPage {
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("support", "назад")), "Социальные аккаунты"));
         return "soc_accounts";
     }
+
+
 
 }

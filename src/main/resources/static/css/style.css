@@ -270,3 +270,8 @@ a:hover{
 .sh-pagination-block {
 	margin: 5px;
 }
+.sh-group-title {
+	font-size: 15pt;
+	text-align: center;
+	border-bottom: black solid 2px;
+}

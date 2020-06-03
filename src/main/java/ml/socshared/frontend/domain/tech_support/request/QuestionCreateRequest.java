@@ -1,4 +1,4 @@
-package ml.socshared.frontend.domain.request.tech_support;
+package ml.socshared.frontend.domain.tech_support.request;
 
 import lombok.Data;
 

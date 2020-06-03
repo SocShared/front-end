@@ -1,4 +1,4 @@
-package ml.socshared.frontend.domain.model.form.tect_support;
+package ml.socshared.frontend.domain.tech_support.model.form;
 
 import lombok.Data;
 

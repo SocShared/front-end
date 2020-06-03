@@ -1,4 +1,4 @@
-package ml.socshared.frontend.domain.model.tech_support;
+package ml.socshared.frontend.domain.tech_support;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

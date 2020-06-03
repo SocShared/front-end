@@ -3,13 +3,12 @@ package ml.socshared.frontend.service.impl;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
-import ml.socshared.frontend.domain.model.form.tect_support.FormAddComment;
-import ml.socshared.frontend.domain.model.form.tect_support.FormCreateQuestion;
-import ml.socshared.frontend.domain.model.tech_support.Comment;
-import ml.socshared.frontend.domain.model.tech_support.FullQuestion;
-import ml.socshared.frontend.domain.model.tech_support.QuestionResponse;
-import ml.socshared.frontend.domain.model.tech_support.ShortQuestion;
-import ml.socshared.frontend.domain.request.tech_support.QuestionCreateRequest;
+import ml.socshared.frontend.domain.tech_support.model.form.FormAddComment;
+import ml.socshared.frontend.domain.tech_support.model.form.FormCreateQuestion;
+import ml.socshared.frontend.domain.tech_support.Comment;
+import ml.socshared.frontend.domain.tech_support.FullQuestion;
+import ml.socshared.frontend.domain.tech_support.ShortQuestion;
+import ml.socshared.frontend.domain.tech_support.request.QuestionCreateRequest;
 import ml.socshared.frontend.service.TechSupportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,17 +68,17 @@ public class TechSupportServiceImpl implements TechSupportService {
         return client.addQuestion(qr, token);
     }
 
-
     @Override
     public String addComment(Integer questionId, FormAddComment formComment, Pageable pageable, UUID systemUserId, Model model, String token) {
-       Comment comment = new Comment();
-       comment.setAuthorId(systemUserId);
-       comment.setText(formComment.getText());
-       comment.setAuthorId(systemUserId);
+        Comment comment = new Comment();
+        comment.setAuthorId(systemUserId);
+        comment.setText(formComment.getText());
+        comment.setAuthorId(systemUserId);
         client.addCommentToQuestion(questionId, comment, token);
         fullQuestionPage(questionId, pageable, model, token);
         return "support_full_question_page";
     }
+
 
     @Override
     public String removeComment(Integer questionId, Integer commentId, Model model, String token) {

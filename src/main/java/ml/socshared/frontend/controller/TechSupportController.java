@@ -1,12 +1,10 @@
 package ml.socshared.frontend.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import ml.socshared.frontend.client.GatewayServiceClient;
-import ml.socshared.frontend.domain.model.form.tect_support.FormAddComment;
-import ml.socshared.frontend.domain.model.form.tect_support.FormCreateQuestion;
+import ml.socshared.frontend.domain.tech_support.model.form.FormAddComment;
+import ml.socshared.frontend.domain.tech_support.model.form.FormCreateQuestion;
 import ml.socshared.frontend.service.TechSupportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

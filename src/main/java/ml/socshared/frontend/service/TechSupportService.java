@@ -1,10 +1,8 @@
 package ml.socshared.frontend.service;
 
 
-import ml.socshared.frontend.domain.model.form.tect_support.FormAddComment;
-import ml.socshared.frontend.domain.model.form.tect_support.FormCreateQuestion;
-import ml.socshared.frontend.domain.model.tech_support.Comment;
-import ml.socshared.frontend.domain.model.tech_support.FullQuestion;
+import ml.socshared.frontend.domain.tech_support.model.form.FormAddComment;
+import ml.socshared.frontend.domain.tech_support.model.form.FormCreateQuestion;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 

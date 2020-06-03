@@ -1,10 +1,9 @@
-package ml.socshared.frontend.domain.model.tech_support;
+package ml.socshared.frontend.domain.tech_support;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ml.socshared.frontend.domain.response.RestResponsePage;
-import org.springframework.data.domain.Page;
 
 @Data
 @NoArgsConstructor

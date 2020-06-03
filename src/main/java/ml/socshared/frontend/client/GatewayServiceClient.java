@@ -1,20 +1,16 @@
 package ml.socshared.frontend.client;
 
 import ml.socshared.frontend.domain.model.SocialAccount;
-import ml.socshared.frontend.domain.model.tech_support.Comment;
-import ml.socshared.frontend.domain.model.tech_support.FullQuestion;
-import ml.socshared.frontend.domain.model.tech_support.QuestionResponse;
-import ml.socshared.frontend.domain.model.tech_support.ShortQuestion;
-import ml.socshared.frontend.domain.request.tech_support.QuestionCreateRequest;
+import ml.socshared.frontend.domain.tech_support.Comment;
+import ml.socshared.frontend.domain.tech_support.FullQuestion;
+import ml.socshared.frontend.domain.tech_support.ShortQuestion;
+import ml.socshared.frontend.domain.tech_support.request.QuestionCreateRequest;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.response.SuccessResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @FeignClient(name = "GateWayClient", url = "http://localhost:8083/")
 public interface GatewayServiceClient {

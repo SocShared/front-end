@@ -14,7 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.print.Pageable;
 import java.util.*;
 
@@ -40,10 +44,20 @@ public class SocPage {
     }
 
     @GetMapping("/")
-    String lendingPage(@CookieValue(name = "token", required = false) String token) {
+    public String lendingPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                                    @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
+        if (!accessToken.isEmpty() && !refreshToken.isEmpty())
+            model.addAttribute("isAuthorized", true);
+
         return "landing_page";
     }
 
-
+    @PostMapping("/exit")
+    public String exit(Model model, HttpServletResponse response) {
+        response.addCookie(new Cookie("JWT_AT", ""));
+        response.addCookie(new Cookie("JWT_RT", ""));
+        model.addAttribute("isAuthorized", false);
+        return "landing_page";
+    }
 
 }

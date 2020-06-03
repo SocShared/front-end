@@ -59,4 +59,14 @@ public class VkController {
         service.getConnectedPageUserGroups(MockConstants.user1, pageable, model);
         return "soc_vk_page_groups_connected";
     }
+
+    @GetMapping("/social/vk/groups/{groupId}")
+    public String getPageOfConnectedVkGroups(@PathVariable String groupId,
+                                            Pageable pageable, Model model,
+                                             @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
+
+        log.info("Request get page of connected vk groups");
+        service.getStatGroupPageAndPostList(groupId, pageable, model, "");
+        return "soc_vk_page_groups_connected";
+    }
 }

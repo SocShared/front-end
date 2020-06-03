@@ -43,6 +43,11 @@ public class SocPage {
         return "soc_accounts";
     }
 
+    @GetMapping("/")
+    String lendingPage(@CookieValue(name = "token", required = false) String token) {
+        return "landing_page";
+    }
+
 
 
 }

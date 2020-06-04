@@ -30,8 +30,10 @@ public class ErrorControllerHandler {
     }
 
     @ExceptionHandler(HttpUnauthorizedException.class)
-    public String unauthorized(HttpUnauthorizedException exception) {
+    public String unauthorized(HttpUnauthorizedException exception, Model model) {
         log.error("{}: {}", exception.getHttpStatus(), exception.getMessage());
+        // TODO: сделать рефрешинг
+        model.addAttribute("isAuthorized", false);
         return "landing_page";
     }
 

@@ -23,6 +23,6 @@ public class FacebookServiceImpl implements FacebookService {
 
     @Override
     public SuccessResponse saveAccountFacebook(String authorizationCode, String token) {
-        return client.saveAccountFacebook(authorizationCode, token);
+        return client.saveAccountFacebook(authorizationCode, "Bearer" + token);
     }
 }

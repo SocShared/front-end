@@ -30,11 +30,9 @@ public class ErrorControllerHandler {
     }
 
     @ExceptionHandler(HttpUnauthorizedException.class)
-    public String unauthorized(HttpUnauthorizedException exception, Model model) {
+    public String unauthorized(HttpUnauthorizedException exception) {
         log.error("{}: {}", exception.getHttpStatus(), exception.getMessage());
-        // TODO: сделать рефрешинг
-        model.addAttribute("isAuthorized", false);
-        return "landing_page";
+        return "redirect:/refresh";
     }
 
     @ExceptionHandler(Exception.class)

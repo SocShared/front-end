@@ -51,7 +51,7 @@ public class SocPage {
         return "landing_page";
     }
 
-    @PostMapping("/exit")
+    @GetMapping("/exit")
     public String exit(Model model, HttpServletResponse response) {
         response.addCookie(new Cookie("JWT_AT", ""));
         response.addCookie(new Cookie("JWT_RT", ""));

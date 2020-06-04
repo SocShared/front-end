@@ -51,46 +51,44 @@ public class SocialController {
     @GetMapping("/")
     public String lendingPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         model.addAttribute("isAuthorized", !accessToken.isEmpty());
-        throw new HttpUnauthorizedException("unauthorized");
-        //return "landing_page";
+        return "landing_page";
     }
 
-    // TODO: Пофиксить авторизацию, где-то выскакивает 401 ошибка все время, и не дает нормально функционировать системе
-    //@GetMapping("/refresh")
+    @GetMapping("/refresh")
     public String refresh(Model model, HttpServletResponse response,
                           @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                           @CookieValue(value = "JWT_RT", defaultValue = "") String refreshToken) {
-//        if (!accessToken.isEmpty() && !refreshToken.isEmpty()) {
-//            try {
-//                response.addCookie(new Cookie("JWT_AT", ""));
-//                response.addCookie(new Cookie("JWT_RT", ""));
-//                OAuth2TokenResponse res = authService.getToken(refreshToken);
-//                Cookie accessTokenCookie = new Cookie("JWT_AT", res.getAccessToken());
-//                accessTokenCookie.setMaxAge(24 * 60 * 60);
-//                accessTokenCookie.setSecure(true);
-//                accessTokenCookie.setHttpOnly(true);
-//                accessTokenCookie.setPath("/");
-//                accessTokenCookie.setDomain("socshared.ml");
-//                response.addCookie(accessTokenCookie);
-//
-//                Cookie refreshTokenCookie = new Cookie("JWT_RT", res.getRefreshToken());
-//                refreshTokenCookie.setMaxAge(24 * 60 * 60 * 30);
-//                refreshTokenCookie.setSecure(true);
-//                refreshTokenCookie.setHttpOnly(true);
-//                refreshTokenCookie.setPath("/");
-//                refreshTokenCookie.setDomain("socshared.ml");
-//                response.addCookie(refreshTokenCookie);
-//
-//                model.addAttribute("isAuthorized", true);
-//                return "redirect:/social";
-//            } catch (Exception exc) {
-//                model.addAttribute("isAuthorized", false);
-//                return "redirect:/";
-//            }
-//        } else {
-//            model.addAttribute("isAuthorized", false);
-//            return "redirect:/";
-//        }
+        if (!accessToken.isEmpty() && !refreshToken.isEmpty()) {
+            try {
+                response.addCookie(new Cookie("JWT_AT", ""));
+                response.addCookie(new Cookie("JWT_RT", ""));
+                OAuth2TokenResponse res = authService.getToken(refreshToken);
+                Cookie accessTokenCookie = new Cookie("JWT_AT", res.getAccessToken());
+                accessTokenCookie.setMaxAge(24 * 60 * 60);
+                accessTokenCookie.setSecure(true);
+                accessTokenCookie.setHttpOnly(true);
+                accessTokenCookie.setPath("/");
+                accessTokenCookie.setDomain("socshared.ml");
+                response.addCookie(accessTokenCookie);
+
+                Cookie refreshTokenCookie = new Cookie("JWT_RT", res.getRefreshToken());
+                refreshTokenCookie.setMaxAge(24 * 60 * 60 * 30);
+                refreshTokenCookie.setSecure(true);
+                refreshTokenCookie.setHttpOnly(true);
+                refreshTokenCookie.setPath("/");
+                refreshTokenCookie.setDomain("socshared.ml");
+                response.addCookie(refreshTokenCookie);
+
+                model.addAttribute("isAuthorized", true);
+                return "redirect:/social";
+            } catch (Exception exc) {
+                model.addAttribute("isAuthorized", false);
+                return "redirect:/";
+            }
+        } else {
+            model.addAttribute("isAuthorized", false);
+            return "redirect:/";
+        }
         return "error";
     }
 

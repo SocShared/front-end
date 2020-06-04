@@ -1,15 +1,19 @@
 package ml.socshared.frontend.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.client.BStatClient;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.client.SocAdapterClient;
+import ml.socshared.frontend.client.StorageClient;
 import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.bstat.response.TimeSeries;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.form.AppId;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
+import ml.socshared.frontend.domain.storage.response.Group;
+import ml.socshared.frontend.domain.storage.response.GroupResponseStorage;
 import ml.socshared.frontend.service.VkService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,14 +29,17 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VkServiceImpl implements VkService {
 
     final private SocAdapterClient vkClient;
     final private GatewayServiceClient gateClient;
     final private BStatClient bstatClient;
+    final private StorageClient storageClient;
 
     final private String vkToken = "ThisIsVkToken";
     final private String bstatToken = "ThisIsVkToken";
+    final private String sorageToken = "StorageToken";
 
     @Override
     public void getPagePostsOfGroup(UUID systemUserId, UUID systemGroupId, Pageable pageable, Model model) {
@@ -57,19 +64,35 @@ public class VkServiceImpl implements VkService {
 
     }
 
-
+    /**
+     * Страница для выбора подключения групп
+     */
     @Override
-    public void getSelectionPageUserGroups(UUID systemUserId, Pageable pageable, Model model) {
-
-    }
-
-    @Override
-    public void getConnectedPageUserGroups(UUID systemUserId, Pageable pageable, Model model) {
-        Page<GroupResponse> groupsPage = vkClient.getVkGroups(systemUserId, pageable.getPageSize(),
-                                                            pageable.getPageNumber(), vkToken);
+    public void getSelectionPageUserGroups(Pageable pageable, Model model, String token) {
+        Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageSize(),
+                pageable.getPageNumber(), token);
         model.addAttribute("groups_page", groupsPage);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные Аккаунты")),
-                "подключенные группы вконтакте"));
+                "Подключение групп"));
+    }
+
+    /**
+     * Страница со списокм подключенных груп к системе
+     */
+    @Override
+    public void getConnectedPageUserGroups(Pageable pageable, Model model, String token) {
+        Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(pageable.getPageSize(),
+                                                            pageable.getPageNumber(), sorageToken);
+        model.addAttribute("groups_page", groupsPage);
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
+                new BreadcrumbElement("social", "Социальные Аккаунты")),
+                "Подключенные группы"));
+    }
+
+    @Override
+    public void connectByGroupId(String groupId, String jwtToken) {
+        log.info("ПОДКЛЮЧЕНИЕ ГРУППЫ -> {}", groupId);
+        storageClient.connectGroupById(groupId, Group.SocialNetwork.VK, jwtToken);
     }
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+    </div>
+
+
+    <div class="row content shadow">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Название группы</th>
+                <th scope="col">Количество пользователей</th>
+                <th scope="col">Тип группы</th>
+                <th scope="col">Дата создания</th>
+            </tr>
+            </thead>
+            <tbody th:each=" group, i : ${groups_page.content}">
+
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <th scope="row">
+                        <form th:action="@{./{vkGroupId}(vkGroupId=${group.getGroupId()})}" method="post">
+                        <a style="display: block; color: black"
+                           href="#" onclick="parentNode.submit();"
+                           th:text="${i.index + 1}"></a>
+                        </form>
+                    </th>
+                    <td>
+                        <form th:action="@{./{vkGroupId}(vkGroupId=${group.getGroupId()})}" method="post">
+                        <a style="display: block; color: black"
+                           href="#" onclick="parentNode.submit();"
+                           th:text="${group.getName()}"></a>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{./{vkGroupId}(vkGroupId=${group.getGroupId()})}" method="post">
+                        <a style="display: block; color: black"
+                           href="#" onclick="parentNode.submit();"
+                           th:text="${group.getMembersCount()}"></a>
+                        </form>
+                    </td>
+                    <td>
+                        <a style="display: block; color: black"
+                           href="#" onclick="parentNode.submit();"
+                           th:text="${group.getType()}"></a>
+                    </td>
+                    <td>
+                        <form th:action="@{./{vkGroupId}(vkGroupId=${group.getGroupId()})}" method="post">
+                        <a style="display: block; color: black"
+                           href="#" onclick="parentNode.submit();"
+                           th:text="${group.getCreateData()}"></a>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+
+</body>
+</html>

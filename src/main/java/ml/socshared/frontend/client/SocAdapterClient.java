@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface SocAdapterClient {
 
-        RestResponsePage<GroupResponse> getVkGroups(UUID systemUserId, Integer page, Integer size,
+        RestResponsePage<GroupResponse> getVkGroups(Integer page, Integer size,
                                                     String token);
-        RestResponsePage<GroupResponse> getFbGroups(UUID systemUserId, Integer page, Integer size,
+        RestResponsePage<GroupResponse> getFbGroups(Integer page, Integer size,
                                                     String token);
 
 }

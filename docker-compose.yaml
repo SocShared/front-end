@@ -7,3 +7,7 @@ services:
       - 80:80
     env_file:
       - .env_frontend
+
+networks:
+  default:
+    name: socshared

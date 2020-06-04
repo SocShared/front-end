@@ -9,5 +9,6 @@ spring:
     cache: false
 
 feign:
-  gateway:
-    url: http://localhost:8083/
+  url:
+    api: https://api.socshared.ml
+    auth: https://auth.socshared.ml

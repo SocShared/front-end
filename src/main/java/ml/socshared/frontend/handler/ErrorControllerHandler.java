@@ -1,35 +1,38 @@
 package ml.socshared.frontend.handler;
 
+import lombok.RequiredArgsConstructor;
+import ml.socshared.frontend.exception.impl.HttpForbiddenException;
+import ml.socshared.frontend.exception.impl.HttpNotFoundException;
+import ml.socshared.frontend.exception.impl.HttpUnauthorizedException;
+import ml.socshared.frontend.security.response.OAuth2TokenResponse;
+import ml.socshared.frontend.security.service.AuthService;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-@RestController
-public class ErrorControllerHandler implements ErrorController {
+@ControllerAdvice
+public class ErrorControllerHandler {
 
-    private static final String PATH = "/error";
-
-    @GetMapping(value = PATH, produces = MediaType.APPLICATION_JSON_VALUE)
-    public RestApiError error(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        String path = (String) request.getAttribute("javax.servlet.error.request_uri");
-        String message = (String) request.getAttribute("javax.servlet.error.message");
-
-        RestApiError error = new RestApiError();
-        error.setError(HttpStatus.valueOf(statusCode));
-        error.setMessage(message);
-        error.setPath(path);
-        error.setStatus(statusCode);
-
-        return error;
+    @ExceptionHandler({HttpForbiddenException.class, HttpNotFoundException.class})
+    public String forbidden() {
+        return "404";
     }
 
-    @Override
-    public String getErrorPath() {
-        return PATH;
+    @ExceptionHandler(HttpUnauthorizedException.class)
+    public String unauthorized(HttpUnauthorizedException exception) {
+        return "redirect:/refresh";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String otherException(Exception exc) {
+     //   exc.printStackTrace();
+        return "500";
     }
 }

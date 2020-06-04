@@ -5,3 +5,8 @@ spring:
       name: ${spring.application.name}
   main:
     allow-bean-definition-overriding: true
+
+feign:
+  url:
+    auth: http://auth-service:9999
+    api: http://gateway-service:8080

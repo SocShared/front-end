@@ -56,7 +56,7 @@ public class SocPage {
         response.addCookie(new Cookie("JWT_AT", ""));
         response.addCookie(new Cookie("JWT_RT", ""));
         model.addAttribute("isAuthorized", false);
-        return "landing_page";
+        return "redirect:/";
     }
 
 }

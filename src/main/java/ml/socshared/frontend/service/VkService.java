@@ -12,5 +12,5 @@ public interface VkService {
     void getPagePostsOfGroup(UUID systemUserId, UUID systemGroupId, Pageable pageable, Model model);
 
     void vkConnection(Model model,String appAccessToken, String token);
-    void getStatGroupPageAndPostList(String groupid,Pageable pageable,Model model,String token);
+    //void getStatGroupPageAndPostList(String groupid,Pageable pageable,Model model,String token);
 }

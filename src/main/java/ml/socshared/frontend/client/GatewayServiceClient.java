@@ -44,4 +44,7 @@ public interface GatewayServiceClient {
     @GetMapping("api/v1/protected/facebook/access")
     AccessUrlResponse getAccessUrl(@RequestHeader("Authorization") String token);
 
+    @GetMapping("api/v1/protected/facebook/connect/{authorizationCode}")
+    SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode,
+                                        @RequestHeader("Authorization") String token);
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.domain.facebook.response.AccessUrlResponse;
+import ml.socshared.frontend.domain.response.SuccessResponse;
 import ml.socshared.frontend.service.FacebookService;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,10 @@ public class FacebookServiceImpl implements FacebookService {
     public AccessUrlResponse getUrlAccessAddress(String token) {
         log.info("getting facebook access url");
         return client.getAccessUrl("Bearer" + token);
+    }
+
+    @Override
+    public SuccessResponse saveAccountFacebook(String authorizationCode, String token) {
+        return client.saveAccountFacebook(authorizationCode, token);
     }
 }

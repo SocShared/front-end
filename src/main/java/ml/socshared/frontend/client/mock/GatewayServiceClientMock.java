@@ -55,4 +55,9 @@ public class GatewayServiceClientMock implements GatewayServiceClient {
     public AccessUrlResponse getAccessUrl(String token) {
         return null;
     }
+
+    @Override
+    public SuccessResponse saveAccountFacebook(String authorizationCode, String token) {
+        return null;
+    }
 }

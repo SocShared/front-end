@@ -53,8 +53,25 @@ public class SocPage {
 
     @GetMapping("/exit")
     public String exit(Model model, HttpServletResponse response) {
-        response.addCookie(new Cookie("JWT_AT", ""));
-        response.addCookie(new Cookie("JWT_RT", ""));
+        Cookie accessToken = new Cookie("JWT_AT", null);
+        accessToken.setMaxAge(0);
+        accessToken.setSecure(true);
+        accessToken.setHttpOnly(true);
+        accessToken.setPath("/");
+        accessToken.setDomain("socshared.ml");
+        response.addCookie(accessToken);
+
+        Cookie refreshToken = new Cookie("JWT_RT", null);
+        refreshToken.setMaxAge(0);
+        refreshToken.setSecure(true);
+        refreshToken.setHttpOnly(true);
+        refreshToken.setPath("/");
+        refreshToken.setDomain("socshared.ml");
+        response.addCookie(refreshToken);
+
+        response.addCookie(accessToken);
+        response.addCookie(refreshToken);
+
         model.addAttribute("isAuthorized", false);
         return "redirect:/";
     }

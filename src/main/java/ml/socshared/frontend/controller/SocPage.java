@@ -30,9 +30,8 @@ public class SocPage {
     private final SocAccountService accountService;
 
     @GetMapping("/social")
-    public String socConnectedPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
-                                                @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
-        if (accessToken.isEmpty() && refreshToken.isEmpty())
+    public String socConnectedPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        if (accessToken.isEmpty())
             return "redirect:/";
 
         List<SocialAccount> accs = new LinkedList<>();
@@ -46,9 +45,8 @@ public class SocPage {
     }
 
     @GetMapping("/")
-    public String lendingPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
-                                    @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
-        model.addAttribute("isAuthorized", !accessToken.isEmpty() && !refreshToken.isEmpty());
+    public String lendingPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        model.addAttribute("isAuthorized", !accessToken.isEmpty());
 
         return "landing_page";
     }

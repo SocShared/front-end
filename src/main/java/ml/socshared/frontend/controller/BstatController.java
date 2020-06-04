@@ -10,8 +10,7 @@ public class BstatController  {
 
     @GetMapping("/bstat/groups")
     public String pageGroupStat(Model model,
-                                @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
-                                @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
+                                @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         return "bstat_group_stat";
     }
 

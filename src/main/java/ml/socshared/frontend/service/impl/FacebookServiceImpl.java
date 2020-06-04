@@ -15,8 +15,8 @@ public class FacebookServiceImpl implements FacebookService {
     private final GatewayServiceClient client;
 
     @Override
-    public AccessUrlResponse getUrlAccessAddress() {
+    public AccessUrlResponse getUrlAccessAddress(String token) {
         log.info("getting facebook access url");
-        return client.getAccessUrl();
+        return client.getAccessUrl(token);
     }
 }

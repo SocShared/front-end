@@ -42,6 +42,6 @@ public interface GatewayServiceClient {
                         @RequestHeader("Authorization") String token);
 
     @GetMapping("api/v1/protected/facebook/access")
-    AccessUrlResponse getAccessUrl();
+    AccessUrlResponse getAccessUrl(@RequestHeader("Authorization") String token);
 
 }

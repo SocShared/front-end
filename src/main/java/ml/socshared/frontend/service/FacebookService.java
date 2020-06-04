@@ -4,6 +4,6 @@ import ml.socshared.frontend.domain.facebook.response.AccessUrlResponse;
 
 public interface FacebookService {
 
-    AccessUrlResponse getUrlAccessAddress();
+    AccessUrlResponse getUrlAccessAddress(String token);
 
 }

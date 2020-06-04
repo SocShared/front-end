@@ -62,4 +62,10 @@ public class ErrorControllerHandler {
             return "landing_page";
         }
     }
+
+    @ExceptionHandler(Exception.class)
+    public String otherException(Exception exc) {
+        exc.printStackTrace();
+        return "500";
+    }
 }

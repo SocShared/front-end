@@ -36,31 +36,35 @@ public class ErrorControllerHandler {
                                @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                                @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
         if (!accessToken.isEmpty() && !refreshToken.isEmpty()) {
-            response.addCookie(new Cookie("JWT_AT", ""));
-            response.addCookie(new Cookie("JWT_RT", ""));
-            OAuth2TokenResponse res = authService.getToken(refreshToken);
-            Cookie accessTokenCookie = new Cookie("JWT_AT", res.getAccessToken());
-            accessTokenCookie.setMaxAge(24 * 60 * 60);
-            accessTokenCookie.setSecure(true);
-            accessTokenCookie.setHttpOnly(true);
-            accessTokenCookie.setPath("/");
-            accessTokenCookie.setDomain("socshared.ml");
-            response.addCookie(accessTokenCookie);
+            try {
+                response.addCookie(new Cookie("JWT_AT", ""));
+                response.addCookie(new Cookie("JWT_RT", ""));
+                OAuth2TokenResponse res = authService.getToken(refreshToken);
+                Cookie accessTokenCookie = new Cookie("JWT_AT", res.getAccessToken());
+                accessTokenCookie.setMaxAge(24 * 60 * 60);
+                accessTokenCookie.setSecure(true);
+                accessTokenCookie.setHttpOnly(true);
+                accessTokenCookie.setPath("/");
+                accessTokenCookie.setDomain("socshared.ml");
+                response.addCookie(accessTokenCookie);
 
-            Cookie refreshTokenCookie = new Cookie("JWT_RT", res.getRefreshToken());
-            refreshTokenCookie.setMaxAge(24 * 60 * 60 * 30);
-            refreshTokenCookie.setSecure(true);
-            refreshTokenCookie.setHttpOnly(true);
-            refreshTokenCookie.setPath("/");
-            refreshTokenCookie.setDomain("socshared.ml");
-            response.addCookie(refreshTokenCookie);
+                Cookie refreshTokenCookie = new Cookie("JWT_RT", res.getRefreshToken());
+                refreshTokenCookie.setMaxAge(24 * 60 * 60 * 30);
+                refreshTokenCookie.setSecure(true);
+                refreshTokenCookie.setHttpOnly(true);
+                refreshTokenCookie.setPath("/");
+                refreshTokenCookie.setDomain("socshared.ml");
+                response.addCookie(refreshTokenCookie);
 
-            model.addAttribute("isAuthorized", true);
-            return "soc_accounts";
+                model.addAttribute("isAuthorized", true);
+                return "soc_accounts";
+            } catch (Exception exception) {
+                model.addAttribute("isAuthorized", false);
+                return "landing_page";
+            }
         } else {
             model.addAttribute("isAuthorized", false);
-            //return "landing_page";
-            return "redirect:https://facebook.com";
+            return "landing_page";
         }
     }
 

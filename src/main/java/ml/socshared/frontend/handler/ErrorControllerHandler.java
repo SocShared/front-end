@@ -27,7 +27,7 @@ public class ErrorControllerHandler {
 
     @ExceptionHandler(HttpUnauthorizedException.class)
     public String unauthorized(HttpUnauthorizedException exception) {
-        return "redirect:/refresh";
+        return "redirect:/";
     }
 
     @ExceptionHandler(Exception.class)

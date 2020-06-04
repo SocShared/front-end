@@ -84,8 +84,8 @@ public class VkServiceImpl implements VkService {
      */
     @Override
     public void getConnectedPageUserGroups(Pageable pageable, Model model, String token) {
-        Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(pageable.getPageSize(),
-                                                            pageable.getPageNumber(), sorageToken);
+        Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(pageable.getPageNumber(),
+                                                            pageable.getPageSize(), token);
         model.addAttribute("groups_page", groupsPage);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные Аккаунты")),
@@ -95,6 +95,6 @@ public class VkServiceImpl implements VkService {
     @Override
     public void connectByGroupId(String groupId, String jwtToken) {
         log.info("ПОДКЛЮЧЕНИЕ ГРУППЫ -> {}", groupId);
-        storageClient.connectGroupById(groupId, Group.SocialNetwork.VK, jwtToken);
+        storageClient.connectVkGroupById(groupId, jwtToken);
     }
 }

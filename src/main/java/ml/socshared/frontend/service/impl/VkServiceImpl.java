@@ -2,10 +2,7 @@ package ml.socshared.frontend.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ml.socshared.frontend.client.BStatClient;
-import ml.socshared.frontend.client.GatewayServiceClient;
-import ml.socshared.frontend.client.SocAdapterClient;
-import ml.socshared.frontend.client.StorageClient;
+import ml.socshared.frontend.client.*;
 import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.bstat.response.TimeSeries;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
@@ -32,7 +29,7 @@ import java.util.UUID;
 @Slf4j
 public class VkServiceImpl implements VkService {
 
-    final private SocAdapterClient vkClient;
+    final private VkAdapterClient vkClient;
     final private GatewayServiceClient gateClient;
     final private BStatClient bstatClient;
     final private StorageClient storageClient;
@@ -47,12 +44,11 @@ public class VkServiceImpl implements VkService {
     }
 
     @Override
-    public void vkConnection( Model model, String token) {
+    public void vkConnection( Model model, String appAccessToken, String token) {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
         model.addAttribute("success_added_app", true);
-        String tokenVk = "4646";
-        gateClient.sendTokenForVk(tokenVk, token);
+        gateClient.sendTokenForVk(appAccessToken, token);
     }
 
     @Override
@@ -69,12 +65,18 @@ public class VkServiceImpl implements VkService {
      */
     @Override
     public void getSelectionPageUserGroups(Pageable pageable, Model model, String token) {
-        Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageSize(),
-                pageable.getPageNumber(), token);
-        model.addAttribute("groups_page", groupsPage);
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
-                new BreadcrumbElement("social", "Социальные Аккаунты")),
-                "Подключение групп"));
+        try {
+            Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageSize(),
+                    pageable.getPageNumber(), token);
+            model.addAttribute("groups_page", groupsPage);
+            model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
+                    new BreadcrumbElement("social", "Социальные Аккаунты")),
+                    "Подключение групп"));
+        } catch (Exception exp) {
+            log.trace("Page of selection group vk error", exp);
+            throw exp;
+        }
+
     }
 
     /**

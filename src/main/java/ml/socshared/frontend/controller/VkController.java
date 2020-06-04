@@ -44,10 +44,15 @@ public class VkController {
     public String applicationUrl(@ModelAttribute AppUrlAccess appUrl,
                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
         log.info("appId: " + String.valueOf(appUrl.getUrl()));
+        try {
+            //TODO передается токен а не URL
+            service.vkConnection(model, appUrl.getUrl(), accessToken);
+        } catch (Exception exp) {
+            log.error("Exception", exp);
+        }
 
-        service.vkConnection(model, accessToken);
 
-        return "connection_vk";
+        return "redirect:/social";
     }
 
 

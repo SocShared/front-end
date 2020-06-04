@@ -20,8 +20,8 @@ public interface GatewayServiceClient {
     List<SocialAccount> getAccounts(@RequestHeader("Authorization") String token);
 
 
-    @PostMapping("/api/v1/protected/social/{vkToken}")
-    SuccessResponse sendTokenForVk(@PathVariable String vkToken, @RequestHeader("Authorization") String token);
+    @PostMapping("/api/v1/protected/social/vk/app")
+    SuccessResponse sendTokenForVk(@RequestBody String vkToken, @RequestHeader("Authorization") String token);
 
     @GetMapping("api/v1/protected/support?page={page}&size={size}")
     RestResponsePage<ShortQuestion> getQuestionsPage(@PathVariable Integer page, @PathVariable Integer size,

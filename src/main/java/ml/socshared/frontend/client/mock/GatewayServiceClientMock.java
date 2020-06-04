@@ -52,7 +52,7 @@ public class GatewayServiceClientMock implements GatewayServiceClient {
     }
 
     @Override
-    public AccessUrlResponse getAccessUrl() {
+    public AccessUrlResponse getAccessUrl(String token) {
         return null;
     }
 }

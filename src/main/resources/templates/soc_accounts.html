@@ -41,8 +41,8 @@
             <tbody th:each=" account, i : ${accounts_list}">
             <tr  data-toggle="modal" data-target="#exampleModal">
                 <th scope="row" th:text="${i.index + 1}"></th>
-                <td th:text="${account.getType()}"></td>
-                <td th:text="${account.getUsername()}"></td>
+                <td th:text="${account.getSocialNetwork()}"></td>
+                <td th:text="${account.getFirstName() + ' ' + account.getLastName()}"></td>
                 <td th:text="${account.getAccountId()}"></td>
             </tr>
             </tbody>

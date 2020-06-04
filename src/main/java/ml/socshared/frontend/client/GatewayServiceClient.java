@@ -1,7 +1,7 @@
 package ml.socshared.frontend.client;
 
 import ml.socshared.frontend.domain.facebook.response.AccessUrlResponse;
-import ml.socshared.frontend.domain.model.SocialAccount;
+import ml.socshared.frontend.domain.response.SocialAccountResponse;
 import ml.socshared.frontend.domain.tech_support.Comment;
 import ml.socshared.frontend.domain.tech_support.FullQuestion;
 import ml.socshared.frontend.domain.tech_support.ShortQuestion;
@@ -16,9 +16,8 @@ import java.util.List;
 @FeignClient(name = "GateWayClient", url = "${feign.url.api:}")
 public interface GatewayServiceClient {
 
-    @GetMapping("/api/v1/protected/soc-accounts")
-    List<SocialAccount> getAccounts(@RequestHeader("Authorization") String token);
-
+    @GetMapping("/api/v1/protected/social/accounts")
+    List<SocialAccountResponse> getAccounts(@RequestHeader("Authorization") String token);
 
     @PostMapping("/api/v1/protected/social/vk/app")
     SuccessResponse sendTokenForVk(@RequestBody String vkToken, @RequestHeader("Authorization") String token);
@@ -47,4 +46,5 @@ public interface GatewayServiceClient {
     @GetMapping("api/v1/protected/facebook/connect/{authorizationCode}")
     SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode,
                                         @RequestHeader("Authorization") String token);
+
 }

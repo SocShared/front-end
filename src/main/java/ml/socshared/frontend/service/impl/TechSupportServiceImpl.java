@@ -29,7 +29,7 @@ public class TechSupportServiceImpl implements TechSupportService {
 
     @Override
     public String questionsPage(Pageable page, Model model, String token) {
-        Page<ShortQuestion> qustions =  client.getQuestionsPage(page.getPageNumber(), page.getPageSize(), token);
+        Page<ShortQuestion> qustions =  client.getQuestionsPage(page.getPageNumber(), page.getPageSize(), "Bearer " + token);
 
         model.addAttribute("questions_page", qustions);
         model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Техническая поддержка"));
@@ -38,7 +38,7 @@ public class TechSupportServiceImpl implements TechSupportService {
 
     @Override
     public String fullQuestionPage(Integer qid, Pageable pageable, Model model, String token) {
-        FullQuestion q = client.getFullQuestionPage(qid, pageable.getPageNumber(), pageable.getPageSize(), token);
+        FullQuestion q = client.getFullQuestionPage(qid, pageable.getPageNumber(), pageable.getPageSize(), "Bearer " + token);
         model.addAttribute("question", q);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("support", "Техническая поддержка")),
@@ -62,7 +62,7 @@ public class TechSupportServiceImpl implements TechSupportService {
         qr.setAuthorId(systemUserId);
         qr.setTitle(question.getTitle());
         qr.setText(question.getText());
-        return client.addQuestion(qr, token);
+        return client.addQuestion(qr, "Bearer " + token);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class TechSupportServiceImpl implements TechSupportService {
         comment.setAuthorId(systemUserId);
         comment.setText(formComment.getText());
         comment.setAuthorId(systemUserId);
-        client.addCommentToQuestion(questionId, comment, token);
+        client.addCommentToQuestion(questionId, comment, "Bearer " + token);
         fullQuestionPage(questionId, pageable, model, token);
         return "support_full_question_page";
     }

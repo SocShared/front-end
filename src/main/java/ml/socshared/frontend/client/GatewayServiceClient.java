@@ -50,4 +50,6 @@ public interface GatewayServiceClient {
     SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode,
                                         @RequestHeader("Authorization") String token);
 
+    @DeleteMapping("api/v1/protected/facebook/account")
+    void deleteFacebookAccount(@RequestHeader("Authorization") String token);
 }

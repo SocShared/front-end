@@ -7,5 +7,6 @@ public interface FacebookService {
 
     AccessUrlResponse getUrlAccessAddress(String token);
     SuccessResponse saveAccountFacebook(String authorizationCode, String token);
+    void deleteFacebookAccount(String token);
 
 }

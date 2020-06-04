@@ -24,8 +24,14 @@ public class FacebookController {
     }
 
     @GetMapping("/facebook/callback")
-    public String saveC(@RequestParam("code") String authorizationCode, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+    public String saveFacebookAccount(@RequestParam("code") String authorizationCode, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         SuccessResponse successResponse = service.saveAccountFacebook(authorizationCode, accessToken);
+        return "redirect:/social";
+    }
+
+    @GetMapping("/facebook/turn_off")
+    public String deleteFacebookAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        service.deleteFacebookAccount(accessToken);
         return "redirect:/social";
     }
 }

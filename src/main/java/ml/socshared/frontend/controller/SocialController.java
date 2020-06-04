@@ -60,8 +60,6 @@ public class SocialController {
                           @CookieValue(value = "JWT_RT", defaultValue = "") String refreshToken) {
         if (!accessToken.isEmpty() && !refreshToken.isEmpty()) {
             try {
-                response.addCookie(new Cookie("JWT_AT", ""));
-                response.addCookie(new Cookie("JWT_RT", ""));
                 OAuth2TokenResponse res = authService.getToken(refreshToken);
                 Cookie accessTokenCookie = new Cookie("JWT_AT", res.getAccessToken());
                 accessTokenCookie.setMaxAge(24 * 60 * 60);

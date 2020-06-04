@@ -26,6 +26,6 @@ public class FacebookController {
     @GetMapping("/facebook/callback")
     public String saveC(@RequestParam("code") String authorizationCode, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         SuccessResponse successResponse = service.saveAccountFacebook(authorizationCode, accessToken);
-        return "soc_accounts";
+        return "redirect:/social";
     }
 }

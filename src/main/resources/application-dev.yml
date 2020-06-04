@@ -5,3 +5,7 @@ spring:
       name: ${spring.application.name}
   main:
     allow-bean-definition-overriding: true
+
+feign:
+  url:
+    api: http://

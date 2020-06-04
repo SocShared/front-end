@@ -48,8 +48,7 @@ public class SocPage {
     @GetMapping("/")
     public String lendingPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                                     @CookieValue(name = "JWT_RT", defaultValue = "") String refreshToken) {
-        if (!accessToken.isEmpty() && !refreshToken.isEmpty())
-            model.addAttribute("isAuthorized", true);
+        model.addAttribute("isAuthorized", !accessToken.isEmpty() && !refreshToken.isEmpty());
 
         return "landing_page";
     }

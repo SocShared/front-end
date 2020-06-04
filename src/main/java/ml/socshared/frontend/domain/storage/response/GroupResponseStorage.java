@@ -12,7 +12,7 @@ public class GroupResponseStorage {
     String groupId;
     UUID userId;
     String name;
-    String socialNetwork;
+    Group.SocialNetwork socialNetwork;
     String facbookId;
     String vkId;
 }

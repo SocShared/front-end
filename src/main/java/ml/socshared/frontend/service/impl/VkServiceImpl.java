@@ -1,6 +1,7 @@
 package ml.socshared.frontend.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.client.BStatClient;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.client.SocAdapterClient;
@@ -11,6 +12,7 @@ import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.form.AppId;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
+import ml.socshared.frontend.domain.storage.response.Group;
 import ml.socshared.frontend.domain.storage.response.GroupResponseStorage;
 import ml.socshared.frontend.service.VkService;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VkServiceImpl implements VkService {
 
     final private SocAdapterClient vkClient;
@@ -65,9 +68,9 @@ public class VkServiceImpl implements VkService {
      * Страница для выбора подключения групп
      */
     @Override
-    public void getSelectionPageUserGroups(UUID systemUserId, Pageable pageable, Model model) {
-        Page<GroupResponse> groupsPage = vkClient.getVkGroups(systemUserId, pageable.getPageSize(),
-                pageable.getPageNumber(), vkToken);
+    public void getSelectionPageUserGroups(Pageable pageable, Model model, String token) {
+        Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageSize(),
+                pageable.getPageNumber(), token);
         model.addAttribute("groups_page", groupsPage);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные Аккаунты")),
@@ -78,8 +81,8 @@ public class VkServiceImpl implements VkService {
      * Страница со списокм подключенных груп к системе
      */
     @Override
-    public void getConnectedPageUserGroups(UUID systemUserId, Pageable pageable, Model model) {
-        Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(systemUserId, pageable.getPageSize(),
+    public void getConnectedPageUserGroups(Pageable pageable, Model model, String token) {
+        Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(pageable.getPageSize(),
                                                             pageable.getPageNumber(), sorageToken);
         model.addAttribute("groups_page", groupsPage);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
@@ -88,7 +91,8 @@ public class VkServiceImpl implements VkService {
     }
 
     @Override
-    public void connectbyGroupId(String groupId, String jwtToken) {
-        storageClient.
+    public void connectByGroupId(String groupId, String jwtToken) {
+        log.info("ПОДКЛЮЧЕНИЕ ГРУППЫ -> {}", groupId);
+        storageClient.connectGroupById(groupId, Group.SocialNetwork.VK, jwtToken);
     }
 }

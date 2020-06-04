@@ -19,9 +19,7 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Название группы</th>
-        <th scope="col">Количество пользователей</th>
-        <th scope="col">Тип группы</th>
-        <th scope="col">Дата создания</th>
+        <th scope="col">Идентификатор</th>
     </tr>
     </thead>
     <tbody th:each=" group, i : ${groups_page.content}">
@@ -32,14 +30,8 @@
         <td>
             <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}" th:text="${group.getName()}"></a>
         </td>
-        <td>
-            <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}"  th:text="${group.getMembersCount()}"></a>
-        </td>
         <td >
-            <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}"  th:text="${group.getType()}"></a>
-        </td>
-        <td >
-            <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}"  th:text="${group.getCreateData()}"></a>
+            <a style="display: block; color: black" th:href="@{https://vk.com/{club}(club=${'club'+group.getVkId()})}"  th:text="${group.getVkId()}"></a>
         </td>
     </tr>
     </tbody>

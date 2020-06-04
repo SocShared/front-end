@@ -57,7 +57,7 @@ public class VkController {
                                              @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
 
         log.info("Request get page of connected vk groups");
-        service.getConnectedPageUserGroups(MockConstants.user1, pageable, model);
+        service.getConnectedPageUserGroups(pageable, model, accessToken);
         return "soc_vk_page_groups_connected";
     }
 
@@ -66,27 +66,30 @@ public class VkController {
                                              @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
 
         log.info("Request get page of connected vk groups");
-        service.getSelectionPageUserGroups(MockConstants.user1, pageable, model);
+        service.getSelectionPageUserGroups(pageable, model, jwtToken);
         return "soc_vk_page_groups_selection";
+    }
+
+    @PostMapping("/social/vk/groups/select/{vkGroupId}")
+    public void connectingOneGroup(@PathVariable String vkGroupId,
+                                   @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken,
+                                   HttpServletResponse httpServletResponse) {
+        log.info("Request to connection group");
+        service.connectByGroupId(vkGroupId, jwtToken);
+        httpServletResponse.setStatus(302);
+        httpServletResponse.setHeader("Location", "/social/vk/groups/");
     }
 
 
     @GetMapping("/social/vk/groups/{groupId}")
-    public String getPageOfConnectedVkGroups(@PathVariable String groupId, Pageable pageable, Model model,
+    public String getPageStatOfGroup(@PathVariable String groupId, Pageable pageable, Model model,
                                              @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request get page of connected vk groups");
-        service.getStatGroupPageAndPostList(groupId, pageable, model, "");
-        return "soc_vk_page_groups_connected";
+        service.getStatGroupPageAndPostList(groupId, pageable, model, accessToken);
+        return "soc_vk_page_stat_group";
     }
 
-    @PostMapping("/social/vk/groups/{groupId}/connecting")
-    public void connectingOneGroup(@PathVariable String groupId,
-                                     @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken,
-                                     HttpServletResponse httpServletResponse) {
-        log.info("Request to connection group");
-        service.connectbyGroupId(groupId, jwtToken);
-        httpServletResponse.setStatus(302);
-        httpServletResponse.setHeader("Location", "/social/vk/groups/");
-    }
+
+
 
 }

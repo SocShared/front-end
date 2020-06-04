@@ -47,12 +47,11 @@ public class VkServiceImpl implements VkService {
     }
 
     @Override
-    public void vkConnection( Model model, String token) {
+    public void vkConnection( Model model, String appAccessToken, String token) {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
         model.addAttribute("success_added_app", true);
-        String tokenVk = "4646";
-        gateClient.sendTokenForVk(tokenVk, token);
+        gateClient.sendTokenForVk(appAccessToken, token);
     }
 
     @Override

@@ -23,9 +23,10 @@
                         <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px" ></a>
                     <a type="button" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow">Отключить
                         <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
-
-                    <a th:href="@{/social/vk/groups}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключенные группы ВК</a>
-                    <a th:href="@{/social/fb/groups}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключенные группы FB</a>
+                </div>
+                <div class = "col-6 align-content-end">
+                    <a th:href="@{/social/vk/groups}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы ВК</a>
+                    <a th:href="@{/social/fb/groups}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы FB</a>
                 </div>
             </div>
 

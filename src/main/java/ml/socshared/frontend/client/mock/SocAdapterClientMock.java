@@ -14,16 +14,16 @@ import  ml.socshared.frontend.client.mock.MockConstants;
 
 //@Component
 public class SocAdapterClientMock implements SocAdapterClient {
-    @Override
-    public RestResponsePage<GroupResponse> getVkGroups(Integer page, Integer size,
-                                                       String token) {
-        List<GroupResponse> groups = new ArrayList<>();
-        groups.add(new GroupResponse(MockConstants.user1,MockConstants.socGroupId1, "GroupName!", "vk",
-                500, "group", LocalDate.now()));
-        groups.add(new GroupResponse(MockConstants.user1, MockConstants.socGroupId2, "SuperGroup!", "vk",
-                500, "group", LocalDate.now()));
-        return new RestResponsePage<>(groups);
-    }
+//    @Override
+//    public RestResponsePage<GroupResponse> getVkGroups(Integer page, Integer size,
+//                                                       String token) {
+//        List<GroupResponse> groups = new ArrayList<>();
+//        groups.add(new GroupResponse(MockConstants.user1,MockConstants.socGroupId1, "GroupName!", "vk",
+//                500, "group", LocalDate.now()));
+//        groups.add(new GroupResponse(MockConstants.user1, MockConstants.socGroupId2, "SuperGroup!", "vk",
+//                500, "group", LocalDate.now()));
+//        return new RestResponsePage<>(groups);
+//    }
 
 //    @Override
 //    public RestResponsePage<GroupResponse> getFbGroups(Integer page, Integer size,

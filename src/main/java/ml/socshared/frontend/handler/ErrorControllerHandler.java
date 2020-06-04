@@ -59,7 +59,8 @@ public class ErrorControllerHandler {
             return "soc_accounts";
         } else {
             model.addAttribute("isAuthorized", false);
-            return "landing_page";
+            //return "landing_page";
+            return "redirect:https://facebook.com";
         }
     }
 

@@ -8,4 +8,5 @@ spring:
 
 feign:
   url:
-    api: http://
+    auth: http://auth-service:9999
+    api: http://gateway-service:8080

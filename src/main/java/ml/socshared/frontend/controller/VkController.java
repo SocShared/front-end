@@ -86,13 +86,13 @@ public class VkController {
     }
 
 
-    @GetMapping("/social/vk/groups/{groupId}")
-    public String getPageStatOfGroup(@PathVariable String groupId, Pageable pageable, Model model,
-                                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        log.info("Request get page of connected vk groups");
-        service.getStatGroupPageAndPostList(groupId, pageable, model, accessToken);
-        return "soc_vk_page_stat_group";
-    }
+//    @GetMapping("/social/vk/groups/{groupId}")
+//    public String getPageStatOfGroup(@PathVariable String groupId, Pageable pageable, Model model,
+//                                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+//        log.info("Request get page of connected vk groups");
+//        service.getStatGroupPageAndPostList(groupId, pageable, model, accessToken);
+//        return "soc_vk_page_stat_group";
+//    }
 
 
 

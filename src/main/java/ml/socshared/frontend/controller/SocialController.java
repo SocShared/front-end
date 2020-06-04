@@ -89,7 +89,6 @@ public class SocialController {
             model.addAttribute("isAuthorized", false);
             return "redirect:/";
         }
-        return "error";
     }
 
     @GetMapping("/exit")

@@ -83,11 +83,11 @@ public class SocialController {
                 return "redirect:/social";
             } catch (Exception exc) {
                 model.addAttribute("isAuthorized", false);
-                return "redirect:/";
+                return "redirect:/exit";
             }
         } else {
             model.addAttribute("isAuthorized", false);
-            return "redirect:/";
+            return "redirect:/exit";
         }
     }
 

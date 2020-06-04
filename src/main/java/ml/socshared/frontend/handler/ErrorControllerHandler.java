@@ -56,9 +56,10 @@ public class ErrorControllerHandler {
             response.addCookie(refreshTokenCookie);
 
             model.addAttribute("isAuthorized", true);
+            return "soc_accounts";
         } else {
-
+            model.addAttribute("isAuthorized", false);
+            return "landing_page";
         }
-        return "landing_page";
     }
 }

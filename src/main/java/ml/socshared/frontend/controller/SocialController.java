@@ -28,7 +28,7 @@ import java.util.*;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class SocPage {
+public class SocialController {
 
     private final AuthService authService;
     private final SocAccountService accountService;

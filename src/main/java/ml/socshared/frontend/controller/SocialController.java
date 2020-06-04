@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
+import ml.socshared.frontend.domain.model.SocialNetwork;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
 import ml.socshared.frontend.domain.response.SocialAccountResponse;
 import ml.socshared.frontend.exception.impl.HttpUnauthorizedException;
@@ -38,6 +39,8 @@ public class SocialController {
             return "redirect:/";
 
         List<SocialAccountResponse> responses = accountService.getAccounts(accessToken);
+        model.addAttribute("facebook_connect", accountService.checkSocialAccount(responses, SocialNetwork.FACEBOOK));
+        model.addAttribute("vk_connect", accountService.checkSocialAccount(responses, SocialNetwork.VK));
         model.addAttribute("accounts_list", responses);
         AppUrlAccess appAccess = new AppUrlAccess();
         model.addAttribute("appUrlAccess", appAccess);

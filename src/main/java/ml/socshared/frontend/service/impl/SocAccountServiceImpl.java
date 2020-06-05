@@ -1,6 +1,7 @@
 package ml.socshared.frontend.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import ml.socshared.frontend.client.FacebookClient;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.domain.model.SocialNetwork;
 import ml.socshared.frontend.domain.response.SocialAccountResponse;
@@ -14,6 +15,7 @@ import java.util.List;
 public class SocAccountServiceImpl implements SocAccountService {
 
     private final GatewayServiceClient client;
+    private final FacebookClient facebookClient;
 
     @Override
     public List<SocialAccountResponse> getAccounts(String token) {
@@ -22,7 +24,7 @@ public class SocAccountServiceImpl implements SocAccountService {
 
     @Override
     public SocialAccountResponse getFacebookSocialAccount(String token) {
-        return client.getFacebookSocialAccount("Bearer " + token);
+        return facebookClient.getFacebookSocialAccount("Bearer " + token);
     }
 
     @Override

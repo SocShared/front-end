@@ -12,6 +12,7 @@ public interface FacebookService {
     SuccessResponse saveAccountFacebook(String authorizationCode, String token);
     FacebookPage<FacebookGroupResponse> getGroupsFacebookAccount(Integer page, Integer size, String token);
     GroupResponse addGroup(String fbGroupId, String token);
+    void deleteGroup(String fbGroupId, String token);
     void deleteFacebookAccount(String token);
 
 }

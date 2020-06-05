@@ -2,6 +2,7 @@ package ml.socshared.frontend.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.facebook.FacebookPage;
 import ml.socshared.frontend.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
@@ -55,14 +56,14 @@ public class FacebookController {
 
     @GetMapping("/social/facebook/groups/connection/{groupId}")
     public String connectionGroup(@PathVariable String groupId, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        // TODO: подключение группы из Facebook
-        return "redirect:/social/facebook/groups";
+        GroupResponse groupResponse = service.addGroup(groupId, accessToken);
+        return "soc_fb_groups";
     }
 
     @GetMapping("/social/facebook/groups/disconnection/{groupId}")
     public String disconnectionGroup(@PathVariable String groupId, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        // TODO: отключение группы из Facebook
-        return "redirect:/social/facebook/groups";
+        service.deleteGroup(groupId, accessToken);
+        return "soc_fb_groups";
     }
 
 }

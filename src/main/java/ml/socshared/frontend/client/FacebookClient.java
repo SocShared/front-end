@@ -30,8 +30,11 @@ public interface FacebookClient {
                                                   @RequestParam(name = "size", required = false) Integer size,
                                                   @RequestHeader("Authorization") String token);
 
-    @PostMapping("/protected/fb/groups/{fbGroupId}")
+    @PostMapping("api/v1/protected/fb/groups/{fbGroupId}")
     GroupResponse addGroup(@PathVariable String fbGroupId, @RequestHeader("Authorization") String token);
+
+    @DeleteMapping("api/v1/protected/fb/groups/{fbGroupId}")
+    void deleteGroup(@PathVariable String fbGroupId, @RequestHeader("Authorization") String token);
 
     @DeleteMapping("api/v1/protected/facebook/account")
     void deleteFacebookAccount(@RequestHeader("Authorization") String token);

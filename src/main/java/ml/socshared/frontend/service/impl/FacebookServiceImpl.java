@@ -48,6 +48,11 @@ public class FacebookServiceImpl implements FacebookService {
     }
 
     @Override
+    public void deleteGroup(String fbGroupId, String token) {
+        facebookClient.deleteGroup(fbGroupId, "Bearer " + token);
+    }
+
+    @Override
     public void deleteFacebookAccount(String token) {
         facebookClient.deleteFacebookAccount("Bearer " + token);
     }

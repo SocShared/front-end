@@ -41,7 +41,7 @@ public class VkServiceImpl implements VkService {
     }
 
     @Override
-    public void vkConnection( Model model, String appAccessToken, String token) {
+    public void vkConnection(Model model, String appAccessToken, String token) {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
         model.addAttribute("success_added_app", true);
@@ -82,7 +82,7 @@ public class VkServiceImpl implements VkService {
     @Override
     public void getConnectedPageUserGroups(Pageable pageable, Model model, String token) {
         Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(pageable.getPageNumber(),
-                                                            pageable.getPageSize(), tokenConvert(token));
+                pageable.getPageSize(), tokenConvert(token));
         model.addAttribute("groups_page", groupsPage);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные Аккаунты")),

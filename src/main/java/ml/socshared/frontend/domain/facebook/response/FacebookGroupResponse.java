@@ -14,7 +14,8 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class FacebookGroupResponse {
 
-    private UUID systemUserId;
+    private String systemUserId;
+    private String systemGroupId;
     private String groupId;
     private String name;
     private String adapterId;

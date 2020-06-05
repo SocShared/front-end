@@ -25,8 +25,8 @@
                         <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
                 </div>
                 <div class = "col-6 text-right">
-                    <a th:href="@{/social/vk/groups}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы ВК</a>
-                    <a th:href="@{/social/facebook/groups}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы FB</a>
+                    <a th:href="@{/social/vk/groups}" th:if="${vk_connect}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы ВК</a>
+                    <a th:href="@{/social/facebook/groups}" th:if="${facebook_connect}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы FB</a>
                 </div>
             </div>
 

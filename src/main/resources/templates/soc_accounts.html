@@ -11,31 +11,29 @@
         <!-- блок с кнопками для добавления социальных сетей-->
         <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
 
-        <div class="col">
-            <div class="row">
-                <div class="col-6">
-                    <a type="button" th:href="@{/social/facebook/access}" th:if="${!facebook_connect}"
-                       class="btn sh-btn sh-btn-fb shadow">Подключить
-                        <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
-                    <a th:href="@{/social/connection/vk}" type="button" th:if="${!vk_connect}"
-                       class="btn sh-btn sh-btn-vk shadow">Подключить
-                        <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
+        <div class="row">
+            <div class="col-6">
+                <a type="button" th:href="@{/social/facebook/access}" th:if="${!facebook_connect}"
+                   class="btn sh-btn sh-btn-fb shadow">Подключить
+                    <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
+                <a th:href="@{/social/connection/vk}" type="button" th:if="${!vk_connect}"
+                   class="btn sh-btn sh-btn-vk shadow">Подключить
+                    <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
 
-                    <a type="button" th:href="@{/social/facebook/turn_off}" th:if="${facebook_connect}"
-                       class="btn sh-btn sh-btn-fb shadow">Отключить
-                        <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
-                    <a type="button" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow">Отключить
-                        <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
-                </div>
-                <div class="col-6 text-right">
-                    <a th:href="@{/social/vk/groups}" th:if="${vk_connect}" type="button"
-                       class="btn sh-btn sh-btn-outline shadow">Подключить группы ВК</a>
-                    <a th:href="@{/social/facebook/groups}" th:if="${facebook_connect}" type="button"
-                       class="btn sh-btn sh-btn-outline shadow">Подключить группы FB</a>
-                </div>
+                <a type="button" th:href="@{/social/facebook/turn_off}" th:if="${facebook_connect}"
+                   class="btn sh-btn sh-btn-fb shadow">Отключить
+                    <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
+                <a type="button" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow">Отключить
+                    <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
             </div>
-
+            <div class="col-6 text-right">
+                <a th:href="@{/social/vk/groups}" th:if="${vk_connect}" type="button"
+                   class="btn sh-btn sh-btn-outline shadow">Подключить группы ВК</a>
+                <a th:href="@{/social/facebook/groups}" th:if="${facebook_connect}" type="button"
+                   class="btn sh-btn sh-btn-outline shadow">Подключить группы FB</a>
+            </div>
         </div>
+
     </div>
     <!--Блок содержащий таблицу подклбченных социальных сетей -->
     <div class="row">

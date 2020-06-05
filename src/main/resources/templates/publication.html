@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+    </div>
+
+    <!--TODO: сделать реализацию подключения к данным + добавить ajax на получение ключевых слов по тексту в рантайме-->
+    <div class="col content shadow">
+        <div style="text-align: center;"><h3>Формирование публикации</h3></div>
+        <form>
+            <div class="form-group">
+                <label for="text_publication">Текст публикации</label>
+                <textarea class="form-control" id="text_publication" rows="7"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="select_groups">Выбор групп и страниц для публикации</label>
+                <select class="form-control" id="select_groups">
+                    <option>Группа 1</option>
+                    <option>Группа 2</option>
+                    <option>Группа 3</option>
+                    <option>Группа 4</option>
+                    <option>Группа 5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="select_keywords">Выбор ключевых слов</label>
+                <select class="form-control" id="select_keywords">
+                    <option>Ключевое слово 1</option>
+                    <option>Ключевое слово 2</option>
+                    <option>Ключевое слово 3</option>
+                    <option>Ключевое слово 4</option>
+                    <option>Ключевое слово 5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="is_deferred">Хотите сделать публикацию отложенной?</label>
+                <input id="is_deferred" type="checkbox" aria-label="Checkbox for following text input">
+            </div>
+
+            <div class="form-group">
+                <label for="time">Время, когда хотите провести публикацию? *</label>
+                <div id="time" class='col-sm-6'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker2').datetimepicker({
+                            locale: 'ru'
+                        });
+                    });
+                </script>
+            </div>
+            <button type="submit" class="btn btn-primary">Произвести публикацию</button>
+        </form>
+    </div>
+
+</th:block>
+
+</body>
+</html>

@@ -55,8 +55,6 @@ public class VkController {
         return "redirect:/social";
     }
 
-
-
     @GetMapping("/social/vk/groups")
     public String getPageOfConnectedVkGroups(Pageable pageable, Model model,
                                              @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {

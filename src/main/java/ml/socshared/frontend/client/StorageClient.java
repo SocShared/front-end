@@ -15,11 +15,11 @@ public interface StorageClient {
 
     //RestResponsePage<PostResponse> getPostsOfGroup(Integer page, Integer size, String token);
 
-    @GetMapping("api/v1/groups/vk")
+    @GetMapping("api/v1/protected/groups/vk")
     RestResponsePage<GroupResponseStorage> getSelectedGroups(@RequestParam("page") Integer page, @RequestParam("size") Integer size,
                                                              @RequestHeader("Authorization") String token );
 
-    @PostMapping("api/v1/groups/vk/{socGroupId}")
+    @PostMapping("api/v1/protected/groups/vk/{socGroupId}")
     void connectVkGroupById(@PathVariable String socGroupId,
                             @RequestHeader("Authorization") String token);
 }

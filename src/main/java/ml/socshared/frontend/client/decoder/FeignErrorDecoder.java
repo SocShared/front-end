@@ -31,7 +31,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
             return new HttpNotFoundException(msg);
         }
 
-        String msg = "Unexpected error: " + response.body().toString();
+        String msg = "Unexpected error: " + response.status();
         return new Exception(msg);
     }
 

@@ -34,9 +34,6 @@ public class VkServiceImpl implements VkService {
     final private BStatClient bstatClient;
     final private StorageClient storageClient;
 
-    final private String vkToken = "ThisIsVkToken";
-    final private String bstatToken = "ThisIsVkToken";
-    final private String sorageToken = "StorageToken";
 
     @Override
     public void getPagePostsOfGroup(UUID systemUserId, UUID systemGroupId, Pageable pageable, Model model) {
@@ -48,17 +45,17 @@ public class VkServiceImpl implements VkService {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
         model.addAttribute("success_added_app", true);
-        gateClient.sendTokenForVk(appAccessToken, token);
+        gateClient.sendTokenForVk(appAccessToken, tokenConvert(token));
     }
 
-    @Override
-    public void getStatGroupPageAndPostList(String groupId, Pageable pageable, Model model, String token) {
-        TimeSeries<Integer> online = bstatClient.getGroupOnline(groupId, LocalDate.now().minusDays(1).toEpochSecond(LocalTime.MIN, ZoneOffset.UTC),
-                LocalDate.now().toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC), bstatToken );
-        TimeSeries<Integer> subscribers = bstatClient.getVariabilitySubscribers(groupId, LocalDate.now().minusDays(1).toEpochSecond(LocalTime.MIN, ZoneOffset.UTC),
-                LocalDate.now().toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC), bstatToken);
-
-    }
+//    @Override
+//    public void getStatGroupPageAndPostList(String groupId, Pageable pageable, Model model, String token) {
+//        TimeSeries<Integer> online = bstatClient.getGroupOnline(groupId, LocalDate.now().minusDays(1).toEpochSecond(LocalTime.MIN, ZoneOffset.UTC),
+//                LocalDate.now().toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC), bstatToken );
+//        TimeSeries<Integer> subscribers = bstatClient.getVariabilitySubscribers(groupId, LocalDate.now().minusDays(1).toEpochSecond(LocalTime.MIN, ZoneOffset.UTC),
+//                LocalDate.now().toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC), bstatToken);
+//
+//    }
 
     /**
      * Страница для выбора подключения групп
@@ -66,8 +63,8 @@ public class VkServiceImpl implements VkService {
     @Override
     public void getSelectionPageUserGroups(Pageable pageable, Model model, String token) {
         try {
-            Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageSize(),
-                    pageable.getPageNumber(), token);
+            Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageNumber(),
+                    pageable.getPageSize(), tokenConvert(token));
             model.addAttribute("groups_page", groupsPage);
             model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                     new BreadcrumbElement("social", "Социальные Аккаунты")),
@@ -85,7 +82,7 @@ public class VkServiceImpl implements VkService {
     @Override
     public void getConnectedPageUserGroups(Pageable pageable, Model model, String token) {
         Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(pageable.getPageNumber(),
-                                                            pageable.getPageSize(), token);
+                                                            pageable.getPageSize(), tokenConvert(token));
         model.addAttribute("groups_page", groupsPage);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные Аккаунты")),
@@ -93,8 +90,12 @@ public class VkServiceImpl implements VkService {
     }
 
     @Override
-    public void connectByGroupId(String groupId, String jwtToken) {
+    public void connectByGroupId(String groupId, String token) {
         log.info("ПОДКЛЮЧЕНИЕ ГРУППЫ -> {}", groupId);
-        storageClient.connectVkGroupById(groupId, jwtToken);
+        storageClient.connectVkGroupById(groupId, tokenConvert(token));
+    }
+
+    private String tokenConvert(String token) {
+        return "Bearer " + token;
     }
 }

@@ -12,21 +12,26 @@
         <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
 
         <div class="col">
-            <div class ="row">
-                <div class = "col-6">
-                    <a type="button" th:href="@{/social/facebook/access}" th:if="${!facebook_connect}" class="btn sh-btn sh-btn-fb shadow">Подключить
-                        <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px" ></a>
-                    <a th:href="@{/social/connection/vk}" type="button" th:if="${!vk_connect}" class="btn sh-btn sh-btn-vk shadow">Подключить
+            <div class="row">
+                <div class="col-6">
+                    <a type="button" th:href="@{/social/facebook/access}" th:if="${!facebook_connect}"
+                       class="btn sh-btn sh-btn-fb shadow">Подключить
+                        <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
+                    <a th:href="@{/social/connection/vk}" type="button" th:if="${!vk_connect}"
+                       class="btn sh-btn sh-btn-vk shadow">Подключить
                         <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
 
-                    <a type="button" th:href="@{/social/facebook/turn_off}" th:if="${facebook_connect}" class="btn sh-btn sh-btn-fb shadow">Отключить
-                        <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px" ></a>
+                    <a type="button" th:href="@{/social/facebook/turn_off}" th:if="${facebook_connect}"
+                       class="btn sh-btn sh-btn-fb shadow">Отключить
+                        <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
                     <a type="button" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow">Отключить
                         <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
                 </div>
-                <div class = "col-6 text-right">
-                    <a th:href="@{/social/vk/groups}" th:if="${vk_connect}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы ВК</a>
-                    <a th:href="@{/social/facebook/groups}" th:if="${facebook_connect}" type="button" class="btn sh-btn sh-btn-outline shadow">Подключить группы FB</a>
+                <div class="col-6 text-right">
+                    <a th:href="@{/social/vk/groups}" th:if="${vk_connect}" type="button"
+                       class="btn sh-btn sh-btn-outline shadow">Подключить группы ВК</a>
+                    <a th:href="@{/social/facebook/groups}" th:if="${facebook_connect}" type="button"
+                       class="btn sh-btn sh-btn-outline shadow">Подключить группы FB</a>
                 </div>
             </div>
 
@@ -34,31 +39,30 @@
     </div>
     <!--Блок содержащий таблицу подклбченных социальных сетей -->
     <div class="row">
-    <div class="col content shadow">
-        <div style="text-align: center;"><h3>Подключенные аккаунты</h3></div>
-        <table class="table table-hover" th:unless="${accounts_list.isEmpty()}">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Соц.Сеть</th>
-                <th scope="col">Имя Пользователя</th>
-                <th scope="col">Идентификатор</th>
-            </tr>
-            </thead>
-            <tbody th:each=" account, i : ${accounts_list}">
-            <tr  data-toggle="modal" data-target="#exampleModal">
-                <th scope="row" th:text="${i.index + 1}"></th>
-                <td th:text="${account.getSocialNetwork()}"></td>
-                <td th:text="${account.getFirstName() + ' ' + account.getLastName()}"></td>
-                <td th:text="${account.getAccountId()}"></td>
-            </tr>
-            </tbody>
-        </table>
-        <p th:if="${accounts_list.isEmpty()}">Ни один аккаунт не подключен к системе!</p>
-    </div>
+        <div class="col content shadow">
+            <div style="text-align: center;"><h3>Подключенные аккаунты</h3></div>
+            <table class="table table-hover" th:unless="${accounts_list.isEmpty()}">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Соц.Сеть</th>
+                    <th scope="col">Имя Пользователя</th>
+                    <th scope="col">Идентификатор</th>
+                </tr>
+                </thead>
+                <tbody th:each=" account, i : ${accounts_list}">
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <th scope="row" th:text="${i.index + 1}"></th>
+                    <td th:text="${account.getSocialNetwork()}"></td>
+                    <td th:text="${account.getFirstName() + ' ' + account.getLastName()}"></td>
+                    <td th:text="${account.getAccountId()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <p th:if="${accounts_list.isEmpty()}">Ни один аккаунт не подключен к системе!</p>
+        </div>
 
     </div>
-
 
 </th:block>
 

@@ -7,6 +7,7 @@ import ml.socshared.frontend.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.frontend.domain.response.SocialAccountResponse;
 import ml.socshared.frontend.domain.response.SuccessResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
@@ -26,6 +27,7 @@ public interface FacebookClient {
     SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode,
                                         @RequestHeader("Authorization") String token);
 
+    @GetMapping(value = "api/v1/protected/facebook/groups", produces = MediaType.APPLICATION_JSON_VALUE)
     FacebookPage<FacebookGroupResponse> getGroups(@RequestParam(name = "page", required = false) Integer page,
                                                   @RequestParam(name = "size", required = false) Integer size,
                                                   @RequestHeader("Authorization") String token);

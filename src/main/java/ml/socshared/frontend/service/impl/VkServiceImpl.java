@@ -63,8 +63,8 @@ public class VkServiceImpl implements VkService {
     @Override
     public void getSelectionPageUserGroups(Pageable pageable, Model model, String token) {
         try {
-            Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageSize(),
-                    pageable.getPageNumber(), tokenConvert(token));
+            Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageNumber(),
+                    pageable.getPageSize(), tokenConvert(token));
             model.addAttribute("groups_page", groupsPage);
             model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                     new BreadcrumbElement("social", "Социальные Аккаунты")),

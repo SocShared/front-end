@@ -10,7 +10,7 @@ spring:
 
 feign:
   url:
-    api: ${GATEWAY_URI:localhost:8080}
+    api: ${GATEWAY_URI:https://api.socshared.ml}
     auth: ${AUTH_SERVICE:https://auth.socshared.ml}
 
 server:

@@ -43,8 +43,8 @@
             <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}" th:text="${group.getType()}"></a>
         </td>
         <td>
-            <a type="button" th:href="@{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})}" th:if="${!group.isSelected}" class="btn sh-btn sh-btn-fb shadow">Подключить</a>
-            <a type="button" th:href="@{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})}" th:if="${group.isSelected}" class="btn sh-btn sh-btn-fb shadow">Отключить</a>
+            <a type="button" th:href="@{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})}" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</a>
+            <a type="button" th:href="@{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})}" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Отключить</a>
         </td>
     </tr>
     </tbody>

@@ -20,6 +20,6 @@ public class FacebookGroupResponse {
     private String adapterId;
     private Integer membersCount;
     private FacebookTypeGroup type;
-    private boolean isSelected;
+    private Boolean selected;
 
 }

@@ -48,6 +48,11 @@ public class VkServiceImpl implements VkService {
         gateClient.sendTokenForVk(appAccessToken, tokenConvert(token));
     }
 
+    @Override
+    public void vkDisconnection(String accessToken) {
+        gateClient.removeVkToken(accessToken);
+    }
+
 //    @Override
 //    public void getStatGroupPageAndPostList(String groupId, Pageable pageable, Model model, String token) {
 //        TimeSeries<Integer> online = bstatClient.getGroupOnline(groupId, LocalDate.now().minusDays(1).toEpochSecond(LocalTime.MIN, ZoneOffset.UTC),

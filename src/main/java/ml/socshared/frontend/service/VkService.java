@@ -12,5 +12,6 @@ public interface VkService {
     void disconnectionGroupById(String vkGroupId,String jwtToken);
     void getPagePostsOfGroup(UUID systemUserId, UUID systemGroupId, Pageable pageable, Model model);
     void vkConnection(Model model,String appAccessToken, String token);
+    void vkDisconnection(String accessToken);
 
 }

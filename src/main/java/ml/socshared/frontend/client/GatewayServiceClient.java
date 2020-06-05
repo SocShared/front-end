@@ -40,16 +40,4 @@ public interface GatewayServiceClient {
     Integer addQuestion(@RequestBody QuestionCreateRequest question,
                         @RequestHeader("Authorization") String token);
 
-    @GetMapping("api/v1/protected/facebook/access")
-    AccessUrlResponse getAccessUrl(@RequestHeader("Authorization") String token);
-
-    @GetMapping("api/v1/protected/facebook/account")
-    SocialAccountResponse getFacebookSocialAccount(@RequestHeader("Authorization") String token);
-
-    @GetMapping("api/v1/protected/facebook/connect/{authorizationCode}")
-    SuccessResponse saveAccountFacebook(@PathVariable String authorizationCode,
-                                        @RequestHeader("Authorization") String token);
-
-    @DeleteMapping("api/v1/protected/facebook/account")
-    void deleteFacebookAccount(@RequestHeader("Authorization") String token);
 }

@@ -15,7 +15,7 @@ public interface StorageClient {
 
     //RestResponsePage<PostResponse> getPostsOfGroup(Integer page, Integer size, String token);
 
-    @GetMapping("api/v1/protected/groups/vk")
+    @GetMapping("api/v1/protected/social/vk/groups")
     RestResponsePage<GroupResponseStorage> getSelectedGroups(@RequestParam("page") Integer page, @RequestParam("size") Integer size,
                                                              @RequestHeader("Authorization") String token );
 

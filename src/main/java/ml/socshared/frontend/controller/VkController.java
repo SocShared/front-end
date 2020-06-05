@@ -40,7 +40,7 @@ public class VkController {
     @GetMapping("social/disconnection/vk")
     public String disconnectionVkAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request disconnection vk account");
-        service.vkDisconnection(accessToken);
+        service.vkDisconnection("Bearer " +  accessToken);
         return "redirect:/social";
     }
 

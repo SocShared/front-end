@@ -66,7 +66,7 @@ public class VkController {
         return "soc_vk_page_groups_connected";
     }
 
-    @GetMapping("/social/vk/groups/select")
+    @GetMapping("/social/vk/groups")
     public String getPageOfSelectionVkGroups(Pageable pageable, Model model,
                                              @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
 
@@ -75,7 +75,7 @@ public class VkController {
         return "soc_vk_page_groups_selection";
     }
 
-    @PostMapping("/social/vk/groups/select/{vkGroupId}")
+    @PostMapping("/social/vk/groups/{vkGroupId}")
     public void connectingOneGroup(@PathVariable String vkGroupId,
                                    @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken,
                                    HttpServletResponse httpServletResponse) {

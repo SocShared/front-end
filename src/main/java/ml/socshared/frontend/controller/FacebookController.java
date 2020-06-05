@@ -42,8 +42,8 @@ public class FacebookController {
 
     @GetMapping("/social/facebook/groups")
     public String groupsFacebook(Model model,
-                                 @RequestParam(name = "page", required = false) Integer page,
-                                 @RequestParam(name = "size", required = false) Integer size,
+                                 @RequestParam(name = "page", defaultValue = "0") Integer page,
+                                 @RequestParam(name = "size", defaultValue = "100") Integer size,
                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         FacebookPage<FacebookGroupResponse> groupsPage = service.getGroupsFacebookAccount(page, size, accessToken);
 

@@ -12,6 +12,8 @@ import java.util.UUID;
 @ToString
 @EqualsAndHashCode
 public class VkGroupResponse {
+    private String systemUserId;
+    private String systemGroupId;
     private String groupId;
     private String name;
     private String adapterId;

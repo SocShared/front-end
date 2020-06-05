@@ -61,31 +61,23 @@ public class VkController {
 
         log.info("Request get page of connected vk groups");
         service.getConnectedPageUserGroups(pageable, model, accessToken);
-        return "soc_vk_page_groups_connected";
+        return "soc_vk_groups";
     }
 
 
 
-    @PostMapping("/social/vk/groups/{vkGroupId}")
-    public void connectingOneGroup(@PathVariable String vkGroupId,
-                                   @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken,
-                                   HttpServletResponse httpServletResponse) {
+    @GetMapping("/social/vk/groups/connection/{vkGroupId}")
+    public String connectionGroup(@PathVariable String vkGroupId,
+                                   @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
         log.info("Request to connection group");
         service.connectByGroupId(vkGroupId, jwtToken);
-        httpServletResponse.setStatus(302);
-        httpServletResponse.setHeader("Location", "/social/vk/groups/");
+        return "redirect:/social/vk/groups";
     }
-
-
-//    @GetMapping("/social/vk/groups/{groupId}")
-//    public String getPageStatOfGroup(@PathVariable String groupId, Pageable pageable, Model model,
-//                                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-//        log.info("Request get page of connected vk groups");
-//        service.getStatGroupPageAndPostList(groupId, pageable, model, accessToken);
-//        return "soc_vk_page_stat_group";
-//    }
-
-
-
-
+    @GetMapping("/social/vk/groups/disconnection/{vkGroupId}")
+    public String disconnectionGroup(@PathVariable String vkGroupId,
+                                     @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
+        log.info("Request disconnection group");
+        service.disconnectionGroupById(vkGroupId, jwtToken);
+        return "redirect:/social/vk/groups";
+    }
 }

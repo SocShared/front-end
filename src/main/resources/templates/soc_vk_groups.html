@@ -21,7 +21,7 @@
                 <th scope="col">Название группы</th>
                 <th scope="col">Количество пользователей</th>
                 <th scope="col">Тип группы</th>
-                <th scope="col">Дата создания</th>
+                <th scope="col">Подключение</th>
             </tr>
             </thead>
             <tbody th:each=" group, i : ${groups_page.content}">
@@ -54,11 +54,8 @@
                            th:text="${group.getType()}"></a>
                     </td>
                     <td>
-                        <form th:action="@{./{vkGroupId}(vkGroupId=${group.getGroupId()})}" method="post">
-                        <a style="display: block; color: black"
-                           href="#" onclick="parentNode.submit();"
-                           th:text="${group.getCreateData()}"></a>
-                        </form>
+                        <a type="button" th:href="@{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})}" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</a>
+                        <a type="button" th:href="@{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})}" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</a>
                     </td>
                 </tr>
             </tbody>

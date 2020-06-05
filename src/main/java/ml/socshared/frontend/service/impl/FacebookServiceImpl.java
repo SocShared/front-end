@@ -3,21 +3,13 @@ package ml.socshared.frontend.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.client.FacebookClient;
-import ml.socshared.frontend.client.GatewayServiceClient;
-import ml.socshared.frontend.client.StorageClient;
 import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.facebook.FacebookPage;
 import ml.socshared.frontend.domain.facebook.response.AccessUrlResponse;
 import ml.socshared.frontend.domain.facebook.response.FacebookGroupResponse;
-import ml.socshared.frontend.domain.model.BreadcrumbElement;
-import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.response.SuccessResponse;
-import ml.socshared.frontend.domain.storage.response.GroupResponseStorage;
 import ml.socshared.frontend.service.FacebookService;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor

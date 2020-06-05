@@ -11,6 +11,7 @@ import ml.socshared.frontend.domain.model.form.AppId;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
 import ml.socshared.frontend.domain.storage.response.Group;
 import ml.socshared.frontend.domain.storage.response.GroupResponseStorage;
+import ml.socshared.frontend.domain.vk.response.VkGroupResponse;
 import ml.socshared.frontend.service.VkService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,6 @@ public class VkServiceImpl implements VkService {
     final private VkAdapterClient vkClient;
     final private GatewayServiceClient gateClient;
     final private BStatClient bstatClient;
-    final private StorageClient storageClient;
 
 
     @Override
@@ -63,7 +63,7 @@ public class VkServiceImpl implements VkService {
     @Override
     public void getSelectionPageUserGroups(Pageable pageable, Model model, String token) {
         try {
-            Page<GroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageNumber(),
+            Page<VkGroupResponse> groupsPage = vkClient.getVkGroups(pageable.getPageNumber(),
                     pageable.getPageSize(), tokenConvert(token));
             model.addAttribute("groups_page", groupsPage);
             model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
@@ -81,7 +81,7 @@ public class VkServiceImpl implements VkService {
      */
     @Override
     public void getConnectedPageUserGroups(Pageable pageable, Model model, String token) {
-        Page<GroupResponseStorage> groupsPage = storageClient.getSelectedGroups(pageable.getPageNumber(),
+        Page<VkGroupResponse> groupsPage = vkClient.getSelectedGroups(pageable.getPageNumber(),
                 pageable.getPageSize(), tokenConvert(token));
         model.addAttribute("groups_page", groupsPage);
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
@@ -92,7 +92,12 @@ public class VkServiceImpl implements VkService {
     @Override
     public void connectByGroupId(String groupId, String token) {
         log.info("ПОДКЛЮЧЕНИЕ ГРУППЫ -> {}", groupId);
-        storageClient.connectVkGroupById(groupId, tokenConvert(token));
+        vkClient.connectVkGroupById(groupId, tokenConvert(token));
+    }
+
+    @Override
+    public void disconnectionGroupById(String vkGroupId, String jwtToken) {
+        vkClient.deleteGroupById(vkGroupId, tokenConvert(jwtToken));
     }
 
     private String tokenConvert(String token) {

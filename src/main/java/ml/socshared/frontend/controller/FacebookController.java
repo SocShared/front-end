@@ -57,13 +57,13 @@ public class FacebookController {
     @GetMapping("/social/facebook/groups/connection/{groupId}")
     public String connectionGroup(@PathVariable String groupId, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         GroupResponse groupResponse = service.addGroup(groupId, accessToken);
-        return "soc_fb_groups";
+        return "redirect:/social/facebook/groups";
     }
 
     @GetMapping("/social/facebook/groups/disconnection/{groupId}")
     public String disconnectionGroup(@PathVariable String groupId, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         service.deleteGroup(groupId, accessToken);
-        return "soc_fb_groups";
+        return "redirect:/social/facebook/groups";
     }
 
 }

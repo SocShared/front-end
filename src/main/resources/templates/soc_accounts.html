@@ -23,7 +23,7 @@
                 <a type="button" th:href="@{/social/facebook/turn_off}" th:if="${facebook_connect}"
                    class="btn sh-btn sh-btn-fb shadow">Отключить
                     <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
-                <a type="button" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow">Отключить
+                <a type="button" th:href="@{/social/disconnection/vk}" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow">Отключить
                     <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
             </div>
             <div class="col-6 text-right">

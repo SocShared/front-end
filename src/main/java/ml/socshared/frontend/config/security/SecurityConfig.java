@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-@Profile({Constants.DEV_PROFILE, Constants.PROD_PROFILE, Constants.LOCAL_PROFILE})
+@Profile({Constants.DEV_PROFILE, Constants.PROD_PROFILE, Constants.LOCAL_PROFILE, "home"})
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

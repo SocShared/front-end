@@ -2,19 +2,16 @@ package ml.socshared.frontend.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ml.socshared.frontend.client.GatewayServiceClient;
-import ml.socshared.frontend.client.mock.MockConstants;
 import ml.socshared.frontend.domain.model.form.AppId;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
 import ml.socshared.frontend.service.VkService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Controller
 @Slf4j
@@ -38,6 +35,13 @@ public class VkController {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
         return "connection_vk";
+    }
+
+    @GetMapping("social/disconnection/vk")
+    public String disconnectionVkAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        log.info("Request disconnection vk account");
+        service.vkDisconnection("Bearer " +  accessToken);
+        return "redirect:/social";
     }
 
     @PostMapping("/social/connection/vk")

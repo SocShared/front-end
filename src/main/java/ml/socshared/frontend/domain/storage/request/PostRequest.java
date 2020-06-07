@@ -10,12 +10,10 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class PublicationRequest {
+public class PostRequest {
 
     private Date publicationDateTime;
-    @NotEmpty
-    private String[] groupIds;
-    @NotNull
+    private GroupRequest groups;
     private PostType type;
     @NotNull
     private String text;

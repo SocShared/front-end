@@ -8,9 +8,12 @@ import ml.socshared.frontend.domain.tech_support.ShortQuestion;
 import ml.socshared.frontend.domain.tech_support.request.QuestionCreateRequest;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.response.SuccessResponse;
+import ml.socshared.frontend.domain.text.response.KeyWordResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @FeignClient(name = "GateWayClient", url = "${feign.url.api:}")
@@ -42,5 +45,12 @@ public interface GatewayServiceClient {
     @PostMapping("api/v1/protected/support/questions/")
     Integer addQuestion(@RequestBody QuestionCreateRequest question,
                         @RequestHeader("Authorization") String token);
+
+    @GetMapping(value = "/protected/text/keywords", produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    List<KeyWordResponse> getKeyWords(@NotNull @RequestBody String text,
+                                      @RequestParam(value = "min_len", defaultValue = "2") Integer minLength,
+                                      @RequestParam(value = "max_len", defaultValue  = "4") Integer maxLength,
+                                      @RequestHeader("Authorization") String token);
 
 }

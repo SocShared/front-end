@@ -1,15 +1,15 @@
 package ml.socshared.frontend.service.impl;
 
-import lombok.Data;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.client.StorageClient;
 import ml.socshared.frontend.domain.adapter.response.GroupResponse;
-import ml.socshared.frontend.domain.model.form.CheckBoxGroupForm;
 import ml.socshared.frontend.domain.model.form.PublicationForm;
-import ml.socshared.frontend.domain.storage.request.GroupRequest;
+import ml.socshared.frontend.domain.storage.PostType;
 import ml.socshared.frontend.domain.storage.request.PublicationRequest;
-import ml.socshared.frontend.domain.storage.response.Publication;
+import ml.socshared.frontend.domain.text.response.KeyWordResponse;
 import ml.socshared.frontend.exception.impl.HttpBadRequestException;
 import ml.socshared.frontend.service.PublicationService;
 import org.springframework.data.domain.Page;
@@ -17,12 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 @Service
 @Slf4j
@@ -31,6 +32,8 @@ public class PublicationServiceImpl implements PublicationService {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy h:mm a", Locale.ENGLISH);
     private final StorageClient storageClient;
+    private final GatewayServiceClient gatewayClient;
+
 
     @Override
     public void writePublicationPage(Model model, String accessToken) {
@@ -45,12 +48,12 @@ public class PublicationServiceImpl implements PublicationService {
         String[] groupsIds = new String[(int) groups.getTotalElements()];
         int totalPages = groups.getTotalPages();
         int elementIndex = 0;
-        for(GroupResponse g : groups) {
+        for (GroupResponse g : groups) {
             groupsIds[elementIndex] = g.getGroupId();
             elementIndex++;
         }
-        for(int i = 1; i < totalPages; i++) {
-            for(GroupResponse g : groups) {
+        for (int i = 1; i < totalPages; i++) {
+            for (GroupResponse g : groups) {
                 groupsIds[elementIndex] = g.getGroupId();
                 elementIndex++;
             }
@@ -61,34 +64,39 @@ public class PublicationServiceImpl implements PublicationService {
         storageClient.savePublication(p, storageToken(accessToken));
     }
 
+    @Override
+    public List<KeyWordResponse> getKeyWords(String text, String token) {
+        return gatewayClient.getKeyWords(text, null, null, "Bearer" + token);
+    }
+
+
     private PublicationRequest convertPublication(PublicationForm p) {
         final int ms = 1000;
         PublicationRequest pr = new PublicationRequest();
         pr.setText(p.getText());
         LocalDateTime time = null;
         try {
-            if(p.getDateTime() != "") {
+            if (p.getDateTime() != "") {
                 time = LocalDateTime.parse(p.getDateTime(), formatter);
-                Date d = new Date(time.toEpochSecond(ZoneOffset.UTC)*ms);
+                Date d = new Date(time.toEpochSecond(ZoneOffset.UTC) * ms);
                 pr.setPublicationDateTime(d);
             }
-        } catch(DateTimeParseException exp) {
+        } catch (DateTimeParseException exp) {
             String msg = String.format("invalid date time string format -> %s", p.getDateTime());
             log.warn(msg);
             throw new HttpBadRequestException(msg);
         }
 
-        if(p.getIsDeferred()) {
-            pr.setType(Publication.PostType.DEFERRED);
+        if (p.getIsDeferred()) {
+            pr.setType(PostType.DEFERRED);
         } else {
-            pr.setType(Publication.PostType.IN_REAL_TIME);
+            pr.setType(PostType.IN_REAL_TIME);
         }
         return pr;
     }
 
+
     String storageToken(String token) {
         return "Bearer " + token;
     }
-
-
 }

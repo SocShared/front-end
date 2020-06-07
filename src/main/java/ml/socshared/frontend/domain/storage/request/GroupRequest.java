@@ -1,7 +1,7 @@
 package ml.socshared.frontend.domain.storage.request;
 
 
-import ml.socshared.frontend.domain.storage.response.Group;
+import ml.socshared.frontend.domain.model.SocialNetwork;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ public class GroupRequest {
     UUID groupId;
     UUID userId;
     String name;
-    Group.SocialNetwork socialNetwork;
+   SocialNetwork socialNetwork;
     String facebookId;
     String vkId;
 }

@@ -13,15 +13,12 @@ import java.util.Date;
 @Setter
 public class PublicationRequest {
 
-    private GroupPostStatus.PostStatus postStatus;
     private Date publicationDateTime;
-    @NotEmpty
-    private String userId;
     @NotEmpty
     private String[] groupIds;
     @NotNull
     private Publication.PostType type;
     @NotNull
     private String text;
-
+    private String[] hashTags;
 }

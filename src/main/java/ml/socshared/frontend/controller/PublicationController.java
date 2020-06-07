@@ -8,11 +8,13 @@ import ml.socshared.frontend.domain.model.form.PublicationForm;
 import ml.socshared.frontend.service.PublicationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 
 @Controller
@@ -30,9 +32,15 @@ public class PublicationController {
     }
 
     @PostMapping("/publication")
-    public String sendPublication(@ModelAttribute PublicationForm post,
+    public String sendPublication(@Valid @ModelAttribute("publication") PublicationForm post,
+                                  BindingResult postBinding,
                                   Model model,
                                   @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken ) {
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("support", "Назад")), "Публикации"));
+        if(postBinding.hasErrors()) {
+            model.addAttribute("publication", post);
+            return "publication";
+        }
         service.sendPublication(post, model, accessToken);
         return "publication";
         }

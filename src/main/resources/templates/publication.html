@@ -14,25 +14,24 @@
 
     <!--TODO: сделать реализацию подключения к данным + добавить ajax на получение ключевых слов по тексту в рантайме-->
     <div class="row">
-        <div class="col content shadow" style="padding: 20px">
-            <div style="text-align: center; margin-bottom: 15px;"><h3>Формирование публикации</h3></div>
-            <form>
+        <div class="col content shadow">
+            <div style="text-align: center;"><h3>Формирование публикации</h3></div>
+            <form th:action="@{/publication}" th:object="${publication}" method="post">
+                <div class="text-danger" style="text-align: center;" th:if="${#fields.hasErrors()}"><h3>Ошибка отправки формы</h3></div>
                 <div class="form-group">
-                    <label for="text_publication"></label>
-                    <textarea class="form-control" id="text_publication" rows="7"></textarea>
+                    <label for="text_publication">Текст публикации</label>
+                    <br>
+                    <label class="text-danger" for="text_publication" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></label>
+                    <textarea class="form-control" id="text_publication" rows="7" th:field="*{text}"></textarea>
                 </div>
-
                 <div class="form-group">
-                    <button type="submit" class="btn sh-btn sh-btn-fb shadow">Выбрать группу</button>
-                </div>
-
-                <div class="form-group">
-                    <input id="is_deferred" type="checkbox" aria-label="Checkbox for following text input">
+                    <input th:field="*{isDeferred}" id="is_deferred" type="checkbox" aria-label="Checkbox for following text input">
                     <label for="is_deferred"> Хотите сделать публикацию отложенной?</label>
                 </div>
                 <div class="form-group">
-                    <div class="input-group date" id="timepicker" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#timepicker" readonly>
+                    <div class="input-group date" id="timepicker" data-target-input="nearest" >
+                        <input th:field="*{dateTime}" type="text" class="form-control datetimepicker-input" data-target="#timepicker">
+
                         <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>

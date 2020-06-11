@@ -6,6 +6,7 @@ import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.form.PublicationForm;
 import ml.socshared.frontend.service.PublicationService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @Slf4j
@@ -59,8 +61,16 @@ public class PublicationController {
         return "publication";
         }
 
+        @GetMapping("/social/vk/groups/{systemGroupId}/publications")
+        public String getPublicationsByGroupId(@PathVariable UUID systemGroupId,  Pageable pageable, Model model,
+                                               @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+            service.getPublicationsByGroupId(systemGroupId, pageable, model, accessToken);
+            return "group_publications";
+        }
+
     @PostMapping("/publication/keywords")
-    public String getKeywords(@RequestBody TextRequest request, Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+    public String getKeywords(@RequestBody TextRequest request, Model model,
+                              @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         List<KeyWordResponse> keyWordResponseList = service.getKeyWords(request.getText(), accessToken);
 
         model.addAttribute("keywords", keyWordResponseList);

@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import static ml.socshared.frontend.config.Constants.HOME_PROFILE;
 import static ml.socshared.frontend.config.Constants.TEST_PROFILE;
 
 

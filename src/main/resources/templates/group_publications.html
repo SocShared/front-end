@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+    <div class="container" th:each="post, i : ${post_page}">
+        <div class="row">
+            <div class="col">
+                <p th:text="${post.text}"></p>
+            </div>
+            <div class="w-100"></div>
+            <div class="col" >
+                <p>Время Публикации: </p>
+                <p th:text="${post.publicationDateTime}"></p>
+            </div>
+            <div class="col" th:text="${post.publicationDateTime}">
+                <p>Статус: </p>
+                <p th:text="${status_list[i.index]}"></p>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

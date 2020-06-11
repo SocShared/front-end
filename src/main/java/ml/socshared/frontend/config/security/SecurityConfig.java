@@ -8,9 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import static ml.socshared.frontend.config.Constants.HOME_PROFILE;
+
 @Configuration
 @EnableWebSecurity
-@Profile({Constants.DEV_PROFILE, Constants.PROD_PROFILE, Constants.LOCAL_PROFILE, "home"})
+@Profile({Constants.DEV_PROFILE, Constants.PROD_PROFILE, Constants.LOCAL_PROFILE, HOME_PROFILE})
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

@@ -17,8 +17,13 @@ public class FeignErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
+        String msg = "error: ";
+        if (response.body() != null)
+            msg += response.body().toString();
+        else
+            msg += "undefined";
+
         if (response.status() == 404) {
-            String msg = methodKey + " return error: " + response.body().toString();
             log.warn(msg);
             return new HttpNotFoundException(msg);
         } else if (response.status() == 401) {
@@ -26,12 +31,10 @@ public class FeignErrorDecoder implements ErrorDecoder {
         } else if (response.status() == 403) {
             return new HttpForbiddenException("forbidden");
         } else if (response.status() == 400) {
-            String msg = methodKey + " return error: " + response.body().toString();
             log.warn(msg);
             return new HttpNotFoundException(msg);
         }
 
-        String msg = "Unexpected error: " + response.status();
         return new Exception(msg);
     }
 

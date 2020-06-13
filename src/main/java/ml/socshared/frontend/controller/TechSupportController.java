@@ -63,7 +63,7 @@ public class TechSupportController {
     @PostMapping("support/questions")
     public void addQuestion(Model model,
                               @ModelAttribute FormCreateQuestion question,
-                            @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                              @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                               HttpServletResponse httpServletResponse) {
         log.info("Request add new question");
         UUID systemUserId = UUID.fromString("7f2596b9-7177-47cd-adb8-bb693cee5343");//Todo извлечение id пользователя из токена

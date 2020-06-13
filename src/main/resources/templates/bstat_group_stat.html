@@ -8,40 +8,45 @@
 
     <div class="row">
         <div class="col">
-            <canvas id="myChart" class="content shadow"></canvas>
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
         </div>
     </div>
 
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var scatterChart = new Chart(ctx, {
-            type: 'scatter',
-            data: {
-                datasets: [{
-                    label: 'Scatter Dataset',
-                    data: [{
-                        x: 1,
-                        y: 2
-                    }, {
-                        x: 0.5,
-                        y: 3
-                    }, {
-                        x: 0.6,
-                        y: 2.5
-                    }]
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        type: 'linear',
-                        position: 'bottom'
-                    }]
-                }
-            }
-        });
-    </script>
+    <div class="row">
+        <div class="col" th:insert="~{fragments/Chart :: chart(1, 'Онлайн', ${online_chart_labels}, ${online_chart_data}, 'blue')}"></div>
+        <div class="col" th:insert="~{fragments/Chart :: chart(2, 'Количество подписчиков', ${subscribers_chart_labels}, ${subscribers_chart_data}, 'blue')}"></div>
+    </div>
 
+        <div class="row" th:each="post, i : ${posts.content}">
+            <a th:href="@{./posts/{pid}/(pid=${post.publicationId})}"  class="col  content shadow">
+                <div class="row" >
+                    <div class="col sh-text-content" th:text="${post.text}"></div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col sh-support-text" th:switch="${statuses[i.index].name()}">
+                        <th:block th:case="${'PUBLISHED'}">Статус: Опубликовано</th:block>
+                        <th:block th:case="${'PROCESSING'}">Статус: В обработке</th:block>
+                        <th:block th:case="${'AWAITING'}">Статус: В ожидании</th:block>
+                        <th:block th:case="${'NOT_SUCCESSFUL'}">Статус: Не удалось опубликовать</th:block>
+                    </div>
+                    <div class="col sh-support-text" th:text="${post.publicationDateTime}"></div>
+                    </div>
+            </a>
+        </div>
+
+    <th:block th:if="${posts.getTotalElements() == 0}">
+        <div class="row content shadow">
+            <div class="col" >
+                <center>Вы еще не выполнили ни одной публикации через систему!</center>
+            </div>
+        </div>
+    </th:block>
+
+    <div class="row">
+        <div th:insert="~{fragments/pagination :: pagination(${posts})}" class="col sh-pagination-block"></div>
+    </div>
 
 </th:block>
 

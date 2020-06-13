@@ -5,14 +5,28 @@ body, html{
 
 .left-wrapper {
 	width: 260px;
-	height: 100%;
 	margin: 0;
 	float: left;
 	background-color: #0C2946;/*#343A40;*/
 	font-size: 2em;
 	color: white;
-		display: inline-block;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
 }
+.right-wrapper {
+	padding-left: 260px;
+}
+
+@media (max-width: 690px) {
+	.right-wrapper {
+		padding-left: 0px;
+	}
+}
+
 a{
 	color: white;
 }
@@ -40,6 +54,7 @@ a:hover{
 	background-color: white;
 	border-radius: 15px;
 	margin-top: 10px;
+
 }
 
 .nav-link {
@@ -274,4 +289,20 @@ a:hover{
 	font-size: 15pt;
 	text-align: center;
 	border-bottom: black solid 2px;
+}
+
+.sh-text-content {
+	font-size: 16pt;
+}
+.sh-support-text {
+	font-size: 14pt;
+}
+
+a.col {
+	text-decoration: none;
+	color: #000 !important;
+}
+
+.sh-container-wrapper {
+	position: relative;
 }

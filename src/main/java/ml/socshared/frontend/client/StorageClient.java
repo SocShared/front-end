@@ -34,4 +34,10 @@ public interface StorageClient {
                                                   @RequestParam Integer size,
                                                   @RequestHeader("Authorization") String token);
 
+    @PreAuthorize("hasRole('CONTENT_MANAGER')")
+    @GetMapping("api/v1/protected/groups/{systemGroupId}/posts")
+    Page<PublicationResponse> getPostList(@PathVariable UUID systemGroupId,
+                                                 @RequestParam Integer page,
+                                                 @RequestParam Integer size);
+
 }

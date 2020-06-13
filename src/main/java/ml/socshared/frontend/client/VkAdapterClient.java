@@ -28,4 +28,6 @@ public interface VkAdapterClient {
     @GetMapping("api/v1/protected/social/vk/groups")
     RestResponsePage<VkGroupResponse> getSelectedGroups(@RequestParam("page") Integer page, @RequestParam("size") Integer size,
                                                              @RequestHeader("Authorization") String token );
+
+
 }

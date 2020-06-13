@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 import ml.socshared.frontend.domain.storage.request.GroupRequest;
-import ml.socshared.frontend.domain.storage.request.PostRequest;
 import ml.socshared.frontend.domain.text.request.TextRequest;
 import ml.socshared.frontend.domain.text.response.KeyWordResponse;
 import ml.socshared.frontend.service.PublicationService;

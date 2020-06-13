@@ -12,18 +12,29 @@
         </div>
     </div>
 
-
-
-    <div style="padding: " th:each="post : ${posts.content}">
-        <div class="row content shadow">
-            <div class="col" >
-                <div class="sh-info" th:text="${post.text}"></div>
-            </div>
-            <div class="w-100"></div>
-            <div class="col" th:text="${post.postStatus}"></div>
-            <div class="col" th:text="${post.publicationDateTime}"></div>
-        </div>
+    <div class="row">
+        <div class="col" th:insert="~{fragments/Chart :: chart(1, 'Онлайн', ${online_chart_labels}, ${online_chart_data}, 'blue')}"></div>
+        <div class="col" th:insert="~{fragments/Chart :: chart(2, 'Количество подписчиков', ${subscribers_chart_labels}, ${subscribers_chart_data}, 'blue')}"></div>
     </div>
+
+        <div class="row" th:each="post, i : ${posts.content}">
+            <a th:href="@{./posts/{pid}/(pid=${post.publicationId})}"  class="col  content shadow">
+                <div class="row" >
+                    <div class="col sh-text-content" th:text="${post.text}"></div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col sh-support-text" th:switch="${statuses[i.index].name()}">
+                        <th:block th:case="${'PUBLISHED'}">Статус: Опубликовано</th:block>
+                        <th:block th:case="${'PROCESSING'}">Статус: В обработке</th:block>
+                        <th:block th:case="${'AWAITING'}">Статус: В ожидании</th:block>
+                        <th:block th:case="${'NOT_SUCCESSFUL'}">Статус: Не удалось опубликовать</th:block>
+                    </div>
+                    <div class="col sh-support-text" th:text="${post.publicationDateTime}"></div>
+                    </div>
+            </a>
+        </div>
 
     <th:block th:if="${posts.getTotalElements() == 0}">
         <div class="row content shadow">

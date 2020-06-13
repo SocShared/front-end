@@ -28,9 +28,13 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
 </head>
 
-<body>
+<body >
+<div class="left-wrapper d-none d-sm-none d-md-block" style="position: absolute"></div>
 
-<div class="left-wrapper d-none d-sm-none d-md-block ">
+<div class="sh-container-wrapper">
+
+
+    <div class="left-wrapper d-none d-sm-none d-md-block ">
     <div class="logo shadow">SocShared</div>
 
     <nav>
@@ -54,10 +58,7 @@
     </nav>
 
 </div>
-<div>
-
-
-    <div class="container-flux ">
+    <div class="right-wrapper container-flux ">
 
         <nav class="navbar navbar-expand-lg navbar-light  bar shadow">
             <a class="navbar-brand" href="#">Navbar</a>
@@ -79,8 +80,8 @@
         <div layout:fragment="content">Ошибка загрузки страницы!</div>
 
     </div>
-</div>
 
+</div>
 
 </body>
 </html>

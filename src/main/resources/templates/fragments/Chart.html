@@ -14,8 +14,10 @@
 </th:block>
 
 <th:block th:fragment="chart(index_chart, name, labels, data, color)">
-        <div class="col">
-            <canvas th:id="${'myChart_' + index_chart}" class="content shadow"></canvas>
+        <div class="row content shadow">
+            <div class="col">
+                <canvas th:id="${'myChart_' + index_chart}" ></canvas>
+            </div>
         </div>
 
     <script th:inline="javascript">

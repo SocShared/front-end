@@ -18,7 +18,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PublicationResponse {
 
-
     private UUID publicationId;
     private UUID userId;
     private String text;

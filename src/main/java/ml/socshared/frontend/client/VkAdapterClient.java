@@ -1,6 +1,8 @@
 package ml.socshared.frontend.client;
 
+import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.response.RestResponsePage;
+import ml.socshared.frontend.domain.storage.response.GroupResponseStorage;
 import ml.socshared.frontend.domain.vk.response.VkGroupResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

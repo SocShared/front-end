@@ -47,6 +47,5 @@ public class FacebookServiceImpl implements FacebookService {
     @Override
     public void deleteFacebookAccount(String token) {
         facebookClient.deleteFacebookAccount("Bearer " + token);
-
     }
 }

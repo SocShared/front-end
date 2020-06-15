@@ -50,22 +50,22 @@ public class PublicationController {
     public String sendPublication(@Valid @ModelAttribute("publication") PublicationForm post,
                                   BindingResult postBinding,
                                   Model model,
-                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken ) {
+                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("support", "Назад")), "Публикации"));
-        if(postBinding.hasErrors()) {
+        if (postBinding.hasErrors()) {
             model.addAttribute("publication", post);
             return "publication";
         }
         service.sendPublication(post, model, accessToken);
         return "publication";
-        }
+    }
 
-        @GetMapping("/social/vk/groups/{systemGroupId}/publications")
-        public String getPublicationsByGroupId(@PathVariable UUID systemGroupId,  Pageable pageable, Model model,
-                                               @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-            service.getPublicationsByGroupId(systemGroupId, pageable, model, accessToken);
-            return "group_publications";
-        }
+    @GetMapping("/social/vk/groups/{systemGroupId}/publications")
+    public String getPublicationsByGroupId(@PathVariable UUID systemGroupId, Pageable pageable, Model model,
+                                           @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        service.getPublicationsByGroupId(systemGroupId, pageable, model, accessToken);
+        return "group_publications";
+    }
 
     @PostMapping("/publication/keywords")
     public String getKeywords(@RequestBody TextRequest request, Model model,

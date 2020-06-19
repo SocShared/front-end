@@ -13,9 +13,11 @@
     </div>
 
     <!--TODO: сделать реализацию подключения к данным + добавить ajax на получение ключевых слов по тексту в рантайме-->
-    <div class="row">
-        <div class="col content shadow">
+    <div class="row content shadow">
+        <div class="col-12">
             <div style="text-align: center;"><h3>Формирование публикации</h3></div>
+        </div>
+        <div class="col-12">
             <form th:action="@{/publication}" th:object="${publication}" method="post">
                 <div class="text-danger" style="text-align: center;" th:if="${#fields.hasErrors()}"><h3>Ошибка отправки формы</h3></div>
                 <div class="form-group">

@@ -1,5 +1,6 @@
 package ml.socshared.frontend.client;
 
+import ml.socshared.frontend.config.feign.DefaultClientConfiguration;
 import ml.socshared.frontend.domain.facebook.response.AccessUrlResponse;
 import ml.socshared.frontend.domain.response.SocialAccountResponse;
 import ml.socshared.frontend.domain.tech_support.Comment;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@FeignClient(name = "GateWayClient", url = "${feign.url.api:}")
+@FeignClient(name = "GateWayClient", url = "${feign.url.api:}", configuration = DefaultClientConfiguration.class)
 public interface GatewayServiceClient {
 
     @GetMapping("/api/v1/protected/social/accounts")
@@ -42,7 +43,7 @@ public interface GatewayServiceClient {
                                  @RequestBody Comment comment,
                                  @RequestHeader("Authorization") String token);
 
-    @PostMapping("api/v1/protected/support/questions/")
+    @PostMapping("api/v1/protected/support/questions")
     Integer addQuestion(@RequestBody QuestionCreateRequest question,
                         @RequestHeader("Authorization") String token);
 

@@ -43,11 +43,11 @@
                 <a class="nav-link active icon-options" th:href="@{/publication}">Публикация</a>
             </li>
             <li class="nav-item menu-item">
-                <a class="nav-link active icon-options" th:href="@{/publication}">Список публикаций</a>
+                <a class="nav-link active icon-options" th:href="@{/social}">Аккаунты</a>
             </li>
-            <li class="nav-item menu-item">
-                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>
-            </li>
+<!--            <li class="nav-item menu-item">-->
+<!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
+<!--            </li>-->
             <li class="nav-item menu-item">
                 <a class="nav-link icon-support" th:href="@{/support}">Поддержка</a>
             </li>
@@ -61,23 +61,29 @@
     <div class="right-wrapper container-flux ">
 
         <nav class="navbar navbar-expand-lg navbar-light  bar shadow">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            <a class="navbar-brand d-block d-sm-block d-md-none" href="#">SocShared</a>
+
+            <button class="navbar-toggler text-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">Features</a>
-                    <a class="nav-item nav-link" href="#">Pricing</a>
-                    <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <div class="d-block d-sm-block d-md-none">
+                        <a class="nav-item nav-link" href="#" th:href="@{/publication}">Создать публикацию</a>
+                        <a class="nav-item nav-link" href="#" th:href="@{/social}">Социальные аккаунты</a>
+                        <a class="nav-item nav-link" href="#" th:href="@{/support}">Поддержка</a>
+                    </div>
                 </div>
             </div>
+            <div class="text-right">
+                <a th:href="@{/exit}" class="btn sh-btn-outline my-2 my-sm-0" type="submit">Выйти</a>
+            </div>
+
         </nav>
         <!-- таблица со списком подключенных аккаунтов-->
 
-        <div layout:fragment="content">Ошибка загрузки страницы!</div>
+                <div layout:fragment="content">Ошибка загрузки страницы!</div>
 
     </div>
 

@@ -1,5 +1,6 @@
 package ml.socshared.frontend.client;
 
+import ml.socshared.frontend.config.feign.BStatClientConfiguration;
 import ml.socshared.frontend.domain.bstat.response.GroupInfoResponse;
 import ml.socshared.frontend.domain.bstat.response.PostInfoByTimeResponse;
 import ml.socshared.frontend.domain.bstat.response.TimeSeries;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.UUID;
 
-@FeignClient(name="BStatApi", url="${feign.url.api}")
+@FeignClient(name="BStatApi", url="${feign.url.api}", configuration = BStatClientConfiguration.class)
 public interface BStatClient {
     @GetMapping("/api/v1/protected/social/{soc}/groups/{systemGroupId}/stat")
     GroupInfoResponse getStatisticOfGroup(@PathVariable UUID systemGroupId, @PathVariable SocialNetwork soc,

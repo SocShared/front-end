@@ -1,6 +1,7 @@
 package ml.socshared.frontend.client;
 
 
+import ml.socshared.frontend.config.feign.DefaultClientConfiguration;
 import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.storage.request.PublicationRequest;
@@ -17,7 +18,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@FeignClient(name="StorageApi", url = "${feign.url.api}")
+@FeignClient(name="StorageApi", url = "${feign.url.api}", configuration = DefaultClientConfiguration.class)
 public interface StorageClient {
 
     @PostMapping("api/v1/protected/posts")

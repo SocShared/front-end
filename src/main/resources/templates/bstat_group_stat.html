@@ -11,15 +11,17 @@
             <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col" th:insert="~{fragments/Chart :: chart(1, 'Онлайн', ${online_chart_labels}, ${online_chart_data}, 'blue')}"></div>
-        <div class="col" th:insert="~{fragments/Chart :: chart(2, 'Количество подписчиков', ${subscribers_chart_labels}, ${subscribers_chart_data}, 'blue')}"></div>
-    </div>
+    <th:block th:if="${stat_access}">
+        <div class="row">
+            <div class="col"
+                 th:insert="~{fragments/Chart :: chart(1, 'Онлайн', ${online_chart_labels}, ${online_chart_data}, 'blue')}"></div>
+            <div class="col"
+                 th:insert="~{fragments/Chart :: chart(2, 'Количество подписчиков', ${subscribers_chart_labels}, ${subscribers_chart_data}, 'blue')}"></div>
+        </div>
 
         <div class="row" th:each="post, i : ${posts.content}">
-            <a th:href="@{./posts/{pid}/(pid=${post.publicationId})}"  class="col  content shadow">
-                <div class="row" >
+            <a th:href="@{./posts/{pid}/(pid=${post.publicationId})}" class="col  content shadow">
+                <div class="row">
                     <div class="col sh-text-content" th:text="${post.text}"></div>
                 </div>
 
@@ -32,22 +34,28 @@
                         <th:block th:case="${'NOT_SUCCESSFUL'}">Статус: Не удалось опубликовать</th:block>
                     </div>
                     <div class="col sh-support-text" th:text="${post.publicationDateTime}"></div>
-                    </div>
+                </div>
             </a>
         </div>
 
-    <th:block th:if="${posts.getTotalElements() == 0}">
-        <div class="row content shadow">
-            <div class="col" >
-                <center>Вы еще не выполнили ни одной публикации через систему!</center>
+        <th:block th:if="${posts.getTotalElements() == 0}">
+            <div class="row content shadow">
+                <div class="col">
+                    <center>Вы еще не выполнили ни одной публикации через систему!</center>
+                </div>
             </div>
+        </th:block>
+
+        <div class="row">
+            <div th:insert="~{fragments/pagination :: pagination(${posts})}" class="col sh-pagination-block"></div>
         </div>
     </th:block>
 
-    <div class="row">
-        <div th:insert="~{fragments/pagination :: pagination(${posts})}" class="col sh-pagination-block"></div>
-    </div>
-
+    <th:block th:unless="${stat_access}">
+        <div class="row">
+            <div class="col">Статистика по группе не доступна.</div>
+        </div>
+    </th:block>
 </th:block>
 
 </body>

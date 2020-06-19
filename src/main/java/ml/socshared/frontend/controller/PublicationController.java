@@ -5,29 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.form.PublicationForm;
+import ml.socshared.frontend.domain.text.request.TextRequest;
+import ml.socshared.frontend.domain.text.response.KeyWordResponse;
 import ml.socshared.frontend.service.PublicationService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.validation.Valid;
-
-import ml.socshared.frontend.domain.storage.request.GroupRequest;
-import ml.socshared.frontend.domain.storage.request.PostRequest;
-import ml.socshared.frontend.domain.text.request.TextRequest;
-import ml.socshared.frontend.domain.text.response.KeyWordResponse;
-import ml.socshared.frontend.service.PublicationService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;

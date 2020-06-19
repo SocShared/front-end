@@ -6,7 +6,12 @@
 
 <th:block layout:fragment="content">
 
-    <p>Непредвиденная ошибка! =(</p>
+<!--    Тут должен быть вставляемый шаблон-->
+    <div class="row content shadow" style="margin-top: 20px">
+        <div class="col">
+            <h2 style="text-align: center;" th:text="${message}"></h2>
+        </div>
+    </div>
 
 </th:block>
 

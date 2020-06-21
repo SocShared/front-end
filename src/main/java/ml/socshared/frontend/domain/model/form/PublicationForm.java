@@ -14,7 +14,7 @@ public class PublicationForm {
     private String text;
     private String dateTime;
     private Boolean isDeferred;
-    @Pattern(regexp = "([\\d\\w\\s@]*(,?[\\d\\w\\s@])*)*")
+    @Pattern(regexp = "([\\d[A-z][А-я]\\s@]*(,?[\\d[A-z][А-я]\\s@])*)*")
     private String keywords;
 
 }

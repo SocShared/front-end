@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+    </div>
+
+    <div class="row content shadow">
+        <div class="col-12">
+            <div style="text-align: center;"><h3>Приложения OAuth2</h3></div>
+        </div>
+        <div class="col-12">
+            <form th:action="@{/clients}" th:object="${publication}" method="post">
+                <div class="text-danger" style="text-align: center;" th:if="${#fields.hasErrors()}"><h3>Ошибка отправки формы</h3></div>
+                <div class="form-group">
+                    <label for="text_publication">Текст публикации</label>
+                    <textarea class="form-control" id="text_publication" rows="7" th:field="*{text}"></textarea>
+                    <ul class="text-danger" th:each="error: ${#fields.errors('text')}" style="margin-left: 25px">
+                        <li th:each="message : ${error.split(',')}">
+                            <p class="error-message" th:text="${message}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="keywords">Ключевые слова</label>
+                    <input id="keywords" class="form-control" th:field="*{keywords}">
+                    <ul class="text-danger" th:each="error: ${#fields.errors('keywords')}" style="margin-left: 25px">
+                        <li th:each="message : ${error.split(',')}">
+                            <p class="error-message" th:text="${message}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <input th:field="*{isDeferred}" id="is_deferred" type="checkbox" aria-label="Checkbox for following text input">
+                    <label for="is_deferred"> Хотите сделать публикацию отложенной?</label>
+                </div>
+                <div class="form-group">
+                    <div class="input-group date" id="timepicker" data-target-input="nearest" >
+                        <input th:field="*{dateTime}" type="text" class="form-control datetimepicker-input" data-target="#timepicker">
+
+                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#timepicker').datetimepicker();
+                        });
+                    </script>
+                </div>
+                <button type="submit" class="btn sh-btn sh-btn-fb shadow">Произвести публикацию</button>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

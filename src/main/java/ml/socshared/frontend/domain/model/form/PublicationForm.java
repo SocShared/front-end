@@ -14,7 +14,8 @@ public class PublicationForm {
     private String text;
     private String dateTime;
     private Boolean isDeferred;
-    @Pattern(regexp = "([\\d[A-z][А-я]\\s@]*(,?[\\d[A-z][А-я]\\s@])*)*")
+    @Pattern(regexp = "([\\dA-zА-я\\s@]*(,?[\\dA-zА-я\\s@])*)*",
+            message = "Ключевые слова должны быть разделены запятыми и могут содержать цифры, буквы, пробелы и символ @")
     private String keywords;
 
 }

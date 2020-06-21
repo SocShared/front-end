@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +29,7 @@ public class PublicationController {
 
     @GetMapping("/publication")
     public String getPublication(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("support", "Назад")), "Публикации"));
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Публикации"));
 
         service.writePublicationPage(model, accessToken);
         return "publication";
@@ -39,7 +40,7 @@ public class PublicationController {
                                   BindingResult postBinding,
                                   Model model,
                                   @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("support", "Назад")), "Публикации"));
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Публикации"));
         if (postBinding.hasErrors()) {
             model.addAttribute("publication", post);
             return "publication";

@@ -22,9 +22,21 @@
                 <div class="text-danger" style="text-align: center;" th:if="${#fields.hasErrors()}"><h3>Ошибка отправки формы</h3></div>
                 <div class="form-group">
                     <label for="text_publication">Текст публикации</label>
-                    <br>
-                    <label class="text-danger" for="text_publication" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></label>
                     <textarea class="form-control" id="text_publication" rows="7" th:field="*{text}"></textarea>
+                    <ul class="text-danger" th:each="error: ${#fields.errors('text')}" style="margin-left: 25px">
+                        <li th:each="message : ${error.split(',')}">
+                            <p class="error-message" th:text="${message}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="keywords">Ключевые слова</label>
+                    <input id="keywords" class="form-control" th:field="*{keywords}">
+                    <ul class="text-danger" th:each="error: ${#fields.errors('keywords')}" style="margin-left: 25px">
+                        <li th:each="message : ${error.split(',')}">
+                            <p class="error-message" th:text="${message}"></p>
+                        </li>
+                    </ul>
                 </div>
                 <div class="form-group">
                     <input th:field="*{isDeferred}" id="is_deferred" type="checkbox" aria-label="Checkbox for following text input">

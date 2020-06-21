@@ -10,7 +10,7 @@ public class GroupRequest {
     UUID groupId;
     UUID userId;
     String name;
-   SocialNetwork socialNetwork;
-    String facebookId;
-    String vkId;
+    SocialNetwork socialNetwork;
+    String groupFacebookId;
+    String groupVkId;
 }

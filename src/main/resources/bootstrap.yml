@@ -5,6 +5,6 @@ server:
       enabled: false
 spring:
   application:
-    name: socshared-frontend
+    name: frontend
   profiles:
     active: ${SPRING_PROFILE:local}

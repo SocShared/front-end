@@ -14,6 +14,6 @@ public class GroupResponseStorage {
     UUID userId;
     String name;
     SocialNetwork socialNetwork;
-    String facebookId;
-    String vkId;
+    String groupFacebookId;
+    String groupVkId;
 }

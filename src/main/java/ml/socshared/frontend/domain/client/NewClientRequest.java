@@ -3,6 +3,7 @@ package ml.socshared.frontend.domain.client;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +17,7 @@ public class NewClientRequest {
     @NotNull
     private AccessType accessType;
 
+    @URL(message = "Ожидалось URL")
     private String validRedirectUri;
 
 }

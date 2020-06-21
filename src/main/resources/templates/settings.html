@@ -12,41 +12,39 @@
         </div>
     </div>
 
+    <!-- TODO: Сделать страницу списка клиентов и добавить возможность создать нового клиента -->
     <div class="row content shadow">
         <div class="col-12">
             <div style="text-align: center;"><h3>Приложения OAuth2</h3></div>
         </div>
         <div class="col-12">
-            <form th:action="@{/clients}" th:object="${publication}" method="post">
+            <form th:action="@{/settings}" th:object="${client}" method="post">
                 <div class="form-group">
-                    <label for="keywords">Ключевые слова</label>
-                    <input id="keywords" class="form-control" th:field="*{keywords}">
-                    <ul class="text-danger" th:each="error: ${#fields.errors('keywords')}" style="margin-left: 25px">
+                    <label for="name">Имя приложения</label>
+                    <input id="name" class="form-control" th:field="*{name}">
+                    <ul class="text-danger" th:each="error: ${#fields.errors('name')}" style="margin-left: 25px">
                         <li th:each="message : ${error.split(',')}">
                             <p class="error-message" th:text="${message}"></p>
                         </li>
                     </ul>
                 </div>
                 <div class="form-group">
-                    <input th:field="*{isDeferred}" id="is_deferred" type="checkbox" aria-label="Checkbox for following text input">
-                    <label for="is_deferred"> Хотите сделать публикацию отложенной?</label>
+                    <label for="type">Тип клиента</label>
+                    <select id="type" name="type" th:field="*{accessType}">
+                        <option th:each="accessTypeOpt : ${T(ml.socshared.frontend.domain.client.AccessType).values()}"
+                                th:value="${accessTypeOpt}" th:text="${accessTypeOpt}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <div class="input-group date" id="timepicker" data-target-input="nearest" >
-                        <input th:field="*{dateTime}" type="text" class="form-control datetimepicker-input" data-target="#timepicker">
-
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#timepicker').datetimepicker();
-                        });
-                    </script>
+                    <label for="valid-redirect-uri">Valid Redirect Uri</label>
+                    <input id="valid-redirect-uri" class="form-control" th:field="*{validRedirectUri}">
+                    <ul class="text-danger" th:each="error: ${#fields.errors('validRedirectUri')}" style="margin-left: 25px">
+                        <li th:each="message : ${error.split(',')}">
+                            <p class="error-message" th:text="${message}"></p>
+                        </li>
+                    </ul>
                 </div>
-                <button type="submit" class="btn sh-btn sh-btn-fb shadow">Произвести публикацию</button>
+                <button type="submit" class="btn sh-btn sh-btn-fb shadow">Добавить приложение</button>
             </form>
         </div>
     </div>

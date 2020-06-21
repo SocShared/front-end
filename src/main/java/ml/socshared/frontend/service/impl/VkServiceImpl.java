@@ -2,9 +2,7 @@ package ml.socshared.frontend.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ml.socshared.frontend.client.BStatClient;
-import ml.socshared.frontend.client.GatewayServiceClient;
-import ml.socshared.frontend.client.VkAdapterClient;
+import ml.socshared.frontend.client.*;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.form.AppId;

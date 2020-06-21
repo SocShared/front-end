@@ -11,12 +11,14 @@ import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.LinearChart;
 import ml.socshared.frontend.domain.model.SocialNetwork;
+import ml.socshared.frontend.domain.model.form.DurationStat;
 import ml.socshared.frontend.domain.storage.GroupPostStatus;
 import ml.socshared.frontend.domain.storage.PostType;
 import ml.socshared.frontend.domain.storage.response.PostStatus;
 import ml.socshared.frontend.domain.storage.response.PublicationResponse;
+import ml.socshared.frontend.exception.impl.HttpNotFoundException;
 import ml.socshared.frontend.service.BStatService;
-import org.apache.tomcat.jni.Local;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -25,10 +27,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.lang.reflect.UndeclaredThrowableException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -42,9 +43,11 @@ public class BStatServiceImpl implements BStatService {
     private final BStatClient bStatClient;
     private final StorageClient storageCLient;
 
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.ENGLISH);
+
 
     @Override
-    public void getGroupStatPage(UUID systemGroupId, Model model, Pageable pageable, String accessToken) {
+    public void getGroupStatPage(UUID systemGroupId, SocialNetwork soc, Model model, DurationStat duration, Pageable pageable, String accessToken) {
 //        TimeSeries<Integer> groupOnline = new TimeSeries<>();
 //        LocalDateTime beginDate = LocalDateTime.now().minusMinutes(50);
 //        List<TimePoint<Integer>> online =Arrays.asList(
@@ -79,30 +82,35 @@ public class BStatServiceImpl implements BStatService {
 //                        LocalDateTime.now(), status, PostType.IN_REAL_TIME)
 //        ));
 
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
-                new BreadcrumbElement("social", "Социальные аккунты"),
-                new BreadcrumbElement("social", "Группы ВК"),
-                new BreadcrumbElement("social", "Статистика и публикации")),
-                "Статистика публикации"));
 
-        ZonedDateTime currentTime = ZonedDateTime.now(ZoneOffset.UTC);
-        GroupInfoResponse groupInfo = null;
-        try {
-           groupInfo = bStatClient.getStatisticOfGroup(systemGroupId, SocialNetwork.VK, currentTime.minusDays(2).toEpochSecond(),
-                    currentTime.plusDays(2).toEpochSecond(), "Bearer "+accessToken);
-        } catch (Exception exp) {
-            String msg = "";
-            if(exp instanceof UndeclaredThrowableException) {
-                msg = ((UndeclaredThrowableException) exp).getUndeclaredThrowable().getMessage();
-            } else {
-                msg = exp.getMessage();
-            }
-            log.error("BStat connection error: {}", msg);
-            model.addAttribute("stat_access", false);
-            throw exp;
+        Pair<LocalDate, LocalDate> dt = convertDurationToTimes(duration);
+        if(soc == SocialNetwork.VK) {
+            getVkGroupStatPage(systemGroupId, model,dt.getFirst(), dt.getSecond(), pageable, accessToken);
+        } else {
+            getFbGroupStatPage(systemGroupId, model, dt.getFirst(), dt.getSecond(), pageable, accessToken);
         }
 
+    }
 
+    public void getVkGroupStatPage(UUID systemGroupId, Model model, LocalDate begin, LocalDate end, Pageable pageable, String accessToken) {
+        GroupInfoResponse groupInfo = null;
+
+       try {
+           groupInfo = getGroupInfo(systemGroupId, SocialNetwork.VK, begin, end, accessToken);
+       } catch (HttpNotFoundException exp) {
+           log.warn("Info for group {} not found by period {} - {}", systemGroupId, begin, end);
+           groupInfo = new GroupInfoResponse();
+           groupInfo.setGroupId("");
+           TimeSeries ts = new TimeSeries();
+           ts.setSize(0);
+           ts.setData(Collections.emptyList());
+           ts.setBegin(begin);
+           ts.setEnd(end);
+           groupInfo.setOnline(ts);
+           groupInfo.setSubscribers(ts);
+           groupInfo.setSocialNetwork(SocialNetwork.VK);
+           model.addAttribute("not_found_data_text", "Статистика по заданному периоду отстутсвует");
+       }
 
 
         Page<PublicationResponse> postsPage =  storageCLient.getPostList(systemGroupId, pageable.getPageNumber(), pageable.getPageSize(), "Bearer "+accessToken);
@@ -110,40 +118,62 @@ public class BStatServiceImpl implements BStatService {
         Pair<List<Integer>, List<String>> onlineChart = convertArrayTimePointToChartView(groupInfo.getOnline().getData());
         Pair<List<Integer>, List<String>> subscribersChart = convertArrayTimePointToChartView(groupInfo.getSubscribers().getData());
 
-        List<PostStatus> statuses = new ArrayList<>(postsPage.getNumberOfElements());
-        for(PublicationResponse post : postsPage) {
-            boolean isFound = false;
-            for(GroupPostStatus s : post.getPostStatus()) {
+        List<PostStatus> statuses = getPostsStatus(postsPage, systemGroupId);
 
-                if(systemGroupId.equals(s.getGroupId())) {
-                    statuses.add(s.getPostStatus());
-                    isFound = true;
-                    break;
-                }
-            }
-            if(!isFound) {
-                log.error("Internal Error: invalid state data base of storage service. Storage service returned " +
-                                "post (id: {}), which don't have postStatus current group (id: {})", post.getPublicationId(),
-                        systemGroupId);
-                statuses.add(PostStatus.NOT_SUCCESSFUL);
-            }
-        }
 
 
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
-                        new BreadcrumbElement("social", "Социальные аккунты"),
-                        new BreadcrumbElement("social", "Группы ВК")),
+                new BreadcrumbElement("social", "Социальные аккунты"),
+                new BreadcrumbElement("social/vk/groups", "Группы ВК")),
                 "Статистика и публикации"));
-        model.addAttribute("online_chart_data", onlineChart.getFirst());
-        model.addAttribute("online_chart_labels", onlineChart.getSecond());
-        model.addAttribute("subscribers_chart_data", subscribersChart.getFirst());
-        model.addAttribute("subscribers_chart_labels", subscribersChart.getSecond());
+        model.addAttribute("charts", Arrays.asList(
+                Pair.of("Онлайн", onlineChart),
+                Pair.of("Количество одписчиков", subscribersChart)
+        ));
         model.addAttribute("posts", postsPage);
         model.addAttribute("statuses", statuses);
+        model.addAttribute("duration", new DurationStat(begin.format(formatter), end.format(formatter)));
+    }
+
+    public void getFbGroupStatPage(UUID systemGroupId, Model model, LocalDate begin, LocalDate end, Pageable pageable, String accessToken) {
+
+        GroupInfoResponse groupInfo = null;
+
+        try {
+            groupInfo = getGroupInfo(systemGroupId, SocialNetwork.FACEBOOK, begin, end, accessToken);
+        } catch (HttpNotFoundException exp) {
+            log.warn("Info for group {} not found by period {} - {}", systemGroupId, begin, end);
+            groupInfo = new GroupInfoResponse();
+            groupInfo.setGroupId("");
+            TimeSeries ts = new TimeSeries();
+            ts.setSize(0);
+            ts.setData(Collections.emptyList());
+            ts.setBegin(begin);
+            ts.setEnd(end);
+            groupInfo.setOnline(ts);
+            groupInfo.setSubscribers(ts);
+            groupInfo.setSocialNetwork(SocialNetwork.VK);
+            model.addAttribute("not_found_data_text", "Статистика по заданному периоду отстутсвует");
+        }
+
+        Page<PublicationResponse> postsPage =  storageCLient.getPostList(systemGroupId, pageable.getPageNumber(), pageable.getPageSize(), "Bearer "+accessToken);
+
+        Pair<List<Integer>, List<String>> funChart = convertArrayTimePointToChartView(groupInfo.getSubscribers().getData());
+
+        List<PostStatus> statuses = getPostsStatus(postsPage, systemGroupId);
+
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
+                new BreadcrumbElement("social", "Социальные аккунты"),
+                new BreadcrumbElement("social/fb/groups", "Группы FB")),
+                "Статистика и публикации"));
+        model.addAttribute("charts", Collections.singletonList(Pair.of("Фанаты", funChart)));
+        model.addAttribute("posts", postsPage);
+        model.addAttribute("statuses", statuses);
+        model.addAttribute("duration", new DurationStat(begin.format(formatter), end.format(formatter)));
     }
 
     @Override
-    public void getPostStatPage(UUID systemGroupId, UUID systemPostId,SocialNetwork soc, Model model, String accessToken) {
+    public void getPostStatPage(UUID systemGroupId, UUID systemPostId,SocialNetwork soc, Model model,DurationStat duration, String accessToken) {
 //        PostInfoByTimeResponse response = new PostInfoByTimeResponse();
 //        LocalDateTime dateTime = LocalDateTime.now().minusMinutes(50);
 //        List<TimePoint<Integer>> variability = Arrays.asList(
@@ -159,10 +189,29 @@ public class BStatServiceImpl implements BStatService {
 //        response.setVariabilityNumberShares(new DataList<>(variability.size(), variability));
 //        response.setVariabilityNumberLikes(new DataList<>(variability.size(), variability));
 //        response.setVariabilityNumberViews(new DataList<>(variability.size(), variability));
+        Pair<LocalDate, LocalDate> dt = convertDurationToTimes(duration);
+        PostInfoByTimeResponse response = null;
+        try{
+            response = bStatClient.getStatisticOfPost(systemGroupId, systemPostId, soc,
+                dt.getFirst().toEpochSecond(LocalTime.MIN,ZoneOffset.UTC),
+                dt.getSecond().toEpochSecond(LocalTime.MIN,ZoneOffset.UTC), "Bearer " + accessToken);
+        } catch (HttpNotFoundException exp) {
+            log.warn("Info for post (GroupId: {}, PostId: {}) not found by period {} - {}", systemGroupId, dt.getFirst(), dt.getSecond());
+            response = new PostInfoByTimeResponse();
+            response.setGroupId("");
+            TimeSeries ts = new TimeSeries();
+            ts.setSize(0);
+            ts.setData(Collections.emptyList());
+            ts.setBegin( dt.getFirst());
+            ts.setEnd(dt.getSecond());
+            response.setVariabilityNumberLikes(ts);
+            response.setVariabilityNumberViews(ts);
+            response.setVariabilityNumberShares(ts);
+            response.setVariabilityNumberComments(ts);
+            model.addAttribute("not_found_data_text", "Статистика по заданному периоду отстутсвует");
+    }
 
-        ZonedDateTime current = ZonedDateTime.now(ZoneOffset.UTC);
-        PostInfoByTimeResponse response = bStatClient.getStatisticOfPost(systemGroupId, systemPostId, soc,current.minusDays(2).toEpochSecond(),
-                current.plusDays(2).toEpochSecond(), "Bearer " + accessToken);
+
 
         List<LinearChart<Integer, String>> charts = new ArrayList<>(4);
         Pair<List<Integer>, List<String>> commentsChart = convertArrayTimePointToChartView(
@@ -181,23 +230,92 @@ public class BStatServiceImpl implements BStatService {
                 response.getVariabilityNumberViews().getData());
         charts.add(new LinearChart<>(viewsChart.getFirst(), viewsChart.getSecond(), "Количество просмотров"));
 
-
+        String path = "social/vk/groups";
+        if(soc == SocialNetwork.FACEBOOK) {
+            path = "social/fb/groups";
+        }
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
+                new BreadcrumbElement("social", "Социальные аккунты"),
+                new BreadcrumbElement(path, "Группы FB")),
+                "Статистика и публикации"));
 
         model.addAttribute("charts", charts);
         model.addAttribute("stat_access", true);
-
+        model.addAttribute("duration", new DurationStat(dt.getFirst().format(formatter), dt.getSecond().format(formatter)));
     }
 
 
 
 
     private Pair<List<Integer>, List<String>> convertArrayTimePointToChartView(List<TimePoint<Integer>> data) {
-       List<Integer> dataList = new LinkedList<>();
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
+        List<Integer> dataList = new LinkedList<>();
        List<String> labelList = new LinkedList<>();
        for(TimePoint<Integer> el : data) {
            dataList.add(el.getValue());
-           labelList.add(Instant.ofEpochMilli(el.getDateTime()).atZone(ZoneOffset.UTC).toString());
+           labelList.add(Instant.ofEpochMilli(el.getDateTime()).atZone(ZoneOffset.UTC).format(formatter));
        }
        return Pair.of(dataList, labelList);
+    }
+
+    private List<PostStatus> getPostsStatus(Page<PublicationResponse> postsPage, UUID systemGroupId) {
+        List<PostStatus> statuses = new ArrayList<>(postsPage.getNumberOfElements());
+        for(PublicationResponse post : postsPage) {
+            boolean isFound = false;
+            for(GroupPostStatus s : post.getPostStatus()) {
+
+                if(systemGroupId.equals(s.getGroupId())) {
+                    statuses.add(s.getPostStatus());
+                    isFound = true;
+                    break;
+                }
+            }
+            if(!isFound) {
+                log.error("Internal Error: invalid state data base of storage service. Storage service returned " +
+                                "post (id: {}), which don't have postStatus current group (id: {})", post.getPublicationId(),
+                        systemGroupId);
+                statuses.add(PostStatus.NOT_SUCCESSFUL);
+            }
+        }
+        return statuses;
+    }
+
+    private GroupInfoResponse getGroupInfo(UUID systemGroupId, SocialNetwork soc, LocalDate begin, LocalDate end,
+                                           String accessToken) {
+        try {
+            return bStatClient.getStatisticOfGroup(systemGroupId, soc, begin.toEpochSecond(LocalTime.MIN, ZoneOffset.UTC),
+                    end.toEpochSecond(LocalTime.MIN, ZoneOffset.UTC), "Bearer "+accessToken);
+        } catch (Exception exp) {
+            String msg = "";
+            if(exp instanceof UndeclaredThrowableException) {
+                msg = ((UndeclaredThrowableException) exp).getUndeclaredThrowable().getMessage();
+            } else {
+                msg = exp.getMessage();
+            }
+            log.error("BStat connection error: {}", msg);
+            throw exp;
+        }
+    }
+
+    Pair<LocalDate, LocalDate> convertDurationToTimes(DurationStat duration){
+        LocalDate begin = null;
+        LocalDate end = null;
+        if(duration.getBegin() == null || duration.getEnd() == null ||
+                "".equals(duration.getBegin()) || "".equals(duration.getEnd())) {
+            begin = LocalDate.now(ZoneOffset.UTC);
+            end = begin.plusDays(1);
+        }  else {
+            try{
+                begin = LocalDate.parse(duration.getBegin(), formatter);
+                end = LocalDate.parse(duration.getEnd(), formatter);
+            }  catch(DateTimeParseException exp) {
+                log.warn("error time parsing: {}", exp.getParsedString());
+                begin = LocalDate.now(ZoneOffset.UTC);
+                end = begin.plusDays(1);
+            }
+
+        }
+
+        return Pair.of(begin, end);
     }
 }

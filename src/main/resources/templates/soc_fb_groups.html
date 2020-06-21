@@ -28,19 +28,19 @@
     <tbody th:each=" group, i : ${groups_page.getObjects()}">
     <tr  data-toggle="modal" data-target="#exampleModal">
         <th scope="row" >
-            <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}" th:text="${i.index + 1}"></a>
+            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${i.index + 1}"></a>
         </th>
         <td>
-            <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}" th:text="${group.getName()}"></a>
+            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${group.getName()}"></a>
         </td>
         <td >
             <a style="display: block; color: black" th:href="@{https://facebook.com/{club}(club=${group.getName()+'-'+group.getGroupId()})}"  th:text="${group.getGroupId()}"></a>
         </td>
         <td>
-            <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}" th:text="${group.getMembersCount()}"></a>
+            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${group.getMembersCount()}"></a>
         </td>
         <td>
-            <a style="display: block; color: black" th:href="@{/social/vk/groups/{path}(path=${group.getGroupId()})}" th:text="${group.getType()}"></a>
+            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${group.getType()}"></a>
         </td>
         <td>
             <a type="button" th:href="@{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})}" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</a>

@@ -5,21 +5,84 @@
 <body>
 
 <th:block layout:fragment="content">
+<div class="container-fluid">
 
     <div class="row">
         <div class="col">
             <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
         </div>
     </div>
-    <th:block th:if="${stat_access}">
-        <div class="row">
-            <div class="col"
-                 th:insert="~{fragments/Chart :: chart(1, 'Онлайн', ${online_chart_labels}, ${online_chart_data}, 'blue')}"></div>
-            <div class="col"
-                 th:insert="~{fragments/Chart :: chart(2, 'Количество подписчиков', ${subscribers_chart_labels}, ${subscribers_chart_data}, 'blue')}"></div>
+    <div class="row">
+
+        <div class="col">
+
+            <form action="get" th:action="@{./}" class="form-inline" th:object="${duration}">
+                <div class="form-group mb-2">
+
+                    <div class="input-group date" id="timepicker_begin" data-target-input="nearest">
+                        <input th:field="*{begin}" type="text" class="form-control datetimepicker-input"
+                               data-target="#timepicker_begin">
+
+                        <div class="input-group-append" data-target="#timepicker_begin" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#timepicker_begin').datetimepicker({
+                                locale: 'ru',
+                                format: "L"
+                            });
+                        });
+                    </script>
+
+
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+
+
+                    <div class="input-group date" id="timepicker_end" data-target-input="nearest">
+                        <input th:field="*{end}" type="text" class="form-control datetimepicker-input"
+                               data-target="#timepicker_end">
+
+                        <div class="input-group-append" data-target="#timepicker_end" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#timepicker_end').datetimepicker({
+                                locale: 'ru',
+                                format: "L"
+                            });
+                        });
+                    </script>
+
+
+                </div>
+                <button type="submit" class="btn sh-btn-vk mb-2">Обновить</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <p th:text="${not_found_data_text}"></p>
+        </div>
+    </div>
+
+        <div class="row" >
+            <th:block th:each="chart, i : ${charts}">
+                <div class="col-6"
+                 th:insert="~{fragments/Chart :: chart(${i.index}, ${chart.first}, ${chart.second.second}, ${chart.second.first}, 'blue')}">
+                </div>
+            </th:block>
         </div>
 
         <div class="row" th:each="post, i : ${posts.content}">
+
             <a th:href="@{./posts/{pid}/(pid=${post.publicationId})}" class="col  content shadow">
                 <div class="row">
                     <div class="col sh-text-content" th:text="${post.text}"></div>
@@ -49,13 +112,8 @@
         <div class="row">
             <div th:insert="~{fragments/pagination :: pagination(${posts})}" class="col sh-pagination-block"></div>
         </div>
-    </th:block>
+</div>
 
-    <th:block th:unless="${stat_access}">
-        <div class="row">
-            <div class="col">Статистика по группе не доступна.</div>
-        </div>
-    </th:block>
 </th:block>
 
 </body>

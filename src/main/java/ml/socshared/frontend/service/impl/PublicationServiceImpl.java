@@ -40,6 +40,11 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public void writePublicationPage(Model model, String accessToken) {
+        Page<GroupResponse> groups = storageClient.getGroupsList(0, 100, authToken(accessToken));
+        if(groups.isEmpty()) {
+            throw new HttpBadRequestException("Для того, чтобы отправлять публикации. " +
+                    "Подключите группы к системе");
+        }
         model.addAttribute("publication", new PublicationForm());
     }
 

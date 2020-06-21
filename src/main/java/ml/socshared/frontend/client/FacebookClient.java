@@ -1,5 +1,6 @@
 package ml.socshared.frontend.client;
 
+import ml.socshared.frontend.config.feign.DefaultClientConfiguration;
 import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.facebook.FacebookPage;
 import ml.socshared.frontend.domain.facebook.response.AccessUrlResponse;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@FeignClient(name = "facebook-api", url = "${feign.url.api:}")
+@FeignClient(name = "facebook-api", url = "${feign.url.api:}", configuration = DefaultClientConfiguration.class)
 public interface FacebookClient {
 
     @GetMapping("api/v1/protected/facebook/access")

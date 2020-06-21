@@ -28,21 +28,21 @@
 
                 <tr data-toggle="modal" data-target="#exampleModal">
                     <th scope="row">
-                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="post">
+                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="get">
                         <a style="display: block; color: black"
                            href="#" onclick="parentNode.submit();"
                            th:text="${i.index + 1}"></a>
                         </form>
                     </th>
                     <td>
-                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="post">
+                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="get">
                         <a style="display: block; color: black"
                            href="#" onclick="parentNode.submit();"
                            th:text="${group.getName()}"></a>
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="post">
+                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="get">
                         <a style="display: block; color: black"
                            href="#" onclick="parentNode.submit();"
                            th:text="${group.getMembersCount()}"></a>

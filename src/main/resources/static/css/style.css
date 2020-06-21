@@ -21,7 +21,7 @@ body, html{
 	padding-left: 260px;
 }
 
-@media (max-width: 690px) {
+@media (max-width: 766px) {
 	.right-wrapper {
 		padding-left: 0px;
 	}
@@ -48,9 +48,8 @@ a:hover{
 
 .content {
 	margin-left: 15px;
-	padding-left: 7px;
+	padding: 10px;
 	margin-right: 15px;
-	padding-right: 7px;
 	background-color: white;
 	border-radius: 15px;
 	margin-top: 10px;

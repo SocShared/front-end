@@ -11,19 +11,18 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
-@Component
 @Slf4j
 public class FeignErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
-        String msg = "error: ";
-        if (response.body() != null)
-            msg += response.body().toString();
-        else
-            msg += "undefined";
+        String body = "";
+        if(response.body() != null) {
+            body = response.body().toString();
+        }
 
         if (response.status() == 404) {
+            String msg = methodKey + " return error (404): " + body;
             log.warn(msg);
             return new HttpNotFoundException(msg);
         } else if (response.status() == 401) {
@@ -31,11 +30,13 @@ public class FeignErrorDecoder implements ErrorDecoder {
         } else if (response.status() == 403) {
             return new HttpForbiddenException("forbidden");
         } else if (response.status() == 400) {
+            String msg = methodKey + " return error (400): " + body ;
             log.warn(msg);
             return new HttpNotFoundException(msg);
         }
 
-        return new Exception(msg);
+        String msg = "Unexpected error: " + response.status() + "; " + body;
+        return new RuntimeException(msg);
     }
 
 

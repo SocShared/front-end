@@ -21,7 +21,8 @@ public class TechSupportController {
 
     private final TechSupportService service;
 
-    @GetMapping("support")
+
+    @GetMapping("/support")
     public String questionsPage(Pageable pageable, Model model,
                                 @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
       log.info("request get questions page");
@@ -29,7 +30,7 @@ public class TechSupportController {
       return "support_questions_page";
     }
 
-    @GetMapping("support/questions/{questionId}")
+    @GetMapping("/support/questions/{questionId}")
     public String fullQuestionPage(@PathVariable Integer questionId, Pageable pageable,
                                    Model model,
                                    @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
@@ -39,7 +40,7 @@ public class TechSupportController {
 
     }
 
-    @PostMapping("support/questions/{questionId}")
+    @PostMapping("/support/questions/{questionId}")
     public String addCommentToQuestion(@PathVariable Integer questionId, Pageable pageable,
                                        @ModelAttribute FormAddComment comment, Model model,
                                        @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
@@ -51,7 +52,7 @@ public class TechSupportController {
 
 
 
-    @GetMapping("support/questions")
+    @GetMapping("/support/questions")
     public String pageAddQuestion(Model model,
                                   @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request page for add page");
@@ -60,7 +61,7 @@ public class TechSupportController {
         return "support_add_question";
     }
 
-    @PostMapping("support/questions")
+    @PostMapping("/support/questions")
     public void addQuestion(Model model,
                               @ModelAttribute FormCreateQuestion question,
                               @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,

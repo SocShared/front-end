@@ -1,5 +1,6 @@
 package ml.socshared.frontend.client;
 
+import ml.socshared.frontend.config.feign.DefaultClientConfiguration;
 import ml.socshared.frontend.domain.adapter.response.GroupResponse;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.storage.response.GroupResponseStorage;
@@ -7,7 +8,7 @@ import ml.socshared.frontend.domain.vk.response.VkGroupResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name="GateWayVkAPI", url="${feign.url.api}")
+@FeignClient(name="GateWayVkAPI", url="${feign.url.api}", configuration = DefaultClientConfiguration.class)
 public interface VkAdapterClient {
 
     @GetMapping("api/v1/protected/social/vk/groups")

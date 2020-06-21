@@ -24,6 +24,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -78,9 +79,32 @@ public class BStatServiceImpl implements BStatService {
 //                        LocalDateTime.now(), status, PostType.IN_REAL_TIME)
 //        ));
 
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
+                new BreadcrumbElement("social", "Социальные аккунты"),
+                new BreadcrumbElement("social", "Группы ВК"),
+                new BreadcrumbElement("social", "Статистика и публикации")),
+                "Статистика публикации"));
+
         ZonedDateTime currentTime = ZonedDateTime.now(ZoneOffset.UTC);
-        GroupInfoResponse groupInfo = bStatClient.getStatisticOfGroup(systemGroupId, SocialNetwork.VK, currentTime.minusDays(2).toEpochSecond(),
-                currentTime.plusDays(2).toEpochSecond(), "Bearer "+accessToken);
+        GroupInfoResponse groupInfo = null;
+        try {
+           groupInfo = bStatClient.getStatisticOfGroup(systemGroupId, SocialNetwork.VK, currentTime.minusDays(2).toEpochSecond(),
+                    currentTime.plusDays(2).toEpochSecond(), "Bearer "+accessToken);
+        } catch (Exception exp) {
+            String msg = "";
+            if(exp instanceof UndeclaredThrowableException) {
+                msg = ((UndeclaredThrowableException) exp).getUndeclaredThrowable().getMessage();
+            } else {
+                msg = exp.getMessage();
+            }
+            log.error("BStat connection error: {}", msg);
+            model.addAttribute("stat_access", false);
+            throw exp;
+        }
+
+
+
+
         Page<PublicationResponse> postsPage =  storageCLient.getPostList(systemGroupId, pageable.getPageNumber(), pageable.getPageSize(), "Bearer "+accessToken);
 
         Pair<List<Integer>, List<String>> onlineChart = convertArrayTimePointToChartView(groupInfo.getOnline().getData());
@@ -157,13 +181,10 @@ public class BStatServiceImpl implements BStatService {
                 response.getVariabilityNumberViews().getData());
         charts.add(new LinearChart<>(viewsChart.getFirst(), viewsChart.getSecond(), "Количество просмотров"));
 
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
-                new BreadcrumbElement("social", "Социальные аккунты"),
-                new BreadcrumbElement("social", "Группы ВК"),
-                new BreadcrumbElement("social", "Статистика и публикации")),
-                "Статистика публикации"));
+
 
         model.addAttribute("charts", charts);
+        model.addAttribute("stat_access", true);
 
     }
 

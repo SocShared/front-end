@@ -45,7 +45,7 @@
                     <div class="input-group date" id="timepicker" data-target-input="nearest" >
                         <input id="date-time" th:field="*{dateTime}" type="text" class="form-control datetimepicker-input" data-target="#timepicker" readonly>
 
-                        <div id="button-date-time" style="visibility: hidden" class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                        <div id="button-date-time" class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                     </div>
@@ -60,13 +60,10 @@
                         function setDeferred() {
                             var chbox = document.getElementById('is_deferred');
                             var inputDateTime = document.getElementById('date-time');
-                            var buttonDateTime = document.getElementById('button-date-time');
                             if (chbox.checked) {
-                                inputDateTime.readOnly = true;
-                                buttonDateTime.setAttribute("style", "visibility: visible");
+                                inputDateTime.removeAttribute("readonly");
                             } else {
-                                inputDateTime.readOnly = false;
-                                buttonDateTime.setAttribute("style", "visibility: hidden");
+                                inputDateTime.setAttribute("readonly", true);
                             }
                         }
                     </script>

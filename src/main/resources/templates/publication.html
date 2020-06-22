@@ -60,6 +60,7 @@
                         function setDeferred() {
                             var chbox = document.getElementById('is_deferred');
                             var inputDateTime = document.getElementById('date-time');
+                            inputDateTime.value = "";
                             if (chbox.checked) {
                                 inputDateTime.removeAttribute("readonly");
                             } else {

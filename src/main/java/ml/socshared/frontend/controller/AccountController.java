@@ -37,8 +37,8 @@ public class AccountController {
     }
 
     @GetMapping("/account/confirmed")
-    public String sendMailConfirmed(@RequestHeader("Authorization") String token, Model model) {
-        SuccessResponse successResponse = accountService.sendMailConfirmed(token);
+    public String sendMailConfirmed(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+        SuccessResponse successResponse = accountService.sendMailConfirmed(accessToken);
         model.addAttribute("access_confirmed", true);
         return "redirect:/account";
     }

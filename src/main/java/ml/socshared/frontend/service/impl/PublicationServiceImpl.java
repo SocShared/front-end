@@ -52,8 +52,9 @@ public class PublicationServiceImpl implements PublicationService {
     public void sendPublication(@Valid PublicationForm pub, Model model, String accessToken) {
         writePublicationPage(model, accessToken);
         PublicationRequest p = convertPublication(pub);
-        p.setPublicationDateTime(new Date(p.getPublicationDateTime().getTime() - 3 * 60 * 60 * 1000));
-
+        if (p.getPublicationDateTime() != null) {
+            p.setPublicationDateTime(new Date(p.getPublicationDateTime().getTime() - 3 * 60 * 60 * 1000));
+        }
         Page<GroupResponse> groups = storageClient.getGroupsList(0, 100, authToken(accessToken));
         String[] groupsIds = new String[(int) groups.getTotalElements()];
         int totalPages = groups.getTotalPages();
@@ -104,7 +105,7 @@ public class PublicationServiceImpl implements PublicationService {
         pr.setText(p.getText());
         LocalDateTime time;
         try {
-            if (!p.getDateTime().equals("")) {
+            if (!p.getDateTime().isEmpty()) {
                 time = LocalDateTime.parse(p.getDateTime(), formatter);
                 Date d = new Date(time.toEpochSecond(ZoneOffset.UTC) * ms);
                 pr.setPublicationDateTime(d);

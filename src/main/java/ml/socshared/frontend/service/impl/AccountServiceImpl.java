@@ -15,6 +15,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public UserResponse getUserResponseInfo(String token) {
-        return accountClient.getUserResponseInfo(token);
+        return accountClient.getUserResponseInfo("Bearer " + token);
     }
 }

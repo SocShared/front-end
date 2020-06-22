@@ -29,6 +29,8 @@ public class AccountController {
 
         UserResponse userResponse = accountService.getUserResponseInfo(accessToken);
 
+        log.info("email_verified: " + userResponse.isEmailVerified());
+
         model.addAttribute("user", userResponse);
         model.addAttribute("access_confirmed", false);
         return "account";

@@ -52,7 +52,10 @@
 
                     <script type="text/javascript">
                         $(function () {
-                            $('#timepicker').datetimepicker();
+                            $('#timepicker').datetimepicker({
+                                locale: 'ru',
+                                format: "L"
+                            });
                         });
                     </script>
                 </div>

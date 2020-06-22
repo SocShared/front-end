@@ -41,7 +41,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public void writePublicationPage(Model model, String accessToken) {
         Page<GroupResponse> groups = storageClient.getGroupsList(0, 100, authToken(accessToken));
-        if(groups.isEmpty()) {
+        if (groups.isEmpty()) {
             throw new HttpBadRequestException("Для того, чтобы отправлять публикации. " +
                     "Подключите группы к системе");
         }
@@ -89,12 +89,12 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public void getPublicationsByGroupId(UUID systemGroupId, Pageable pageable, Model model, String accessToken) {
-        RestResponsePage<PublicationResponse> postPage =  storageClient.getPostList(systemGroupId, pageable.getPageNumber(), pageable.getPageSize(), authToken(accessToken));
+        RestResponsePage<PublicationResponse> postPage = storageClient.getPostList(systemGroupId, pageable.getPageNumber(), pageable.getPageSize(), authToken(accessToken));
 
         List<PostStatus> postStatusList = new ArrayList<>();
-        for(PublicationResponse pub : postPage) {
-            for(GroupPostStatus status : pub.getPostStatus()) {
-                if(status.getGroupId().equals(systemGroupId)) {
+        for (PublicationResponse pub : postPage) {
+            for (GroupPostStatus status : pub.getPostStatus()) {
+                if (status.getGroupId().equals(systemGroupId)) {
                     postStatusList.add(status.getPostStatus());
                     break;
                 }

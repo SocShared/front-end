@@ -15,10 +15,10 @@
     <!-- TODO: Сделать страницу списка клиентов и добавить возможность создать нового клиента -->
     <div class="row content shadow">
         <div class="col-12">
-            <div style="text-align: center;"><h3>Приложения OAuth2</h3></div>
+            <div style="text-align: center;"><h3>Приложение OAuth2</h3></div>
         </div>
         <div class="col-12">
-            <form th:action="@{/settings}" th:object="${client}" method="post">
+            <form th:action="@{/clients}" th:object="${client}" method="post">
                 <div class="form-group">
                     <label for="name">Имя приложения</label>
                     <input id="name" class="form-control" th:field="*{name}">
@@ -44,7 +44,25 @@
                         </li>
                     </ul>
                 </div>
-                <button type="submit" class="btn sh-btn sh-btn-fb shadow">Добавить приложение</button>
+                <div class="form-group">
+                    <label for="client-id">Client ID</label>
+                    <input id="client-id" class="form-control" th:field="*{clientId}" th:text="*{clientId}" readonly>
+                    <ul class="text-danger" th:each="error: ${#fields.errors('clientId')}" style="margin-left: 25px">
+                        <li th:each="message : ${error.split(',')}">
+                            <p class="error-message" th:text="${message}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="client-secret">Client Secret</label>
+                    <input id="client-secret" class="form-control" th:field="*{clientSecret}" th:text="*{clientSecret}" readonly>
+                    <ul class="text-danger" th:each="error: ${#fields.errors('clientSecret')}" style="margin-left: 25px">
+                        <li th:each="message : ${error.split(',')}">
+                            <p class="error-message" th:text="${message}"></p>
+                        </li>
+                    </ul>
+                </div>
+                <button type="submit" class="btn sh-btn sh-btn-fb shadow">Сохранить приложение</button>
             </form>
         </div>
     </div>

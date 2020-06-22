@@ -6,11 +6,15 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
 public class NewClientRequest {
+
+    private UUID clientId;
+    private UUID clientSecret;
 
     private String name;
 

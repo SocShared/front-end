@@ -33,7 +33,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PublicationServiceImpl implements PublicationService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy h:mm a", Locale.ENGLISH);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     private final StorageClient storageClient;
     private final GatewayServiceClient gatewayClient;
 

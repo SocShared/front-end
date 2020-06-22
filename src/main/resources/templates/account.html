@@ -28,7 +28,7 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <label for="email">email</label>
+                    <label for="email">E-mail</label>
                     <input id="email" class="form-control" th:field="*{email}" readonly>
                     <p class="error-message" th:if="${!user.isEmailVerified()}" style="margin-left: 10px">Подтвердите электронную почту</p>
                     <ul class="text-danger" th:each="error: ${#fields.errors('email')}" style="margin-left: 25px">

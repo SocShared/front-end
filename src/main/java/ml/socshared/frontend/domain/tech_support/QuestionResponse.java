@@ -14,6 +14,7 @@ public class QuestionResponse {
     Integer questionId;
     @JsonProperty(required = true)
     UUID authorId;
+    String authorLogin;
     @JsonProperty(required = true)
     String title;
 }

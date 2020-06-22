@@ -5,7 +5,7 @@
 <body>
 
 <th:block layout:fragment="content">
-
+<div class="container-fluid">
     <div class="row">
         <div class="col">
             <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
@@ -19,27 +19,28 @@
     </div>
 
 
-    <th:block th:each="question : ${questions_page.content}">
+    <th:block th:each="question : ${questions_page.shortQuestions.content}">
         <div class="row ">
             <div class="col content shadow" >
-                <a class="sh-title-block" th:text="${question.title}"
+                <a class="sh-title-block" style="color: black" th:text="${question.title}"
                    th:href="@{/support/questions/{path}/(path=${question.id}, size=${10})}"></a>
                 <div class="sh-info" th:text="${question.haveResponse}"></div>
                 <div class="sh-info" th:text="${question.time}"></div>
             </div>
         </div>
     </th:block>
-    <th:block th:if="${questions_page.getTotalElements() == 0}">
+    <th:block th:if="${questions_page.shortQuestions.getTotalElements() == 0}">
         <div class="row">
-            <div class="col shadow" >
+            <div class="col content shadow" >
                 <center>Вопросы никто не задавал</center>
             </div>
         </div>
     </th:block>
 
     <div class="row">
-        <div th:insert="~{fragments/pagination :: pagination(${questions_page})}" class="col sh-pagination-block"></div>
+        <div th:insert="~{fragments/pagination :: pagination(${questions_page.shortQuestions})}" class="col sh-pagination-block"></div>
     </div>
+</div>
 
 </th:block>
 

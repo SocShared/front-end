@@ -5,50 +5,63 @@
 <body>
 
 <th:block layout:fragment="content">
-
-    <div class="row">
-        <div class="col">
-            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
-        </div>
-    </div>
-
-    <div class="row ">
-        <div class="col content shadow" >
-            <div class="sh-question-title" th:text="${question.title}"></div>
-        </div>
-    </div>
-    <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
-    <th:block th:each="comment : ${question.comments.content}">
-        <div class="row ">
-            <div class="col content shadow" >
-                <div class="sh-info" th:class="${question.authorId == comment.authorId ? 'sh-rquest-owner' : ''}" th:text="${comment.text}"></div>
-                <div class="sh-info" th:text="${comment.authorId}"></div>
-                <div class="sh-info" th:text="${comment.time}"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
             </div>
         </div>
-    </th:block>
-    </div>
 
-    <div class="row">
-        <div th:insert="~{fragments/pagination :: pagination(${question.comments})}" class="col sh-pagination-block"></div>
-    </div>
+        <div class="row" th:if="${question.canDeleteQuestion}">
+            <div class="col">
+                <form method="post" th:href="@{/support/questions/{id}/delete/(id=${question.questionId})}" >
+                    <button class="btn btn-danger">Удалить вопрос</button>
+                </form>
+            </div>
+        </div>
 
-    <div class="row .sh-question-form">
-
-                <div class="col content shadow" >
-
-                    <form th:object="${formAddComment}" th:action="@{./}" method="post">
-                        <div class="form-group">
-                            <label for="commentArea">Оставте комментарий</label>
-                            <textarea th:field="*{text}" class="form-control" id="commentArea" aria-describedby="emailHelp"/>
-                            <small id="emailHelp" class="form-text text-muted">Когда ответят на ваш вопрос, вы будете уведомлены по электронной почте</small>
-                        </div>
-                        <input type="submit" class="btn sh-btn-outline" th:value="Отправить"></input>
-                    </form>
+        <div class="row ">
+            <div class="col content shadow">
+                <div class="sh-question-title" th:text="${question.title}"></div>
+            </div>
+        </div>
+        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+            <th:block th:each="comment : ${question.comments.content}">
+                <div class="row ">
+                    <div class="col content shadow">
+                        <div class="sh-info"
+                             th:class="${question.authorLogin == comment.authorLogin ? 'sh-rquest-owner' : ''}"
+                             th:text="${comment.text}"></div>
+                        <div class="sh-info" th:text="${comment.authorLogin}"></div>
+                        <div class="sh-info" th:text="${comment.time}"></div>
+                    </div>
                 </div>
+            </th:block>
+        </div>
+
+        <div class="row">
+            <div th:insert="~{fragments/pagination :: pagination(${question.comments})}"
+                 class="col sh-pagination-block"></div>
+        </div>
+
+        <div class="row .sh-question-form" th:if="${question.canCreateComment}">
+
+            <div class="col content shadow">
+
+                <form th:object="${formAddComment}" th:action="@{./}" method="post">
+                    <div class="form-group">
+                        <label for="commentArea">Оставте комментарий</label>
+                        <textarea th:field="*{text}" class="form-control" id="commentArea"
+                                  aria-describedby="emailHelp"/>
+                        <small id="emailHelp" class="form-text text-muted">Когда ответят на ваш вопрос, вы будете
+                            уведомлены по электронной почте</small>
+                    </div>
+                    <input type="submit" class="btn sh-btn-outline" th:value="Отправить"></input>
+                </form>
+            </div>
+        </div>
+
     </div>
-
-
 
 </th:block>
 

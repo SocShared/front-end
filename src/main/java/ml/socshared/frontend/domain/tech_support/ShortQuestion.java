@@ -10,6 +10,7 @@ public class ShortQuestion {
     Integer id;
     String title;
     UUID authorId;
+    String authorLogin;
     Boolean haveResponse;
     ZonedDateTime time;
 }

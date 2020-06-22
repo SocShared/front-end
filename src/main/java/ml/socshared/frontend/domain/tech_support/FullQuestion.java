@@ -12,4 +12,6 @@ import ml.socshared.frontend.domain.response.RestResponsePage;
 @EqualsAndHashCode(callSuper = true)
 public class FullQuestion extends QuestionResponse {
     RestResponsePage<Comment> comments;
+    Boolean canCreateComment;
+    Boolean canDeleteQuestion;
 }

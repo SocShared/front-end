@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import ml.socshared.frontend.client.GatewayServiceClient;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
+import ml.socshared.frontend.domain.tech_support.QuestionsPage;
 import ml.socshared.frontend.domain.tech_support.model.form.FormAddComment;
 import ml.socshared.frontend.domain.tech_support.model.form.FormCreateQuestion;
 import ml.socshared.frontend.domain.tech_support.Comment;
@@ -30,7 +31,7 @@ public class TechSupportServiceImpl implements TechSupportService {
 
     @Override
     public String questionsPage(Pageable page, Model model, String token) {
-        Page<ShortQuestion> qustions =  client.getQuestionsPage(page.getPageNumber(), page.getPageSize(), "Bearer " + token);
+        QuestionsPage qustions =  client.getQuestionsPage(page.getPageNumber(), page.getPageSize(), "Bearer " + token);
 
         model.addAttribute("questions_page", qustions);
         model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Техническая поддержка"));
@@ -49,7 +50,7 @@ public class TechSupportServiceImpl implements TechSupportService {
     }
 
     @Override
-    public String pageAddQuestion(UUID systemUserId, Model model, String token) {
+    public String pageAddQuestion(Model model, String token) {
         model.addAttribute("formAddQuestion", new FormCreateQuestion());
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("support", "Техническая поддержка")),
@@ -58,20 +59,17 @@ public class TechSupportServiceImpl implements TechSupportService {
     }
 
     @Override
-    public Integer addQuestion(FormCreateQuestion question, UUID systemUserId, Model model, String token) {
+    public Integer addQuestion(FormCreateQuestion question, Model model, String token) {
         QuestionCreateRequest qr = new QuestionCreateRequest();
-        qr.setAuthorId(systemUserId);
         qr.setTitle(question.getTitle());
         qr.setText(question.getText());
         return client.addQuestion(qr, "Bearer " + token);
     }
 
     @Override
-    public String addComment(Integer questionId, FormAddComment formComment, Pageable pageable, UUID systemUserId, Model model, String token) {
+    public String addComment(Integer questionId, FormAddComment formComment, Pageable pageable, Model model, String token) {
         Comment comment = new Comment();
-        comment.setAuthorId(systemUserId);
         comment.setText(formComment.getText());
-        comment.setAuthorId(systemUserId);
         client.addCommentToQuestion(questionId, comment, "Bearer " + token);
         fullQuestionPage(questionId, pageable, model, token);
         return "support_full_question_page";
@@ -79,12 +77,8 @@ public class TechSupportServiceImpl implements TechSupportService {
 
 
     @Override
-    public String removeComment(Integer questionId, Integer commentId, Model model, String token) {
-        return null;
-    }
-
-    @Override
-    public String removeQuestion(Integer questionId, Model model, String token) {
-        return null;
+    public String removeQuestion(Integer questionId, String token) {
+        client.deleteQuestionById(questionId, "Bearer " + token);
+        return "ok";
     }
 }

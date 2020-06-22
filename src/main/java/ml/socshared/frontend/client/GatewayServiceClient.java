@@ -5,6 +5,7 @@ import ml.socshared.frontend.domain.facebook.response.AccessUrlResponse;
 import ml.socshared.frontend.domain.response.SocialAccountResponse;
 import ml.socshared.frontend.domain.tech_support.Comment;
 import ml.socshared.frontend.domain.tech_support.FullQuestion;
+import ml.socshared.frontend.domain.tech_support.QuestionsPage;
 import ml.socshared.frontend.domain.tech_support.ShortQuestion;
 import ml.socshared.frontend.domain.tech_support.request.QuestionCreateRequest;
 import ml.socshared.frontend.domain.response.RestResponsePage;
@@ -30,8 +31,8 @@ public interface GatewayServiceClient {
     SuccessResponse removeVkToken(@RequestHeader("Authorization") String token);
 
     @GetMapping("api/v1/protected/support?page={page}&size={size}")
-    RestResponsePage<ShortQuestion> getQuestionsPage(@PathVariable Integer page, @PathVariable Integer size,
-                                                     @RequestHeader("Authorization") String token);
+    QuestionsPage getQuestionsPage(@PathVariable Integer page, @PathVariable Integer size,
+                                   @RequestHeader("Authorization") String token);
 
     @GetMapping("api/v1/protected/support/questions/{questionId}?page={page}&size={size}")
     FullQuestion getFullQuestionPage(@PathVariable Integer questionId,
@@ -46,6 +47,10 @@ public interface GatewayServiceClient {
     @PostMapping("api/v1/protected/support/questions")
     Integer addQuestion(@RequestBody QuestionCreateRequest question,
                         @RequestHeader("Authorization") String token);
+
+    @DeleteMapping("/api/v1/protected/support/questions/{questionId}")
+    void deleteQuestionById(@PathVariable Integer questionId,
+                            @RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/protected/text/keywords", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)

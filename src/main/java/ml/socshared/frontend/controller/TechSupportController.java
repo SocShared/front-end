@@ -45,8 +45,7 @@ public class TechSupportController {
                                        @ModelAttribute FormAddComment comment, Model model,
                                        @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request add comment to question " + String.valueOf(questionId));
-        UUID systemUserId = UUID.fromString("7f2596b9-7177-47cd-adb8-bb693cee5343");//Todo извлечение id пользователя из токена
-        service.addComment(questionId, comment, pageable, systemUserId, model, accessToken);
+        service.addComment(questionId, comment, pageable, model, accessToken);
         return "support_full_question_page";
     }
 
@@ -56,8 +55,7 @@ public class TechSupportController {
     public String pageAddQuestion(Model model,
                                   @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request page for add page");
-        UUID systemUserId = UUID.fromString("7f2596b9-7177-47cd-adb8-bb693cee5343");//Todo извлечение id пользователя из токена
-        service.pageAddQuestion(systemUserId, model, accessToken);
+        service.pageAddQuestion(model, accessToken);
         return "support_add_question";
     }
 
@@ -67,9 +65,16 @@ public class TechSupportController {
                               @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                               HttpServletResponse httpServletResponse) {
         log.info("Request add new question");
-        UUID systemUserId = UUID.fromString("7f2596b9-7177-47cd-adb8-bb693cee5343");//Todo извлечение id пользователя из токена
-        Integer questionId = service.addQuestion(question, systemUserId, model, accessToken);
+        Integer questionId = service.addQuestion(question, model, accessToken);
         httpServletResponse.setStatus(302);
         httpServletResponse.setHeader("Location", "/support/questions/" + String.valueOf(questionId) + "/");
+    }
+
+    @PostMapping("/support/questions/{questionId}/delete/")
+    public String deleteQuestionById(@PathVariable Integer questionId,
+                                     @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        log.info("Request remove question " + String.valueOf(questionId));
+        service.removeQuestion(questionId, accessToken);
+        return "redirect:/support";
     }
 }

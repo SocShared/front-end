@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.domain.client.ClientResponse;
 import ml.socshared.frontend.domain.client.NewClientRequest;
+import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.service.ClientService;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -25,7 +27,7 @@ public class ClientController {
 
     @GetMapping("/app")
     public String getClients(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
-        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Клиенты"));
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Приложения OAuth2"));
 
         // TODO Сделать адекватную пагинацию
         RestResponsePage<ClientResponse> clients = clientService.findByUserId(0, 100, accessToken);
@@ -37,7 +39,8 @@ public class ClientController {
 
     @GetMapping("/app/clients")
     public String getClient(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
-        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Клиенты"));
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("app", "Приложения OAuth2")),
+                "Подключение приложения"));
 
         model.addAttribute("client", new NewClientRequest());
         return "clients";
@@ -46,7 +49,8 @@ public class ClientController {
     @GetMapping("/app/clients/{clientId}")
     public String getClient(@PathVariable UUID clientId,
                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
-        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Клиенты"));
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("app", "Приложения OAuth2")),
+                "Подключение приложения"));
 
         ClientResponse clientResponse = clientService.findByUserIdAndClientId(clientId, accessToken);
 
@@ -59,30 +63,15 @@ public class ClientController {
                                   BindingResult postBinding,
                                   Model model,
                                   @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Клиенты"));
         if (postBinding.hasErrors()) {
             model.addAttribute("client", newClientRequest);
             return "clients";
         }
 
-        clientService.addClient(newClientRequest, accessToken);
-
-        return "redirect:/app";
-    }
-
-    @PostMapping("/app/clients/{clientId}")
-    public String sendClient(@PathVariable UUID clientId,
-                             @Valid @ModelAttribute("client") NewClientRequest newClientRequest,
-                             BindingResult postBinding,
-                             Model model,
-                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Клиенты"));
-        if (postBinding.hasErrors()) {
-            model.addAttribute("client", newClientRequest);
-            return "clients";
-        }
-
-        clientService.updateClient(clientId, newClientRequest, accessToken);
+        if (newClientRequest.getClientId() == null)
+            clientService.addClient(newClientRequest, accessToken);
+        else
+            clientService.updateClient(newClientRequest.getClientId(), newClientRequest, accessToken);
 
         return "redirect:/app";
     }

@@ -15,10 +15,10 @@
     <!-- TODO: Сделать страницу списка клиентов и добавить возможность создать нового клиента -->
     <div class="row content shadow">
         <div class="col-12">
-            <div style="text-align: center;"><h3>Приложение OAuth2</h3></div>
+            <div style="text-align: center;"><h3>Подключение приложения</h3></div>
         </div>
         <div class="col-12">
-            <form th:action="@{/clients}" th:object="${client}" method="post">
+            <form th:action="@{/app/clients}" th:object="${client}" method="post">
                 <div class="form-group">
                     <label for="name">Имя приложения</label>
                     <input id="name" class="form-control" th:field="*{name}">

@@ -19,31 +19,31 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Page<ClientResponse> findAllClients(Integer page, Integer size, String token) {
-        return clientClient.findAllClients(page, size, token);
+        return clientClient.findAllClients(page, size, "Bearer " + token);
     }
 
     @Override
     public ClientResponse findByClientId(UUID clientId, String token) {
-        return clientClient.findByClientId(clientId, token);
+        return clientClient.findByClientId(clientId, "Bearer " + token);
     }
 
     @Override
     public ClientResponse findByUserIdAndClientId(UUID clientId, String token) {
-        return clientClient.findByUserIdAndClientId(clientId, token);
+        return clientClient.findByUserIdAndClientId(clientId, "Bearer " + token);
     }
 
     @Override
     public RestResponsePage<ClientResponse> findByUserId(Integer page, Integer size, String token) {
-        return clientClient.findByUserId(page, size, token);
+        return clientClient.findByUserId(page, size, "Bearer " + token);
     }
 
     @Override
     public ClientResponse addClient(NewClientRequest newClientRequest, String token) {
-        return clientClient.addClient(newClientRequest, token);
+        return clientClient.addClient(newClientRequest, "Bearer " + token);
     }
 
     @Override
     public ClientResponse updateClient(UUID clientId, NewClientRequest newClientRequest, String token) {
-        return clientClient.updateClient(clientId, newClientRequest, token);
+        return clientClient.updateClient(clientId, newClientRequest, "Bearer " + token);
     }
 }

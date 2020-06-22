@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label for="email">email</label>
                     <input id="email" class="form-control" th:field="*{email}" readonly>
-                    <ul class="text-danger" th:if="${!user.emailVerified}" style="margin-left: 25px">
+                    <ul class="text-danger" th:if="${!user.emailVerified.booleanValue()}" style="margin-left: 25px">
                         <li>
                             <p class="error-message">Подтвердите электронную почту</p>
                         </li>
@@ -41,7 +41,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="form-group" th:if="${!user.emailVerified}">
+                <div class="form-group" th:if="${!user.emailVerified.booleanValue()}">
                     <button type="submit" class="btn sh-btn sh-btn-fb shadow">Отправить сообщение о подтверждении</button>
                 </div>
                 <div class="form-group">

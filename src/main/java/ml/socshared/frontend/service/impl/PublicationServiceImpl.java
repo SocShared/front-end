@@ -72,7 +72,6 @@ public class PublicationServiceImpl implements PublicationService {
         String[] keywords = pub.getKeywords().split(",");
         p.setHashTags(keywords.length != 0 ? keywords : null);
         p.setGroupIds(groupsIds);
-        p.setHashTags(new String[0]);
         storageClient.savePublication(p, authToken(accessToken));
     }
 
@@ -103,9 +102,9 @@ public class PublicationServiceImpl implements PublicationService {
         final int ms = 1000;
         PublicationRequest pr = new PublicationRequest();
         pr.setText(p.getText());
-        LocalDateTime time = null;
+        LocalDateTime time;
         try {
-            if (p.getDateTime() != "") {
+            if (!p.getDateTime().equals("")) {
                 time = LocalDateTime.parse(p.getDateTime(), formatter);
                 Date d = new Date(time.toEpochSecond(ZoneOffset.UTC) * ms);
                 pr.setPublicationDateTime(d);

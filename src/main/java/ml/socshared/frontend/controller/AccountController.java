@@ -11,8 +11,10 @@ import ml.socshared.frontend.domain.user.UserResponse;
 import ml.socshared.frontend.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -36,8 +38,14 @@ public class AccountController {
 
     @PostMapping("/account")
     public String updateAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
-                              @ModelAttribute("user") UpdateUserRequest userRequest) {
+                                @Valid @ModelAttribute("user") UpdateUserRequest userRequest,
+                                BindingResult bindingResult, Model model) {
         accountService.updateUser(userRequest, accessToken);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userRequest);
+            return "account";
+        }
+
         return "redirect:/account";
     }
 

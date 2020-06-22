@@ -52,6 +52,8 @@ public class PublicationServiceImpl implements PublicationService {
     public void sendPublication(@Valid PublicationForm pub, Model model, String accessToken) {
         writePublicationPage(model, accessToken);
         PublicationRequest p = convertPublication(pub);
+        p.setPublicationDateTime(new Date(p.getPublicationDateTime().getTime() - 3 * 60 * 60 * 1000));
+
         Page<GroupResponse> groups = storageClient.getGroupsList(0, 100, authToken(accessToken));
         String[] groupsIds = new String[(int) groups.getTotalElements()];
         int totalPages = groups.getTotalPages();

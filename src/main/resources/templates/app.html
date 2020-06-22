@@ -32,7 +32,7 @@
                 </tr>
                 </thead>
                 <tbody th:each=" client, i : ${clients}">
-                <tr class="row-client" th:id="${client.getClientId()}">
+                <tr class="row-select" th:id="${client.getClientId()}">
                     <th scope="row" th:text="${i.index + 1}"></th>
                     <td th:text="${client.getClientId()}"></td>
                     <td th:text="${client.getName()}"></td>
@@ -44,11 +44,6 @@
         </div>
     </div>
 
-    <script>
-        $(document).on("click","tr.rows td", function(e){
-            alert(e.target.innerHTML);
-        });
-    </script>
 </th:block>
 
 </body>

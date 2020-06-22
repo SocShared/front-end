@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientResponse updateClient(UUID clientId, NewClientRequest newClientRequest, String token) {
-        return clientClient.updateClient(clientId, newClientRequest, "Bearer " + token);
+    public void updateClient(UUID clientId, NewClientRequest newClientRequest, String token) {
+        clientClient.updateClient(clientId, newClientRequest, "Bearer " + token);
     }
 }

@@ -60,9 +60,9 @@ public class ClientController {
 
     @PostMapping("/app/clients")
     public String sendClient(@Valid @ModelAttribute("client") NewClientRequest newClientRequest,
-                                  BindingResult postBinding,
-                                  Model model,
-                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+                             BindingResult postBinding,
+                             Model model,
+                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         if (postBinding.hasErrors()) {
             model.addAttribute("client", newClientRequest);
             return "clients";

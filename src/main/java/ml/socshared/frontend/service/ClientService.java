@@ -13,6 +13,6 @@ public interface ClientService {
     ClientResponse findByUserIdAndClientId(UUID clientId, String token);
     RestResponsePage<ClientResponse> findByUserId(Integer page, Integer size, String token);
     ClientResponse addClient(NewClientRequest newClientRequest, String token);
-    ClientResponse updateClient(UUID clientId, NewClientRequest newClientRequest, String token);
+    void updateClient(UUID clientId, NewClientRequest newClientRequest, String token);
 
 }

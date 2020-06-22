@@ -71,7 +71,13 @@ public class PublicationServiceImpl implements PublicationService {
             groups = storageClient.getGroupsList(i, 100, authToken(accessToken));
         }
         String[] keywords = pub.getKeywords().split(",");
-        p.setHashTags(keywords.length != 0 ? keywords : null);
+        List<String> result = new ArrayList<>();
+        for (String keyword : keywords) {
+            if (!keyword.isBlank())
+                result.add(keyword);
+        }
+
+        p.setHashTags(result.toArray(String[]::new));
         p.setGroupIds(groupsIds);
         storageClient.savePublication(p, authToken(accessToken));
     }

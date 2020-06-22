@@ -6,14 +6,12 @@ import ml.socshared.frontend.domain.client.NewClientRequest;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.response.SuccessResponse;
+import ml.socshared.frontend.domain.user.UpdateUserRequest;
 import ml.socshared.frontend.domain.user.UserResponse;
 import ml.socshared.frontend.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,11 +34,18 @@ public class AccountController {
         return "account";
     }
 
+    @PostMapping("/account")
+    public String updateAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                              @ModelAttribute("user") UpdateUserRequest userRequest) {
+        accountService.updateUser(userRequest, accessToken);
+        return "redirect:/account";
+    }
+
     @GetMapping("/account/confirmed")
     public String sendMailConfirmed(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
         SuccessResponse successResponse = accountService.sendMailConfirmed(accessToken);
-        model.addAttribute("access_confirmed", true);
-        return "redirect:/account";
+        model.addAttribute("access_confirmed", successResponse.getSuccess());
+        return "account";
     }
 
 }

@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label for="name">Username</label>
                     <input id="name" class="form-control" th:field="*{username}" readonly>
-                    <ul class="text-danger" th:each="error: ${#fields.errors('name')}" style="margin-left: 25px">
+                    <ul class="text-danger" th:each="error: ${#fields.errors('username')}" style="margin-left: 25px">
                         <li th:each="message : ${error.split(',')}">
                             <p class="error-message" th:text="${message}"></p>
                         </li>

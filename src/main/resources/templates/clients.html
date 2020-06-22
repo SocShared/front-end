@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label for="client-id">Client ID</label>
-                    <input id="client-id" class="form-control" th:field="*{clientId}" th:text="*{clientId}" readonly>
+                    <input id="client-id" class="form-control" th:field="*{clientId}" readonly>
                     <ul class="text-danger" th:each="error: ${#fields.errors('clientId')}" style="margin-left: 25px">
                         <li th:each="message : ${error.split(',')}">
                             <p class="error-message" th:text="${message}"></p>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                     <label for="client-secret">Client Secret</label>
-                    <input id="client-secret" class="form-control" th:field="*{clientSecret}" th:text="*{clientSecret}" readonly>
+                    <input id="client-secret" class="form-control" th:field="*{clientSecret}" readonly>
                     <ul class="text-danger" th:each="error: ${#fields.errors('clientSecret')}" style="margin-left: 25px">
                         <li th:each="message : ${error.split(',')}">
                             <p class="error-message" th:text="${message}"></p>

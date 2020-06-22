@@ -7,7 +7,7 @@
 <th:block layout:fragment="content">
     <script>
         $(document).on('click', '.row-select', function(e){
-            window.location.href = window.location.href + "/clients/" + e.target.id;
+            window.location.href = window.location.href + "/clients/" + e.target.parentNode.id;
         });
     </script>
     <div class="row">

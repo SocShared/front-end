@@ -5,7 +5,11 @@
 <body>
 
 <th:block layout:fragment="content">
-
+    <script>
+        $(document).on('click', '.row-select', function(e){
+            window.location.href = window.location.href + "/clients/" + e.target.id;
+        });
+    </script>
     <div class="row">
         <!-- блок с кнопками для добавления социальных сетей-->
         <div class="col-12">

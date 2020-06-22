@@ -14,7 +14,7 @@
 
     <div class="row content shadow">
         <div class="col-12">
-            <div style="text-align: center;"><h3>Подключение приложения</h3></div>
+            <div style="text-align: center;"><h3>Информация об пользователе</h3></div>
         </div>
         <div class="col-12">
             <form th:action="@{/account}" th:object="${user}" method="post">
@@ -30,11 +30,7 @@
                 <div class="form-group">
                     <label for="email">email</label>
                     <input id="email" class="form-control" th:field="*{email}" readonly>
-                    <ul class="text-danger" th:if="${!user.isEmailVerified()}" style="margin-left: 25px">
-                        <li>
-                            <p class="error-message">Подтвердите электронную почту</p>
-                        </li>
-                    </ul>
+                    <p class="error-message" th:if="${!user.isEmailVerified()}" style="margin-left: 10px">Подтвердите электронную почту</p>
                     <ul class="text-danger" th:each="error: ${#fields.errors('email')}" style="margin-left: 25px">
                         <li th:each="message : ${error.split(',')}">
                             <p class="error-message" th:text="${message}"></p>

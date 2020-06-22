@@ -14,7 +14,7 @@ import java.util.UUID;
 public interface ClientClient {
 
     @GetMapping(value = "/api/v1/protected/clients")
-    Page<ClientResponse> findAllClients(@RequestParam(name = "page") Integer page,
+    RestResponsePage<ClientResponse> findAllClients(@RequestParam(name = "page") Integer page,
                                         @RequestParam(name = "size") Integer size,
                                         @RequestHeader("Authorization") String token);
 

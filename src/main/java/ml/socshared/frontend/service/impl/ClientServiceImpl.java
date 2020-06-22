@@ -6,7 +6,6 @@ import ml.socshared.frontend.domain.client.ClientResponse;
 import ml.socshared.frontend.domain.client.NewClientRequest;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.service.ClientService;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -18,7 +17,7 @@ public class ClientServiceImpl implements ClientService {
     private final ClientClient clientClient;
 
     @Override
-    public Page<ClientResponse> findAllClients(Integer page, Integer size, String token) {
+    public RestResponsePage<ClientResponse> findAllClients(Integer page, Integer size, String token) {
         return clientClient.findAllClients(page, size, "Bearer " + token);
     }
 

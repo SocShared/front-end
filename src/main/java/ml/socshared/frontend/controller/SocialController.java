@@ -44,7 +44,7 @@ public class SocialController {
         model.addAttribute("accounts_list", responses);
         AppUrlAccess appAccess = new AppUrlAccess();
         model.addAttribute("appUrlAccess", appAccess);
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("support", "назад")), "Социальные аккаунты"));
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Социальные аккаунты"));
         return "soc_accounts";
     }
 

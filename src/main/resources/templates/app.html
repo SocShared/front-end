@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <!-- блок с кнопками для добавления социальных сетей-->
+        <div class="col-12">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+        <div class="col-6">
+            <a th:href="@{/app/clients}" type="button"
+               class="btn sh-btn sh-btn-outline shadow">Добавить приложение</a>
+        </div>
+    </div>
+    <!--Блок содержащий таблицу подклбченных социальных сетей -->
+    <div class="row  content shadow">
+        <div class="col-12">
+            <div style="text-align: center;"><h3>Приложения OAuth2</h3></div>
+        </div>
+        <div class="col-12">
+            <table class="table table-hover" th:unless="${clients.isEmpty()}">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Client Id</th>
+                    <th scope="col">Имя приложения</th>
+                    <th scope="col">Валидные Redirect URI</th>
+                </tr>
+                </thead>
+                <tbody th:each=" client, i : ${clients}">
+                <tr th:href="@{/app/clients/{path}(path=${client.getClientId()})}">
+                    <th scope="row" th:text="${i.index + 1}"></th>
+                    <td th:text="${client.getClientId()}"></td>
+                    <td th:text="${client.getName()}"></td>
+                    <td th:text="${client.getValidRedirectUri()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <p th:if="${clients.isEmpty()}">Ни один аккаунт не подключен к системе!</p>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

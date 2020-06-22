@@ -12,22 +12,13 @@
         </div>
     </div>
 
-    <!--TODO: сделать реализацию подключения к данным + добавить ajax на получение ключевых слов по тексту в рантайме-->
+    <!-- TODO: Сделать страницу получения системной статистики (ошибки, пользователи, использование VK, FB -->
     <div class="row content shadow">
         <div class="col-12">
-            <div style="text-align: center;"><h3>Формирование публикации</h3></div>
+            <div style="text-align: center;"><h3>Системная статистика</h3></div>
         </div>
         <div class="col-12">
-            <form th:action="@{/publication}" th:object="${publication}" method="post">
-                <div class="form-group">
-                    <label for="text_publication">Текст публикации</label>
-                    <textarea class="form-control" id="text_publication" rows="7" th:field="*{text}"></textarea>
-                    <ul class="text-danger" th:each="error: ${#fields.errors('text')}" style="margin-left: 25px">
-                        <li th:each="message : ${error.split(',')}">
-                            <p class="error-message" th:text="${message}"></p>
-                        </li>
-                    </ul>
-                </div>
+            <form th:action="@{/clients}" th:object="${publication}" method="post">
                 <div class="form-group">
                     <label for="keywords">Ключевые слова</label>
                     <input id="keywords" class="form-control" th:field="*{keywords}">

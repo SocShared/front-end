@@ -33,7 +33,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PublicationServiceImpl implements PublicationService {
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy h:mm a", Locale.ENGLISH);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy h:mm a", Locale.ENGLISH);
     private final StorageClient storageClient;
     private final GatewayServiceClient gatewayClient;
 
@@ -67,6 +67,8 @@ public class PublicationServiceImpl implements PublicationService {
             }
             groups = storageClient.getGroupsList(i, 100, authToken(accessToken));
         }
+        String[] keywords = pub.getKeywords().split(",");
+        p.setHashTags(keywords.length != 0 ? keywords : null);
         p.setGroupIds(groupsIds);
         p.setHashTags(new String[0]);
         storageClient.savePublication(p, authToken(accessToken));

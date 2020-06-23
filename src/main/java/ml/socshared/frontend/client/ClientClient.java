@@ -15,8 +15,8 @@ public interface ClientClient {
 
     @GetMapping(value = "/api/v1/protected/clients")
     RestResponsePage<ClientResponse> findAllClients(@RequestParam(name = "page") Integer page,
-                                        @RequestParam(name = "size") Integer size,
-                                        @RequestHeader("Authorization") String token);
+                                                    @RequestParam(name = "size") Integer size,
+                                                    @RequestHeader("Authorization") String token);
 
     @GetMapping(value = "/api/v1/protected/clients/{clientId}")
     ClientResponse findByClientId(@PathVariable UUID clientId, @RequestHeader("Authorization") String token);
@@ -33,8 +33,8 @@ public interface ClientClient {
     ClientResponse addClient(@RequestBody NewClientRequest newClientRequest,
                              @RequestHeader("Authorization") String token);
 
-    @PatchMapping(value = "/api/v1/protected/users/clients/{clientId}")
-    ClientResponse updateClient(@PathVariable UUID clientId, @RequestBody NewClientRequest newClientRequest,
-                                @RequestHeader("Authorization") String token);
+    @PutMapping(value = "/api/v1/protected/users/clients/{clientId}")
+    void updateClient(@PathVariable UUID clientId, @RequestBody NewClientRequest newClientRequest,
+                      @RequestHeader("Authorization") String token);
 
 }

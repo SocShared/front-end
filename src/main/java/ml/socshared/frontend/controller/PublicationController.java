@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,10 +38,14 @@ public class PublicationController {
 
     @PostMapping("/publication")
     public String sendPublication(@Valid @ModelAttribute("publication") PublicationForm post,
+                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                                   BindingResult postBinding,
-                                  Model model,
-                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+                                  Model model) {
         model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Публикации"));
+        if (post.getIsDeferred() && post.getDateTime().isBlank()) {
+            postBinding.addError(new FieldError("publication", "dateTime", "У отложенной публикации должна быть дата и время"));
+        }
+
         if (postBinding.hasErrors()) {
             model.addAttribute("publication", post);
             return "publication";

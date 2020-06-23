@@ -52,10 +52,10 @@
                     <a class="nav-link icon-support" th:href="@{/support}">Поддержка</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" th:href="@{/app}">Приложения OAuth2</a>
+                    <a class="nav-link active icon-options" th:href="@{/app}">Приложения</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" href="#">Системная статистика</a>
+                    <a class="nav-link active icon-options" th:href="@{/sys_stat}">Сист. статистика</a>
                 </li>
             </ul>
         </nav>
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <a href="#" class="btn sh-btn-outline my-2 my-sm-0" type="button">Аккаунт</a>
+                <a th:href="@{/account}" class="btn sh-btn-outline my-2 my-sm-0" type="button">Аккаунт</a>
                 <a th:href="@{/exit}" class="btn sh-btn-outline my-2 my-sm-0" type="button">Выйти</a>
             </div>
 

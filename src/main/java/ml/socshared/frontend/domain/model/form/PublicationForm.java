@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class PublicationForm {
-    @Size(min = 5)
     private String text;
     private String dateTime;
     private Boolean isDeferred;

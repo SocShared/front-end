@@ -6,7 +6,5 @@ public enum AccessType {
     @JsonProperty("confidential")
     CONFIDENTIAL,
     @JsonProperty("public")
-    PUBLIC,
-    @JsonProperty("bearer_only")
-    BEARER_ONLY
+    PUBLIC
 }

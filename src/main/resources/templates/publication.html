@@ -38,22 +38,35 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <input th:field="*{isDeferred}" id="is_deferred" type="checkbox" aria-label="Checkbox for following text input">
+                    <input th:field="*{isDeferred}" id="is_deferred" type="checkbox" aria-label="Checkbox for following text input" onchange="setDeferred()">
                     <label for="is_deferred"> Хотите сделать публикацию отложенной?</label>
                 </div>
                 <div class="form-group">
                     <div class="input-group date" id="timepicker" data-target-input="nearest" >
-                        <input th:field="*{dateTime}" type="text" class="form-control datetimepicker-input" data-target="#timepicker">
+                        <input id="date-time" th:field="*{dateTime}" type="text" class="form-control datetimepicker-input" data-target="#timepicker" readonly>
 
-                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                        <div id="button-date-time" class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                     </div>
 
                     <script type="text/javascript">
                         $(function () {
-                            $('#timepicker').datetimepicker();
+                            $('#timepicker').datetimepicker({
+                                locale: 'ru'
+                            });
                         });
+
+                        function setDeferred() {
+                            var chbox = document.getElementById('is_deferred');
+                            var inputDateTime = document.getElementById('date-time');
+                            inputDateTime.value = "";
+                            if (chbox.checked) {
+                                inputDateTime.removeAttribute("readonly");
+                            } else {
+                                inputDateTime.setAttribute("readonly", true);
+                            }
+                        }
                     </script>
                 </div>
                 <button type="submit" class="btn sh-btn sh-btn-fb shadow">Произвести публикацию</button>

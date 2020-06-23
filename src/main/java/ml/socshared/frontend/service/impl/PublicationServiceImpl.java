@@ -33,7 +33,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PublicationServiceImpl implements PublicationService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy h:mm a", Locale.ENGLISH);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     private final StorageClient storageClient;
     private final GatewayServiceClient gatewayClient;
 
@@ -41,7 +41,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public void writePublicationPage(Model model, String accessToken) {
         Page<GroupResponse> groups = storageClient.getGroupsList(0, 100, authToken(accessToken));
-        if(groups.isEmpty()) {
+        if (groups.isEmpty()) {
             throw new HttpBadRequestException("Для того, чтобы отправлять публикации. " +
                     "Подключите группы к системе");
         }
@@ -52,6 +52,9 @@ public class PublicationServiceImpl implements PublicationService {
     public void sendPublication(@Valid PublicationForm pub, Model model, String accessToken) {
         writePublicationPage(model, accessToken);
         PublicationRequest p = convertPublication(pub);
+        if (p.getPublicationDateTime() != null) {
+            p.setPublicationDateTime(new Date(p.getPublicationDateTime().getTime() - 3 * 60 * 60 * 1000));
+        }
         Page<GroupResponse> groups = storageClient.getGroupsList(0, 100, authToken(accessToken));
         String[] groupsIds = new String[(int) groups.getTotalElements()];
         int totalPages = groups.getTotalPages();
@@ -68,9 +71,14 @@ public class PublicationServiceImpl implements PublicationService {
             groups = storageClient.getGroupsList(i, 100, authToken(accessToken));
         }
         String[] keywords = pub.getKeywords().split(",");
-        p.setHashTags(keywords.length != 0 ? keywords : null);
+        List<String> result = new ArrayList<>();
+        for (String keyword : keywords) {
+            if (!keyword.isBlank())
+                result.add(keyword);
+        }
+
+        p.setHashTags(result.toArray(String[]::new));
         p.setGroupIds(groupsIds);
-        p.setHashTags(new String[0]);
         storageClient.savePublication(p, authToken(accessToken));
     }
 
@@ -81,12 +89,12 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public void getPublicationsByGroupId(UUID systemGroupId, Pageable pageable, Model model, String accessToken) {
-        RestResponsePage<PublicationResponse> postPage =  storageClient.getPostList(systemGroupId, pageable.getPageNumber(), pageable.getPageSize(), authToken(accessToken));
+        RestResponsePage<PublicationResponse> postPage = storageClient.getPostList(systemGroupId, pageable.getPageNumber(), pageable.getPageSize(), authToken(accessToken));
 
         List<PostStatus> postStatusList = new ArrayList<>();
-        for(PublicationResponse pub : postPage) {
-            for(GroupPostStatus status : pub.getPostStatus()) {
-                if(status.getGroupId().equals(systemGroupId)) {
+        for (PublicationResponse pub : postPage) {
+            for (GroupPostStatus status : pub.getPostStatus()) {
+                if (status.getGroupId().equals(systemGroupId)) {
                     postStatusList.add(status.getPostStatus());
                     break;
                 }
@@ -101,9 +109,9 @@ public class PublicationServiceImpl implements PublicationService {
         final int ms = 1000;
         PublicationRequest pr = new PublicationRequest();
         pr.setText(p.getText());
-        LocalDateTime time = null;
+        LocalDateTime time;
         try {
-            if (p.getDateTime() != "") {
+            if (!p.getDateTime().isEmpty()) {
                 time = LocalDateTime.parse(p.getDateTime(), formatter);
                 Date d = new Date(time.toEpochSecond(ZoneOffset.UTC) * ms);
                 pr.setPublicationDateTime(d);

@@ -70,7 +70,7 @@ public class TechSupportController {
         httpServletResponse.setHeader("Location", "/support/questions/" + String.valueOf(questionId) + "/");
     }
 
-    @PostMapping("/support/questions/{questionId}/delete/")
+    @PostMapping("/support/questions/{questionId}/delete")
     public String deleteQuestionById(@PathVariable Integer questionId,
                                      @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request remove question " + String.valueOf(questionId));

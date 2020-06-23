@@ -72,7 +72,7 @@
 
 <th:block th:fragment="pie(index_chart, name, labels, data, colors)">
 
-    <canvas th:id="${'myChart_' + index_chart}" ></canvas>
+    <canvas th:id="${'myPieChart_' + index_chart}" ></canvas>
 
 
     <script th:inline="javascript">
@@ -106,7 +106,7 @@
 
 
 
-        var ctx = document.getElementById([[${"myChart_" + index_chart}]]).getContext('2d');
+        var ctx = document.getElementById([[${"myPieChart_" + index_chart}]]).getContext('2d');
         var scatterChart_[(${index_chart})] = new Chart(ctx, config_pie_[(${index_chart})]);
     </script>
 </th:block>

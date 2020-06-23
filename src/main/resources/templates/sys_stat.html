@@ -20,8 +20,23 @@
             <h3>Статистика по социальным сетям</h3>
             <hr/>
             <p>Общее соотношение использование Facebook и ВК</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: pie(1, 'Соотношение', ${soc_pie_chart.labels}, ${soc_pie_chart.data}, ${soc_pie_chart.colors})}">
+                </div>
+            </div>
             <p>Количество подключенных аккаунтов Facebook</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: chart(2, 'Аккаунты Facebook', ${fb_number_chart.second}, ${fb_number_chart.first}, '#3b5998', 'line')}">
+                </div>
+            </div>
             <p>Количество подключенных аккаунтов ВК</p>
+        <div class="row justify-content-center">
+            <div class="col-6"
+                 th:insert="~{fragments/Chart :: chart(3, 'Аккаунты ВКонтакте', ${vk_number_chart.second}, ${fb_number_chart.first}, '#4d7198', 'line')}">
+        </div>
+    </div>
             <p>Количество подключенных групп Facebook</p>
             <p>Количество подключенных групп ВК</p>
             <p>Общее количество выполненных публикаций</p>

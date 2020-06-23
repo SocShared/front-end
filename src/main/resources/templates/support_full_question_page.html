@@ -14,7 +14,7 @@
 
         <div class="row" th:if="${question.canDeleteQuestion}">
             <div class="col">
-                <form method="post" th:href="@{/support/questions/{id}/delete/(id=${question.questionId})}" >
+                <form method="post" th:action="@{/support/questions/{questionId}/delete(questionId=${question.questionId})}" >
                     <button class="btn btn-danger">Удалить вопрос</button>
                 </form>
             </div>

@@ -28,49 +28,49 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
     <script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
     <script>
-        $(document).ready(function(){
-            const jwt_at = $.cookie('JWT_AT');
-            const jwt_rt = $.cookie('JWT_RT');
-            $.ajax({
-                url: 'https://auth.socshared.ml/oauth/validate_token',
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                crossDomain: true,
-                dataType: 'json',
-                data: JSON.stringify({token: jwt_at}),
-                success: function (data) {
-                    if (!data.success) {
-                        $.ajax({
-                            url: 'https://auth.socshared.ml/oauth/token',
-                            type: 'POST',
-                            contentType: 'application/json; charset=utf-8',
-                            data: JSON.stringify({
-                                client_id: '360dad92-ecb1-44e7-990a-3152d2642919',
-                                client_secret: 'cb456410-85ca-43b5-9a12-87171ad84516',
-                                grant_type: 'refresh_token',
-                                refresh_token: jwt_rt
-                            }),
-                            crossDomain: true,
-                            dataType: 'json',
-                            success: function (data) {
-                                $.cookie('JWT_AT', data.access_token);
-                                $.cookie('JWT_RT', data.refresh_token);
-                            },
-                            error: function (errMsg) {
-                                $.removeCookie('JWT_AT');
-                                $.removeCookie('JWT_RT');
-                               // window.location.replace("https://socshared.ml");
-                            }
-                        })
-                    }
-                },
-                error: function (errMsg) {
-                    $.removeCookie('JWT_AT');
-                    $.removeCookie('JWT_RT');
-                   // window.location.replace("https://socshared.ml");
-                }
-            })
-        });
+        // $(document).ready(function(){
+        //     const jwt_at = $.cookie('JWT_AT');
+        //     const jwt_rt = $.cookie('JWT_RT');
+        //     $.ajax({
+        //         url: 'https://auth.socshared.ml/oauth/validate_token',
+        //         type: 'POST',
+        //         contentType: 'application/json; charset=utf-8',
+        //         crossDomain: true,
+        //         dataType: 'json',
+        //         data: JSON.stringify({token: jwt_at}),
+        //         success: function (data) {
+        //             if (!data.success) {
+        //                 $.ajax({
+        //                     url: 'https://auth.socshared.ml/oauth/token',
+        //                     type: 'POST',
+        //                     contentType: 'application/json; charset=utf-8',
+        //                     data: JSON.stringify({
+        //                         client_id: '360dad92-ecb1-44e7-990a-3152d2642919',
+        //                         client_secret: 'cb456410-85ca-43b5-9a12-87171ad84516',
+        //                         grant_type: 'refresh_token',
+        //                         refresh_token: jwt_rt
+        //                     }),
+        //                     crossDomain: true,
+        //                     dataType: 'json',
+        //                     success: function (data) {
+        //                         $.cookie('JWT_AT', data.access_token);
+        //                         $.cookie('JWT_RT', data.refresh_token);
+        //                     },
+        //                     error: function (errMsg) {
+        //                         $.removeCookie('JWT_AT');
+        //                         $.removeCookie('JWT_RT');
+        //                        // window.location.replace("https://socshared.ml");
+        //                     }
+        //                 })
+        //             }
+        //         },
+        //         error: function (errMsg) {
+        //             $.removeCookie('JWT_AT');
+        //             $.removeCookie('JWT_RT');
+        //            // window.location.replace("https://socshared.ml");
+        //         }
+        //     })
+        // });
     </script>
 
 </head>

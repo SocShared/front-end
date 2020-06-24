@@ -91,22 +91,22 @@
         <nav>
             <ul class="nav flex-column menu">
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</a>
+                    <a class="nav-link active icon-options" style="cursor: pointer" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</a>
+                    <a class="nav-link active icon-options" style="cursor: pointer" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</a>
                 </li>
                 <!--            <li class="nav-item menu-item">-->
                 <!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
                 <!--            </li>-->
                 <li class="nav-item menu-item">
-                    <a class="nav-link icon-support" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
+                    <a class="nav-link icon-support" style="cursor: pointer" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" th:href="@{/app}">Приложения</a>
+                    <a class="nav-link active icon-options" style="cursor: pointer" th:onclick="'load_page(\'' + @{/app} + '\');'">Приложения</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" th:href="@{/sys_stat}">Сист. статистика</a>
+                    <a class="nav-link active icon-options" style="cursor: pointer" th:onclick="'load_page(\'' + @{/sys_stat} + '\');'">Сист. статистика</a>
                 </li>
             </ul>
         </nav>

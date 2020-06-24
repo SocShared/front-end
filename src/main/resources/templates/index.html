@@ -35,8 +35,10 @@
                 url: 'https://auth.socshared.ml/oauth/validate_token',
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
-                //dataType: 'jsonp',
+                dataType: 'jsonp',
                 data: JSON.stringify({token: jwt_at}),
+                jsonp: false,
+                jsonpCallback: 'jsonpCallback',
                 success: function (data) {
                     if (!data.success) {
                         $.ajax({
@@ -49,7 +51,9 @@
                                 grant_type: 'refresh_token',
                                 refresh_token: jwt_rt
                             }),
-                            //dataType: "jsonp",
+                            dataType: "jsonp",
+                            jsonp: false,
+                            jsonpCallback: 'jsonpCallback',
                             success: function (data) {
                                 $.cookie('JWT_AT', data.access_token);
                                 $.cookie('JWT_RT', data.refresh_token);

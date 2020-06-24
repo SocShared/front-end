@@ -40,10 +40,10 @@ public class SystemStatController {
         model.addAttribute("using_facebook_perc", usingFacebookPerc);
         model.addAttribute("using_vk_perc", usingVkPerc);
         model.addAttribute("soc_count", socCountResponse);
-        model.addAttribute("active_users_count", statService.getActiveUsersCount(accessToken));
-        model.addAttribute("online_users_count", statService.getOnlineUsersCount(accessToken));
-        model.addAttribute("new_users_count", statService.getNewUsersCount(accessToken));
-        model.addAttribute("all_users_count", statService.getAllUsersCount(accessToken));
+        model.addAttribute("active_users_count", statService.getActiveUsersCount(accessToken).getActiveUsers());
+        model.addAttribute("online_users_count", statService.getOnlineUsersCount(accessToken).getOnlineUsers());
+        model.addAttribute("new_users_count", statService.getNewUsersCount(accessToken).getNewUsers());
+        model.addAttribute("all_users_count", statService.getAllUsersCount(accessToken).getAllUsers());
         model.addAttribute("errors_count", statService.getErrorsStat(accessToken).getAllErrorsCount());
 
         return "sys_stat";

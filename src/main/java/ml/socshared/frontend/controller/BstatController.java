@@ -26,8 +26,10 @@ public class BstatController  {
             @PathVariable UUID systemGroupId, Pageable pageable, Model model,
             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("request get vk group statistic");
+        model.addAttribute("systemGroupId", systemGroupId);
+        model.addAttribute("socialNetwork", "vk");
         bStatService.getGroupStatPage(systemGroupId, SocialNetwork.VK, model, duration, pageable, accessToken);
-        return "bstat_group_stat";
+        return "bstat_group_stat :: content";
     }
 
     @GetMapping("/social/facebook/groups/{systemGroupId}")
@@ -35,8 +37,10 @@ public class BstatController  {
             @PathVariable UUID systemGroupId, Pageable pageable, Model model,
             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("request get fb group statistic");
+        model.addAttribute("systemGroupId", systemGroupId);
+        model.addAttribute("socialNetwork", "facebook");
         bStatService.getGroupStatPage(systemGroupId, SocialNetwork.FACEBOOK, model, duration, pageable, accessToken);
-        return "bstat_group_stat";
+        return "bstat_group_stat :: content";
     }
 
 
@@ -44,16 +48,22 @@ public class BstatController  {
     public String pageVkPostStat(@ModelAttribute DurationStat duration,
             @PathVariable UUID systemGroupId,  @PathVariable UUID systemPostId, Model model,
             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        model.addAttribute("systemGroupId", systemGroupId);
+        model.addAttribute("systemPostId", systemPostId);
+        model.addAttribute("socialNetwork", "vk");
         bStatService.getPostStatPage(systemGroupId, systemPostId, SocialNetwork.VK, model, duration, accessToken);
-        return "bstat_publication_stat";
+        return "bstat_publication_stat :: content";
     }
 
     @GetMapping("/social/facebook/groups/{systemGroupId}/posts/{systemPostId}")
     public String pageFbPostStat(@ModelAttribute DurationStat duration,
             @PathVariable UUID systemGroupId,  @PathVariable UUID systemPostId, Model model,
             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        model.addAttribute("systemGroupId", systemGroupId);
+        model.addAttribute("systemPostId", systemPostId);
+        model.addAttribute("socialNetwork", "facebook");
         bStatService.getPostStatPage(systemGroupId, systemPostId, SocialNetwork.FACEBOOK, model,duration,  accessToken);
-        return "bstat_publication_stat";
+        return "bstat_publication_stat :: content";
     }
 
 }

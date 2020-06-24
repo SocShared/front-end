@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
     <script>
         $(document).on('click', '.row-select', function(e){
             window.location.href = window.location.href + "/clients/" + e.target.parentNode.id;

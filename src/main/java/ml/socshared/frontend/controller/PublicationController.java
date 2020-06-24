@@ -33,7 +33,7 @@ public class PublicationController {
         model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Публикации"));
 
         service.writePublicationPage(model, accessToken);
-        return "publication";
+        return "publication :: content";
     }
 
     @PostMapping("/publication")
@@ -48,17 +48,17 @@ public class PublicationController {
 
         if (postBinding.hasErrors()) {
             model.addAttribute("publication", post);
-            return "publication";
+            return "publication :: content";
         }
         service.sendPublication(post, model, accessToken);
-        return "publication";
+        return "publication :: content";
     }
 
     @GetMapping("/social/vk/groups/{systemGroupId}/publications")
     public String getPublicationsByGroupId(@PathVariable UUID systemGroupId, Pageable pageable, Model model,
                                            @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         service.getPublicationsByGroupId(systemGroupId, pageable, model, accessToken);
-        return "group_publications";
+        return "group_publications :: content";
     }
 
     @PostMapping("/publication/keywords")
@@ -67,7 +67,7 @@ public class PublicationController {
         List<KeyWordResponse> keyWordResponseList = service.getKeyWords(request.getText(), accessToken);
 
         model.addAttribute("keywords", keyWordResponseList);
-        return "publication";
+        return "publication :: content";
     }
 
 

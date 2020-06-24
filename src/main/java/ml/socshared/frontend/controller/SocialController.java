@@ -40,6 +40,14 @@ public class SocialController {
         return new HashSet<>();
     }
 
+    @GetMapping("/lk")
+    public String basePage(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        if (accessToken.isEmpty())
+            return "redirect:/";
+        return "index";
+    }
+
+
     @GetMapping("/social")
     public String socConnectedPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         if (accessToken.isEmpty())
@@ -52,7 +60,7 @@ public class SocialController {
         AppUrlAccess appAccess = new AppUrlAccess();
         model.addAttribute("appUrlAccess", appAccess);
         model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Социальные аккаунты"));
-        return "soc_accounts";
+        return "soc_accounts :: content";
     }
 
     @GetMapping("/")

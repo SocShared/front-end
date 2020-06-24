@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
 
     <div class="row">
         <div class="col">
@@ -28,39 +28,53 @@
 
                 <tr data-toggle="modal" data-target="#exampleModal">
                     <th scope="row">
-                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="get">
                         <a style="display: block; color: black"
-                           href="#" onclick="parentNode.submit();"
+                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${i.index + 1}"></a>
-                        </form>
                     </th>
                     <td>
-                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="get">
                         <a style="display: block; color: black"
-                           href="#" onclick="parentNode.submit();"
+                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getName()}"></a>
-                        </form>
                     </td>
                     <td>
-                        <form th:action="@{/social/vk/groups/{id}/(id=${group.systemGroupId})}" method="get">
                         <a style="display: block; color: black"
-                           href="#" onclick="parentNode.submit();"
+                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getMembersCount()}"></a>
-                        </form>
                     </td>
                     <td>
                         <a style="display: block; color: black"
-                           href="#" onclick="parentNode.submit();"
+                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getType()}"></a>
                     </td>
                     <td>
-                        <a type="button" th:href="@{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})}" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</a>
-                        <a type="button" th:href="@{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})}" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</a>
+                        <a type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</a>
+                        <a type="button" style="color: white"  th:onclick="'load_page(\'' + @{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\');'"  th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <script>
+        //TODO
+        function group_connect(block_id, url, old_text) {
+            $.ajax({
+                url: url,
+                method: "get",
+                before: function () {
+                    $(block_id).prop("disabled", true);
+                    $(block_id).html(
+                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
+                    );
+                },
+                success: function () {
+                    $(block_id).prop("disabled", false);
+                    $(block_id).html(old_text);
+                }
+            })
+        }
+    </script>
 
 </th:block>
 

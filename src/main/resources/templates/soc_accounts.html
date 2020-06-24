@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content()">
 
     <div class="row">
         <!-- блок с кнопками для добавления социальных сетей-->
@@ -15,21 +15,21 @@
                 <a type="button" th:href="@{/social/facebook/access}" th:if="${!facebook_connect}" style="margin-left: 20px"
                    class="btn sh-btn sh-btn-fb shadow">Подключить
                     <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
-                <a th:href="@{/social/connection/vk}" type="button" th:if="${!vk_connect}"
-                   class="btn sh-btn sh-btn-vk shadow" style="margin-left: 20px">Подключить
+                <a th:onclick="'load_page(\'' + @{/social/connection/vk} + '\');'" type="button" th:if="${!vk_connect}"
+                   class="btn sh-btn sh-btn-vk shadow" style="margin-left: 20px; color: white">Подключить
                     <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
 
-                <a type="button" th:href="@{/social/facebook/turn_off}" th:if="${facebook_connect}"
-                   class="btn sh-btn sh-btn-fb shadow" style="margin-left: 20px">Отключить
+                <a type="button" th:onclick="'load_page(\'' + @{/social/facebook/turn_off} + '\');'"  th:if="${facebook_connect}"
+                   class="btn sh-btn sh-btn-fb shadow" style="margin-left: 20px; color: white">Отключить
                     <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
-                <a type="button" th:href="@{/social/disconnection/vk}" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow"
-                   style="margin-left: 20px">Отключить
+                <a type="button" th:onclick="'load_page(\'' + @{/social/disconnection/vk} + '\');'" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow"
+                   style="margin-left: 20px; color: white">Отключить
                     <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
             </div>
             <div class="col-6 text-right">
-                <a th:href="@{/social/vk/groups}" th:if="${vk_connect}" type="button"
+                <a th:onclick="'load_page(\'' + @{/social/vk/groups} + '\');'" th:if="${vk_connect}" type="button"
                    class="btn sh-btn sh-btn-outline shadow" style="margin-right: 20px">Подключить группы ВК</a>
-                <a th:href="@{/social/facebook/groups}" th:if="${facebook_connect}" type="button"
+                <a th:onclick="'load_page(\'' + @{/social/facebook/groups} + '\');'"  th:if="${facebook_connect}" type="button"
                    class="btn sh-btn sh-btn-outline shadow" style="margin-right: 20px">Подключить группы FB</a>
             </div>
     </div>

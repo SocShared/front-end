@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -14,7 +14,7 @@
 
         <div class="row ">
             <div class="col content shadow">
-                <form th:object="${formAddQuestion}" th:action="@{.}" method="post">
+                <form id="question-add-form" th:object="${formAddQuestion}" th:action="@{/support/questions/}" method="post">
                     <div class="form-group">
                         <label for="questionArea">Вопрос (кратко)</label>
                         <input type="text" th:field="*{title}" class="form-control" id="questionArea"
@@ -29,12 +29,28 @@
                         <small class="form-text text-muted">Когда ответят на ваш вопрос, вы будете уведомлены по
                             электронной почте</small>
                     </div>
-                    <input type="submit" class="btn sh-btn-outline" th:value="Отправить"/>
+                    <button id="submit-button-form" type="submit" class="btn sh-btn-outline" >Отправить</button>
                 </form>
 
             </div>
         </div>
     </div>
+
+    <script>
+        $(function() {
+            $('#question-add-form').ajaxForm({
+                beforeSubmit: function(arr, $form, options) {
+                    $("#submit-button-form").prop("disabled", true);
+                    $("#submit-button-form").html(
+                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
+                    );
+                },
+                success: function (data) {
+                    $("#sh-content").html(data);
+                }
+            });
+        });
+    </script>
 </th:block>
 
 </body>

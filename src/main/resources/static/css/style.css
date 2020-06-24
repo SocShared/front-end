@@ -309,3 +309,9 @@ a.col {
 .sh-container-wrapper {
 	position: relative;
 }
+
+#sh-spinner {
+	margin-left: 50%;
+	margin-top: 30%;
+	/*position: absolute;*/
+}

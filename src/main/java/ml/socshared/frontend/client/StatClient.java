@@ -18,57 +18,57 @@ import java.util.List;
 @FeignClient(name = "stat-client", url = "${feign.url.api}", configuration = DefaultClientConfiguration.class)
 public interface StatClient {
 
-    @GetMapping(value = "/protected/stat/social")
+    @GetMapping(value = "/api/v1/protected/stat/social")
     UsingSocialNetworkResponse getUsingSocialNetworkStat(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/online/count")
+    @GetMapping(value = "/api/v1/protected/stat/users/online/count")
     UsersStatResponse getOnlineUsersCount(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/online/count/timeline")
+    @GetMapping(value = "/api/v1/protected/stat/users/online/count/timeline")
     List<UsersStatResponse> getOnlineUsersStatTimeline(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/online")
+    @GetMapping(value = "/api/v1/protected/stat/users/online")
     RestResponsePage<UserResponse> getOnlineUsers(@RequestParam(name = "page") Integer page,
                                                   @RequestParam(name = "size") Integer size,
                                                   @RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/active/count")
+    @GetMapping(value = "/api/v1/protected/stat/users/active/count")
     UsersStatResponse getActiveUsersCount(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/active/count/timeline")
+    @GetMapping(value = "/api/v1/protected/stat/users/active/count/timeline")
     List<UsersStatResponse> getActiveUsersStatTimeline(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/active")
+    @GetMapping(value = "/api/v1/protected/stat/users/active")
     RestResponsePage<UserResponse> getActiveUsersStat(@RequestParam(name = "page") Integer page,
                                                       @RequestParam(name = "size") Integer size,
                                                       @RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/new/count")
+    @GetMapping(value = "/api/v1/protected/stat/users/new/count")
     UsersStatResponse getNewUsersCount(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/new/count/timeline")
+    @GetMapping(value = "/api/v1/protected/stat/users/new/count/timeline")
     List<UsersStatResponse> getNewUsersStatTimeline(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/new")
+    @GetMapping(value = "/api/v1/protected/stat/users/new")
     RestResponsePage<UserResponse> getNewUsers(@RequestParam(name = "page") Integer page,
                                                @RequestParam(name = "size") Integer size,
                                                @RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/all/count")
+    @GetMapping(value = "/api/v1/protected/stat/users/all/count")
     UsersStatResponse getAllUsersCount(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/all/count/timeline")
+    @GetMapping(value = "/api/v1/protected/stat/users/all/count/timeline")
     List<UsersStatResponse> getAllUsersStatTimeline(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/users/all")
+    @GetMapping(value = "/api/v1/protected/stat/users/all")
     RestResponsePage<UserResponse> getAllUsers(@RequestParam(name = "page") Integer page,
                                                @RequestParam(name = "size") Integer size,
                                                @RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/errors")
+    @GetMapping(value = "/api/v1/protected/stat/errors")
     ErrorsStatResponse getErrorsStat(@RequestHeader("Authorization") String token);
 
-    @GetMapping(value = "/protected/stat/soc/count")
+    @GetMapping(value = "/api/v1/protected/stat/soc/count")
     SocCountResponse getSocCount(@RequestHeader("Authorization") String token);
 
 }

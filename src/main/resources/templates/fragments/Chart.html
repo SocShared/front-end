@@ -13,16 +13,14 @@
     </body>
 </th:block>
 
-<th:block th:fragment="chart(index_chart, name, labels, data, color)">
-        <div class="row content shadow">
-            <div class="col">
+<th:block th:fragment="chart(index_chart, name, labels, data, color, type_chart)">
+
                 <canvas th:id="${'myChart_' + index_chart}" ></canvas>
-            </div>
-        </div>
+
 
     <script th:inline="javascript">
         var config_[(${index_chart})] = {
-            type: 'line',
+            type: "[(${type_chart})]",
             data: {
                 labels: [[${labels}]],
                 datasets: [{
@@ -51,14 +49,14 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Month'
+                            labelString: 'Время'
                         }
                     }],
                     yAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: 'Значение'
                         }
                     }]
                 }
@@ -69,6 +67,47 @@
 
         var ctx = document.getElementById([[${"myChart_" + index_chart}]]).getContext('2d');
         var scatterChart_[(${index_chart})] = new Chart(ctx, config_[(${index_chart})]);
+    </script>
+</th:block>
+
+<th:block th:fragment="pie(index_chart, name, labels, data, colors)">
+
+    <canvas th:id="${'myPieChart_' + index_chart}" ></canvas>
+
+
+    <script th:inline="javascript">
+        var config_pie_[(${index_chart})] = {
+            type: "pie",
+            data: {
+                labels: [[${labels}]],
+                datasets: [{
+                    label: [[${name}]],
+                    data: [[${data}]],
+                    backgroundColor: [[${colors}]],
+                    fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: [[${name}]]
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+            }
+        };
+
+
+
+        var ctx = document.getElementById([[${"myPieChart_" + index_chart}]]).getContext('2d');
+        var scatterChart_[(${index_chart})] = new Chart(ctx, config_pie_[(${index_chart})]);
     </script>
 </th:block>
 

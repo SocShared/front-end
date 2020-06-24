@@ -75,8 +75,12 @@
 
         <div class="row" >
             <th:block th:each="chart, i : ${charts}">
-                <div class="col-6"
-                 th:insert="~{fragments/Chart :: chart(${i.index}, ${chart.first}, ${chart.second.second}, ${chart.second.first}, 'blue')}">
+                <div class="col-6">
+                    <div class="row content shadow">
+                        <div class="col"
+                                th:insert="~{fragments/Chart :: chart(${i.index}, ${chart.first}, ${chart.second.second}, ${chart.second.first}, 'blue', 'line')}">
+                        </div>
+                    </div>
                 </div>
             </th:block>
         </div>

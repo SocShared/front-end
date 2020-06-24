@@ -48,7 +48,7 @@ public class FacebookController {
         FacebookPage<FacebookGroupResponse> groupsPage = service.getGroupsFacebookAccount(page, size, accessToken);
 
         model.addAttribute("groups_page", groupsPage);
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("social :: content", "Социальные Аккаунты")),
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("social", "Социальные Аккаунты")),
                 "Подключенные группы"));
 
         return "soc_fb_groups :: content";

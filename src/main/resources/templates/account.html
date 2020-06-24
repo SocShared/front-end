@@ -31,7 +31,7 @@
                     <input id="email" class="form-control" th:field="*{email}" readonly>
                     <div class="text-danger" th:if="${user.isEmailVerified() != true}">
                         <p class="error-message" style="margin-left: 10px">Подтвердите электронную почту
-                            <a id="confirmed-email-button" th:href="@{/account/confirmed}" style="display: block; color: black">Отправить сообщение о подтверждении</a></p>
+                            <a id="confirmed-email-button" th:onclick="'load_page(\'' + @{/account/confirmed} + '\');'" href="#" style="display: block; color: black">Отправить сообщение о подтверждении</a></p>
                         <p th:if="${access_confirmed}">Сообщение успешно отправлено</p>
                     </div>
                     <ul class="text-danger" th:each="error: ${#fields.errors('email')}" style="margin-left: 25px">

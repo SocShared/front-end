@@ -39,7 +39,7 @@ public class ClientController {
 
     @GetMapping("/app/clients")
     public String getClient(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("app :: content", "Приложения OAuth2")),
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("app", "Приложения OAuth2")),
                 "Подключение приложения"));
 
         model.addAttribute("client", new NewClientRequest());
@@ -49,7 +49,7 @@ public class ClientController {
     @GetMapping("/app/clients/{clientId}")
     public String getClient(@PathVariable UUID clientId,
                             @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
-        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("app :: content", "Приложения OAuth2")),
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("app", "Приложения OAuth2")),
                 "Подключение приложения"));
 
         ClientResponse clientResponse = clientService.findByUserIdAndClientId(clientId, accessToken);

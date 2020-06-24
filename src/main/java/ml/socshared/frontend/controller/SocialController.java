@@ -92,7 +92,7 @@ public class SocialController {
 
     @GetMapping("/exit")
     public String exit(Model model, HttpServletResponse response) {
-        Cookie accessToken = new Cookie("JWT_AT", null);
+        Cookie accessToken = new Cookie("JWT_AT", "");
         accessToken.setMaxAge(0);
         accessToken.setSecure(true);
         accessToken.setHttpOnly(true);
@@ -100,7 +100,7 @@ public class SocialController {
         accessToken.setDomain("socshared.ml");
         response.addCookie(accessToken);
 
-        Cookie refreshToken = new Cookie("JWT_RT", null);
+        Cookie refreshToken = new Cookie("JWT_RT", "");
         refreshToken.setMaxAge(0);
         refreshToken.setSecure(true);
         refreshToken.setHttpOnly(true);

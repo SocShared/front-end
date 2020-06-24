@@ -7,7 +7,7 @@
 <th:block layout:fragment="content" th:fragment="content">
     <script>
         $(document).on('click', '.row-select', function(e){
-            window.location.href = window.location.href + "/clients/" + e.target.parentNode.id;
+            load_page('/app/clients/' + e.target.parentNode.id);
         });
     </script>
     <div class="row">
@@ -15,7 +15,7 @@
             <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
         </div>
         <div class="col-6">
-            <a th:href="@{/app/clients}" type="button" style="margin-left: 20px"
+            <a th:onclick="'load_page(\'' + @{/app/clients} + '\');'" type="button" style="margin-left: 20px; cursor: pointer"
                class="btn sh-btn sh-btn-outline shadow">Добавить приложение</a>
         </div>
     </div>
@@ -36,16 +36,16 @@
                 <tbody th:each=" client, i : ${clients}">
                 <tr class="row-select" th:id="${client.getClientId()}">
                     <th scope="row">
-                        <a style="display: block; color: black" th:href="@{/app/clients/{path}/(path=${client.getClientId()})}" th:text="${i.index + 1}"></a>
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/app/clients/{path}/(path=${client.getClientId()})} + '\');'" th:text="${i.index + 1}"></a>
                     </th>
                     <td>
-                        <a style="display: block; color: black" th:href="@{/app/clients/{path}/(path=${client.getClientId()})}" th:text="${client.getClientId()}"></a>
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/app/clients/{path}/(path=${client.getClientId()})} + '\');'" th:text="${client.getClientId()}"></a>
                     </td>
                     <td>
-                        <a style="display: block; color: black" th:href="@{/app/clients/{path}/(path=${client.getClientId()})}" th:text="${client.getName()}"></a>
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/app/clients/{path}/(path=${client.getClientId()})} + '\');'" th:text="${client.getName()}"></a>
                     </td>
                     <td>
-                        <a style="display: block; color: black" th:href="@{/app/clients/{path}/(path=${client.getClientId()})}" th:text="${client.getValidRedirectUri()}"></a>
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/app/clients/{path}/(path=${client.getClientId()})} + '\');'" th:text="${client.getValidRedirectUri()}"></a>
                     </td>
                 </tr>
                 </tbody>

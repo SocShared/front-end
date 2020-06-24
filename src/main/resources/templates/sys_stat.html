@@ -62,7 +62,7 @@
                 </tr>
                 </tbody>
             </table>
-            <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/soc_network}">Подробнее</a>
+            <button type="submit" class="btn sh-btn sh-btn-fb shadow" th:onclick="'load_page(\'' +@{/sys_stat/soc_network} + '\');'">Подробнее</button>
             <hr/>
             <h3>Статистика по пользователям</h3>
             <table class="table table-hover">
@@ -85,7 +85,7 @@
                 </tr>
                 </tbody>
             </table>
-            <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/users}">Подробнее</a>
+            <button type="submit" class="btn sh-btn sh-btn-fb shadow" th:onclick="'load_page(\'' +@{/sys_stat/users} + '\');'">Подробнее</button>
             <hr/>
             <h3>Статистика по системе</h3>
             <table class="table table-hover">
@@ -96,7 +96,7 @@
                 </tr>
                 </tbody>
             </table>
-            <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/info}">Подробнее</a>
+            <button type="submit" class="btn sh-btn sh-btn-fb shadow" th:onclick="'load_page(\'' + @{/sys_stat/info} + '\');'">Подробнее</button>
             <hr/>
         </div>
     </div>

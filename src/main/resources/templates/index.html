@@ -6,8 +6,8 @@
     <title th:text="${page_title}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -26,6 +26,53 @@
     <script th:src=@{/js/moment-with-locales.min.js}></script>
     <script type="text/javascript" th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
+    <script>
+        // $(document).ready(function(){
+        //     const jwt_at = $.cookie('JWT_AT');
+        //     const jwt_rt = $.cookie('JWT_RT');
+        //     $.ajax({
+        //         url: 'https://auth.socshared.ml/oauth/validate_token',
+        //         type: 'POST',
+        //         contentType: 'application/json; charset=utf-8',
+        //         crossDomain: true,
+        //         dataType: 'json',
+        //         data: JSON.stringify({token: jwt_at}),
+        //         success: function (data) {
+        //             if (!data.success) {
+        //                 $.ajax({
+        //                     url: 'https://auth.socshared.ml/oauth/token',
+        //                     type: 'POST',
+        //                     contentType: 'application/json; charset=utf-8',
+        //                     data: JSON.stringify({
+        //                         client_id: '360dad92-ecb1-44e7-990a-3152d2642919',
+        //                         client_secret: 'cb456410-85ca-43b5-9a12-87171ad84516',
+        //                         grant_type: 'refresh_token',
+        //                         refresh_token: jwt_rt
+        //                     }),
+        //                     crossDomain: true,
+        //                     dataType: 'json',
+        //                     success: function (data) {
+        //                         $.cookie('JWT_AT', data.access_token);
+        //                         $.cookie('JWT_RT', data.refresh_token);
+        //                     },
+        //                     error: function (errMsg) {
+        //                         $.removeCookie('JWT_AT');
+        //                         $.removeCookie('JWT_RT');
+        //                        // window.location.replace("https://socshared.ml");
+        //                     }
+        //                 })
+        //             }
+        //         },
+        //         error: function (errMsg) {
+        //             $.removeCookie('JWT_AT');
+        //             $.removeCookie('JWT_RT');
+        //            // window.location.replace("https://socshared.ml");
+        //         }
+        //     })
+        // });
+    </script>
+
 </head>
 
 <body>

@@ -3,8 +3,8 @@ package ml.socshared.frontend.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
-import ml.socshared.frontend.domain.user.UserResponse;
-import ml.socshared.frontend.service.SystemStatService;
+import ml.socshared.frontend.domain.stat.TotalStatsResponse;
+import ml.socshared.frontend.service.StatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -17,12 +17,16 @@ import java.util.Collections;
 @Slf4j
 public class SystemStatController {
 
-    private final SystemStatService sysStatService;
+    private final StatService statService;
 
     @GetMapping("/sys_stat")
     public String getUserAccountInfo(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
-        log.info("Request get of system statistic page");
-        sysStatService.pageCommonSystemStat(model);
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Системная статистика"));
+
+        TotalStatsResponse totalStatsResponse = statService.getTotalCount(accessToken);
+
+        model.addAttribute("total_count", totalStatsResponse);
+
         return "sys_stat";
     }
 

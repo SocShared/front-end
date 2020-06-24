@@ -87,7 +87,7 @@
 
         <div class="row" th:each="post, i : ${posts.content}">
 
-            <a th:onclick="'load_page(\'' + @{/social/{sn}/groups/{sgi}/posts/{pid}/(sn=${socialNetwork},sgi=${systemGroupId},pid=${post.publicationId})} + '\');'"  class="col  content shadow">
+            <a th:onclick="'load_page(\'' + @{/social/{sn}/groups/{sgi}/posts/{pid}/(sn=${socialNetwork},sgi=${systemGroupId},pid=${post.publicationId})} + '\');'" style="cursor: pointer" class="col  content shadow">
                 <div class="row">
                     <div class="col sh-text-content" th:text="${post.text}"></div>
                 </div>

@@ -15,8 +15,8 @@
             <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
         </div>
         <div class="col-6">
-            <a th:onclick="'load_page(\'' + @{/app/clients} + '\');'" type="button" style="margin-left: 20px; cursor: pointer"
-               class="btn sh-btn sh-btn-outline shadow">Добавить приложение</a>
+            <button th:onclick="'load_page(\'' + @{/app/clients} + '\');'" type="button" style="margin-left: 20px;"
+               class="btn sh-btn sh-btn-outline shadow">Добавить приложение</button>
         </div>
     </div>
     <div class="row  content shadow">

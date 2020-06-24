@@ -19,29 +19,29 @@
         <div class="col-12">
             <h3>Статистика по социальным сетям</h3>
             <hr/>
-            <p>Общее соотношение использование Facebook и ВК</p>
-            <p>Количество подключенных аккаунтов Facebook</p>
-            <p>Количество подключенных аккаунтов ВК</p>
-            <p>Количество подключенных групп Facebook</p>
-            <p>Количество подключенных групп ВК</p>
-            <p>Общее количество выполненных публикаций</p>
-            <p>Общее количество неуспешных публикаций</p>
-            <p>Общее количество публикаций, ожидающие исполнения или имеющие статус "в процессе"</p>
-            <p>Количество публикаций, отправленных в ВК</p>
-            <p>Количество публикаций, отправленных в Facebook</p>
+            <p>Общее соотношение использование Facebook и ВК: <b>Facebook: <div th:utext="${using_facebook_perc}"></div></b> <b>VK: <div th:utext="${using_vk_perc}"></div></b></p>
+            <p>Количество подключенных аккаунтов Facebook: <b><div th:utext="${soc_count.getFbAccountCount()}"></div></b></p>
+            <p>Количество подключенных аккаунтов ВК: <b><div th:utext="${soc_count.getVkAccountCount()}"></div></b></p>
+            <p>Количество подключенных групп Facebook: <b><div th:utext="${soc_count.getFacebookGroupCount()}"></div></b></p>
+            <p>Количество подключенных групп ВК: <b><div th:utext="${soc_count.getVkGroupCount()}"></div></b></p>
+            <p>Общее количество выполненных публикаций: <b><div th:utext="${soc_count.getPublishedCount()}"></div></b></p>
+            <p>Общее количество неуспешных публикаций: <b><div th:utext="${soc_count.getNotSuccessfulCount()}"></div></b></p>
+            <p>Общее количество публикаций, ожидающие исполнения или имеющие статус "в процессе": <b><div th:utext="${soc_count.getWaitingOrProcessingCount()}"></div></b></p>
+            <p>Количество публикаций, отправленных в Facebook: <b><div th:utext="${soc_count.getFbPublicationCount()}"></div></b></p>
+            <p>Количество публикаций, отправленных в ВК: <b><div th:utext="${soc_count.getVkPublicationCount()}"></div></b></p>
             <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/soc_network}">Подробнее</a>
             <hr/>
             <h3>Статистика по пользователям</h3>
             <hr/>
-            <p>Количество всего пользователей</p>
-            <p>Количество новых пользователей</p>
-            <p>Количество активных пользователей</p>
-            <p>Количество пользователей онлайн</p>
+            <p>Количество всего пользователей: <b><div th:utext="${all_users_count}"></div></b></p>
+            <p>Количество новых пользователей: <b><div th:utext="${new_users_count}"></div></b></p>
+            <p>Количество активных пользователей: <b><div th:utext="${active_users_count}"></div></b></p>
+            <p>Количество пользователей онлайн: <b><div th:utext="${online_users_count}"></div></b></p>
             <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/users}">Подробнее</a>
             <hr/>
             <h3>Статистика по системе</h3>
             <hr/>
-            <p>Количество ошибок системы</p>
+            <p>Количество ошибок системы: <b><div th:utext="${errors_count}"></div></b></p>
             <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/system}">Подробнее</a>
             <hr/>
         </div>

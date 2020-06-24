@@ -160,7 +160,7 @@ public class SystemStatController {
                 errorsStatResponse.getTextAnalyzerErrorsCount(),
                 errorsStatResponse.getVkAdapterErrorsCount(),
                 errorsStatResponse.getWorkerErrorsCount()),
-                Arrays.asList("Сервиса авторизации", "Сервиса бизнес-статистики", "Сервиса Facebook Adapter",
+                Arrays.asList("Сервис авторизации", "Сервис бизнес-статистики", "Сервис Facebook Adapter",
                         "Сервис Gateway", "Сервис отправки почты", "Сервис хранения данных", "Сервис технической поддержки",
                         "Сервис анализа текста", "Сервис VK Adapter", "Сервис выполнения задач"),
                 Arrays.asList("#B22222", "#FFFF00", "#FFFFE0", "#EE82EE", "#808080", "#000080", "#008000", "#2F4F4F", "#F8F8FF", "#4B0082")

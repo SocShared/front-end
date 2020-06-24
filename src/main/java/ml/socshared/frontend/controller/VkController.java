@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import ml.socshared.frontend.domain.model.form.AppId;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
 import ml.socshared.frontend.service.VkService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +35,14 @@ public class VkController {
                                       @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         model.addAttribute("appUrl", new AppUrlAccess());
         model.addAttribute("appId", new AppId());
-        return "connection_vk";
+        return "connection_vk :: content";
     }
 
     @GetMapping("social/disconnection/vk")
     public String disconnectionVkAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request disconnection vk account");
         service.vkDisconnection("Bearer " +  accessToken);
-        return "redirect:/social";
+        return "redirect:/lk";
     }
 
     @PostMapping("/social/connection/vk")
@@ -56,7 +57,7 @@ public class VkController {
         }
 
 
-        return "redirect:/social";
+        return "redirect:/lk";
     }
 
     @GetMapping("/social/vk/groups")
@@ -65,23 +66,25 @@ public class VkController {
 
         log.info("Request get page of connected vk groups");
         service.getConnectedPageUserGroups(pageable, model, accessToken);
-        return "soc_vk_groups";
+        return "soc_vk_groups :: content";
     }
 
 
 
     @GetMapping("/social/vk/groups/connection/{vkGroupId}")
-    public String connectionGroup(@PathVariable String vkGroupId,
-                                   @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
+    public String connectionGroup(@PathVariable String vkGroupId, Model model,
+                                   @CookieValue(value = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request to connection group");
-        service.connectByGroupId(vkGroupId, jwtToken);
-        return "redirect:/social/vk/groups";
+        service.connectByGroupId(vkGroupId, accessToken);
+        service.getConnectedPageUserGroups(PageRequest.of(0, 20 ), model, accessToken);
+        return "soc_vk_groups :: content";
     }
     @GetMapping("/social/vk/groups/disconnection/{vkGroupId}")
-    public String disconnectionGroup(@PathVariable String vkGroupId,
-                                     @CookieValue(value = "JWT_AT", defaultValue = "") String jwtToken) {
+    public String disconnectionGroup(@PathVariable String vkGroupId, Model model,
+                                     @CookieValue(value = "JWT_AT", defaultValue = "") String accessToken) {
         log.info("Request disconnection group");
-        service.disconnectionGroupById(vkGroupId, jwtToken);
-        return "redirect:/social/vk/groups";
+        service.disconnectionGroupById(vkGroupId, accessToken);
+        service.getConnectedPageUserGroups(PageRequest.of(0, 20 ), model, accessToken);
+        return "redirect:/lk";
     }
 }

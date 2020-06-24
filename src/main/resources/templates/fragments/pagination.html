@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-    <th:block th:fragment="pagination(page)">
+    <th:block th:fragment="pagination(page, base_url)">
         <th:block th:if="${page.getTotalPages()>1}">
         <nav aria-label="...">
             <ul class="pagination">
 
 
                 <li class="page-item" th:if="${page.getNumber() > 0}">
-                    <span class="page-link"><a th:href="@{./(page=${page.getNumber()-1}, size=${page.getSize()})}">&laquo;</a></span>
+                    <span class="page-link"><a href="#" style="color: black" th:onclick="'load_page(\'' + @{/{url}/(url=${base_url},page=${page.getNumber()-1}, size=${page.getSize()})} + '\');'">&laquo;</a></span>
                 </li>
                 <th:block th:each="i : ${#numbers.sequence(2, 1, -1)}">
                     <th:block th:if="${(page.getNumber() - i) >= 0}">
-                        <li class="page-item"><a class="page-link" th:href="@{./(page=${page.getNumber()-i}, size=${page.getSize()})}" th:text="${page.getNumber() - i +1}"></a></li>
+                        <li class="page-item"><a class="page-link" href="#"   th:onclick="'load_page(\'' + @{/{url}/(url=${base_url},page=${page.getNumber()-i}, size=${page.getSize()})} + '\');'"  th:text="${page.getNumber() - i +1}"></a></li>
                     </th:block>
                 </th:block>
                 <li class="page-item active">
@@ -22,12 +22,15 @@
 
                 <th:block th:each="i : ${#numbers.sequence(1, 2, 1)}">
                     <th:block th:if="${(page.getNumber() + i) < page.getTotalPages()}">
-                        <li class="page-item"><a class="page-link" th:href="@{./(page=${page.getNumber()+i}, size=${page.getSize()})}" th:text="${page.getNumber() + i +1}"></a></li>
+                        <li class="page-item"><a class="page-link" href="#"
+                                                 th:onclick="'load_page(\'' + @{/{url}/(url=${base_url},page=${page.getNumber()+i}, size=${page.getSize()})} + '\');'"
+                                                 th:text="${page.getNumber() + i +1}"></a></li>
                     </th:block>
                 </th:block>
 
                 <li class="page-item" th:if="${page.getNumber() < page.getTotalPages()-1}">
-                    <span class="page-link"><a th:href="@{./(page=${page.getNumber()+1}, size=${page.getSize()})}">&raquo;</a></span>
+                    <span class="page-link"><a href="#" style="color: black"
+                                               th:onclick="'load_page(\'' + @{/{url}/(url=${base_url},page=${page.getNumber()+1}, size=${page.getSize()})} + '\');'">&raquo;</a></span>
                 </li>
             </ul>
         </nav>

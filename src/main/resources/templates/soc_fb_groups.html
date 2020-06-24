@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
 
     <div class="row">
         <div class="col">
@@ -28,23 +28,29 @@
     <tbody th:each=" group, i : ${groups_page.getObjects()}">
     <tr  data-toggle="modal" data-target="#exampleModal">
         <th scope="row" >
-            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${i.index + 1}"></a>
+            <a style="display: block; color: black" th:if="${group.getSelected()}" th:onclick="'load_page(\'' + @{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})} + '\');'"  th:text="${i.index + 1}"></a>
+            <p style="display: block; color: black" th:unless="${group.getSelected()}" th:text="${i.index + 1}"></p>
+
         </th>
         <td>
-            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${group.getName()}"></a>
+            <a style="display: block; color: black" th:if="${group.getSelected()}" th:onclick="'load_page(\'' + @{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})} + '\');'" th:text="${group.getName()}"></a>
+            <p style="display: block; color: black" th:unless="${group.getSelected()}" th:text="${group.getName()}"></p>
         </td>
         <td >
-            <a style="display: block; color: black" th:href="@{https://facebook.com/{club}(club=${group.getName()+'-'+group.getGroupId()})}"  th:text="${group.getGroupId()}"></a>
+            <a style="display: block; color: black" th:if="${group.getSelected()}" th:href="@{https://facebook.com/{club}(club=${group.getName()+'-'+group.getGroupId()})}"  th:text="${group.getGroupId()}"></a>
+            <p style="display: block; color: black" th:unless="${group.getSelected()}" th:text="${group.getGroupId()}"></p>
         </td>
         <td>
-            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${group.getMembersCount()}"></a>
+            <a style="display: block; color: black" th:if="${group.getSelected()}" th:onclick="'load_page(\'' + @{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})} + '\');'" th:text="${group.getMembersCount()}"></a>
+            <p style="display: block; color: black" th:unless="${group.getSelected()}" th:text="${group.getMembersCount()}"></p>
         </td>
         <td>
-            <a style="display: block; color: black" th:href="@{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})}" th:text="${group.getType()}"></a>
+            <a style="display: block; color: black" th:if="${group.getSelected()}" th:onclick="'load_page(\'' + @{/social/facebook/groups/{path}/(path=${group.getSystemGroupId()})} + '\');'" th:text="${group.getType()}"></a>
+            <p style="display: block; color: black" th:unless="${group.getSelected()}" th:text="${group.getType()}"></p>
         </td>
         <td>
-            <a type="button" th:href="@{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})}" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</a>
-            <a type="button" th:href="@{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})}" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Отключить</a>
+            <a type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\');'"  th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</a>
+            <a type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\');'" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Отключить</a>
         </td>
     </tr>
     </tbody>

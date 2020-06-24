@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
 <div class="container-fluid">
     <div class="row">
         <div class="col" style="padding-left: 5px; padding-right: 5px">
@@ -16,7 +16,7 @@
 
         <div class="col">
 
-            <form action="get" th:action="@{./}" class="form-inline" th:object="${duration}">
+            <form id="duration-form"   action="get" th:action="@{/social/{sn}/groups/{sgi}/posts/{spi}/(sn=${socialNetwork},sgi=${systemGroupId}, spi=${systemPostId})}" class="form-inline" th:object="${duration}">
                 <div class="form-group mb-2">
 
                     <div class="input-group date" id="timepicker_begin" data-target-input="nearest">
@@ -84,6 +84,22 @@
     </div>
 
 </div>
+
+    <script>
+        $(function() {
+            $('#duration-form').ajaxForm({
+                beforeSubmit: function() {
+                    $("#sh-content").addClass("d-none");
+                    $("#sh-spinner").removeClass("d-none");
+                },
+                success: function (data) {
+                    $("#sh-content").html(data);
+                    $("#sh-content").removeClass("d-none");
+                    $("#sh-spinner").addClass("d-none");
+                }
+            });
+        });
+    </script>
 
 </th:block>
 

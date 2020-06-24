@@ -31,13 +31,13 @@ public class FacebookController {
     @GetMapping("/facebook/callback")
     public String saveFacebookAccount(@RequestParam("code") String authorizationCode, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         SuccessResponse successResponse = service.saveAccountFacebook(authorizationCode, accessToken);
-        return "redirect:/social";
+        return "redirect:/lk";
     }
 
     @GetMapping("/social/facebook/turn_off")
     public String deleteFacebookAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         service.deleteFacebookAccount(accessToken);
-        return "redirect:/social";
+        return "redirect:/lk";
     }
 
     @GetMapping("/social/facebook/groups")
@@ -51,19 +51,20 @@ public class FacebookController {
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("social", "Социальные Аккаунты")),
                 "Подключенные группы"));
 
-        return "soc_fb_groups";
+        return "soc_fb_groups :: content";
     }
 
     @GetMapping("/social/facebook/groups/connection/{groupId}")
-    public String connectionGroup(@PathVariable String groupId, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+    public String connectionGroup(@PathVariable String groupId, Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         GroupResponse groupResponse = service.addGroup(groupId, accessToken);
-        return "redirect:/social/facebook/groups";
+
+        return groupsFacebook(model, 0, 100, accessToken);
     }
 
     @GetMapping("/social/facebook/groups/disconnection/{groupId}")
-    public String disconnectionGroup(@PathVariable String groupId, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+    public String disconnectionGroup(@PathVariable String groupId,Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         service.deleteGroup(groupId, accessToken);
-        return "redirect:/social/facebook/groups";
+        return groupsFacebook(model, 0, 100, accessToken);
     }
 
 }

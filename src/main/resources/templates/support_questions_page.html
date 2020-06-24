@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
 <div class="container-fluid">
     <div class="row">
         <div class="col">
@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col">
-            <a th:href="@{/support/questions/}" type="button" class="btn sh-btn sh-btn-vk shadow">Задать вопрос</a>
+            <a th:onclick="'load_page(\'' + @{/support/questions/} + '\');'" href="#" type="button" class="btn sh-btn sh-btn-vk shadow">Задать вопрос</a>
         </div>
     </div>
 
@@ -23,7 +23,8 @@
         <div class="row ">
             <div class="col content shadow" >
                 <a class="sh-title-block" style="color: black" th:text="${question.title}"
-                   th:href="@{/support/questions/{path}/(path=${question.id}, size=${10})}"></a>
+                   th:onclick="'load_page(\'' + @{/support/questions/{path}/(path=${question.id})} + '\');'"
+                   href="#"></a>
                 <div class="sh-info" th:text="${question.haveResponse}"></div>
                 <div class="sh-info" th:text="${question.time}"></div>
             </div>
@@ -38,7 +39,7 @@
     </th:block>
 
     <div class="row">
-        <div th:insert="~{fragments/pagination :: pagination(${questions_page.shortQuestions})}" class="col sh-pagination-block"></div>
+        <div th:insert="~{fragments/pagination :: pagination(${questions_page.shortQuestions}, 'support')}" class="col sh-pagination-block"></div>
     </div>
 </div>
 

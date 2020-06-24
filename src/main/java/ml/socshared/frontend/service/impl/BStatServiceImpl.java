@@ -164,7 +164,7 @@ public class BStatServiceImpl implements BStatService {
 
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные аккунты"),
-                new BreadcrumbElement("social/fb/groups", "Группы FB")),
+                new BreadcrumbElement("social/facebook/groups", "Группы FB")),
                 "Статистика и публикации"));
         model.addAttribute("charts", Collections.singletonList(Pair.of("Фанаты", funChart)));
         model.addAttribute("posts", postsPage);
@@ -196,7 +196,7 @@ public class BStatServiceImpl implements BStatService {
                 dt.getFirst().toEpochSecond(LocalTime.MIN,ZoneOffset.UTC),
                 dt.getSecond().toEpochSecond(LocalTime.MIN,ZoneOffset.UTC), "Bearer " + accessToken);
         } catch (HttpNotFoundException exp) {
-            log.warn("Info for post (GroupId: {}, PostId: {}) not found by period {} - {}", systemGroupId, dt.getFirst(), dt.getSecond());
+            log.warn("Info for post (GroupId: {}, PostId: {}) not found by period {} - {}", systemGroupId, systemPostId, dt.getFirst(), dt.getSecond());
             response = new PostInfoByTimeResponse();
             response.setGroupId("");
             TimeSeries ts = new TimeSeries();

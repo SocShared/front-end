@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
 
     <div class="row">
         <div class="col">
@@ -18,7 +18,7 @@
             <div style="text-align: center;"><h3>Формирование публикации</h3></div>
         </div>
         <div class="col-12">
-            <form th:action="@{/publication}" th:object="${publication}" method="post">
+            <form id="post-form" th:action="@{/publication}" th:object="${publication}" method="post">
                 <div class="form-group">
                     <label for="text_publication">Текст публикации</label>
                     <textarea class="form-control" id="text_publication" rows="7" th:field="*{text}"></textarea>
@@ -69,10 +69,30 @@
                         }
                     </script>
                 </div>
-                <button type="submit" class="btn sh-btn sh-btn-fb shadow">Произвести публикацию</button>
+                <button id="submit-button-form" type="submit" class="btn sh-btn sh-btn-fb shadow">Произвести публикацию</button>
             </form>
         </div>
     </div>
+
+
+    <script>
+        $(function() {
+            $('#post-form').ajaxForm({
+                beforeSubmit: function(arr, $form, options) {
+                    $("#submit-button-form").prop("disabled", true);
+                    $("#submit-button-form").html(
+                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
+                    );
+                },
+                success: function () {
+                    $("#submit-button-form").html("Произвести публикацию");
+                    $("#submit-button-form").prop("disabled", false);
+                    alert("Публикация успешно поставлена в очередь. В ближайшее время она будет опубликована.");
+                }
+            });
+        });
+    </script>
+
 
 </th:block>
 

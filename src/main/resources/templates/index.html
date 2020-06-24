@@ -27,6 +27,7 @@
     <script type="text/javascript" th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
     <script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
     <script>
         // $(document).ready(function(){
         //     const jwt_at = $.cookie('JWT_AT');
@@ -76,6 +77,9 @@
 </head>
 
 <body>
+
+
+
 <div class="left-wrapper d-none d-sm-none d-md-block" style="position: absolute"></div>
 
 <div class="sh-container-wrapper">
@@ -87,16 +91,16 @@
         <nav>
             <ul class="nav flex-column menu">
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" th:href="@{/publication}">Публикация</a>
+                    <a class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link active icon-options" th:href="@{/social}">Соц. аккаунты</a>
+                    <a class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</a>
                 </li>
                 <!--            <li class="nav-item menu-item">-->
                 <!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
                 <!--            </li>-->
                 <li class="nav-item menu-item">
-                    <a class="nav-link icon-support" th:href="@{/support}">Поддержка</a>
+                    <a class="nav-link icon-support" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
                 </li>
                 <li class="nav-item menu-item">
                     <a class="nav-link active icon-options" th:href="@{/app}">Приложения</a>
@@ -121,9 +125,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <div class="d-block d-sm-block d-md-none">
-                        <a class="nav-item nav-link" href="#" th:href="@{/publication}">Создать публикацию</a>
-                        <a class="nav-item nav-link" href="#" th:href="@{/social}">Социальные аккаунты</a>
-                        <a class="nav-item nav-link" href="#" th:href="@{/support}">Поддержка</a>
+                        <a class="nav-item nav-link" href="#" th:onclick="'load_page(\'' + @{/publication} + '\');'">Создать публикацию</a>
+                        <a class="nav-item nav-link" href="#" th:onclick="'load_page(\'' + @{/social} + '\');'">Социальные аккаунты</a>
+                        <a class="nav-item nav-link" href="#" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
                     </div>
                 </div>
             </div>
@@ -135,11 +139,53 @@
         </nav>
         <!-- таблица со списком подключенных аккаунтов-->
 
-        <div layout:fragment="content">Ошибка загрузки страницы!</div>
+<!--        <div layout:fragment="content">Ошибка загрузки страницы!</div>-->
+
+
+
+        <div id="sh-content"></div>
+
+        <div>
+            <div id="sh-spinner" class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
 
     </div>
 
 </div>
+
+<script>
+    function load_page(url, method) {
+        $.ajax({
+            url: url,
+            method: method,
+            dataType: "html",
+            beforeSend: function() {
+                $("#sh-content").addClass("d-none");
+                $("#sh-spinner").removeClass("d-none");
+            },
+            success: function (data) {
+                if(data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    $("#sh-spinner").addClass("d-none");
+                    $("#sh-content").html(data);
+                    $("#sh-content").removeClass("d-none");
+                }
+
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        load_page("/social", "get");
+    })
+
+
+</script>
+
 
 </body>
 </html>

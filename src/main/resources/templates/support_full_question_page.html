@@ -4,7 +4,7 @@
       layout:decorate="~{index}">
 <body>
 
-<th:block layout:fragment="content">
+<th:block layout:fragment="content" th:fragment="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -40,15 +40,15 @@
         </div>
 
         <div class="row">
-            <div th:insert="~{fragments/pagination :: pagination(${question.comments})}"
+            <div th:insert="~{fragments/pagination :: pagination(${question.comments}, @{support/questions/{qid}(qid=${question.questionId})})}"
                  class="col sh-pagination-block"></div>
         </div>
 
-        <div class="row .sh-question-form" th:if="${question.canCreateComment}">
+        <div id="add-comment-form" class="row .sh-question-form" th:if="${question.canCreateComment}">
 
             <div class="col content shadow">
 
-                <form th:object="${formAddComment}" th:action="@{./}" method="post">
+                <form th:object="${formAddComment}" th:action="@{/support/questions/{qid}/(qid=${question.questionId})}" method="post">
                     <div class="form-group">
                         <label for="commentArea">Оставте комментарий</label>
                         <textarea th:field="*{text}" class="form-control" id="commentArea"
@@ -56,9 +56,26 @@
                         <small id="emailHelp" class="form-text text-muted">Когда ответят на ваш вопрос, вы будете
                             уведомлены по электронной почте</small>
                     </div>
-                    <input type="submit" class="btn sh-btn-outline" th:value="Отправить"></input>
+                    <button id="submit-button-form" type="submit" class="btn sh-btn-outline"> Отправить </button>
                 </form>
             </div>
+
+            <script>
+                $(function() {
+                    $('#add-comment-form').ajaxForm({
+                        beforeSubmit: function(arr, $form, options) {
+                            $("#submit-button-form").prop("disabled", true);
+                            $("#submit-button-form").html(
+                                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
+                            );
+                        },
+                        success: function (data) {
+                            $("#sh-content").html(data);
+                        }
+                    });
+                });
+            </script>
+
         </div>
 
     </div>

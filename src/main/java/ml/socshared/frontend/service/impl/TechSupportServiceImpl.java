@@ -71,7 +71,6 @@ public class TechSupportServiceImpl implements TechSupportService {
         Comment comment = new Comment();
         comment.setText(formComment.getText());
         client.addCommentToQuestion(questionId, comment, "Bearer " + token);
-        fullQuestionPage(questionId, pageable, model, token);
         return "support_full_question_page";
     }
 

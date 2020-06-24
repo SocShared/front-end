@@ -174,7 +174,11 @@
                     $("#sh-content").html(data);
                     $("#sh-content").removeClass("d-none");
                 }
-
+            },
+            error: function(data) {
+                $("#sh-spinner").addClass("d-none");
+                $("#sh-content").html(data);
+                $("#sh-content").removeClass("d-none");
             }
         })
     }

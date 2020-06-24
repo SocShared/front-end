@@ -15,22 +15,22 @@
                 <a type="button" th:href="@{/social/facebook/access}" th:if="${!facebook_connect}" style="margin-left: 20px"
                    class="btn sh-btn sh-btn-fb shadow">Подключить
                     <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
-                <a th:onclick="'load_page(\'' + @{/social/connection/vk} + '\');'" type="button" th:if="${!vk_connect}"
+                <button th:onclick="'load_page(\'' + @{/social/connection/vk} + '\');'" type="button" th:if="${!vk_connect}"
                    class="btn sh-btn sh-btn-vk shadow" style="margin-left: 20px; color: white">Подключить
-                    <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
+                    <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></button>
 
-                <a type="button" th:onclick="'load_page(\'' + @{/social/facebook/turn_off} + '\');'"  th:if="${facebook_connect}"
+                <button type="button" th:onclick="'load_page(\'' + @{/social/facebook/turn_off} + '\');'"  th:if="${facebook_connect}"
                    class="btn sh-btn sh-btn-fb shadow" style="margin-left: 20px; color: white">Отключить
-                    <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></a>
-                <a type="button" th:onclick="'load_page(\'' + @{/social/disconnection/vk} + '\');'" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow"
+                    <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></button>
+                <button type="button" th:onclick="'load_page(\'' + @{/social/disconnection/vk} + '\');'" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow"
                    style="margin-left: 20px; color: white">Отключить
-                    <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></a>
+                    <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></button>
             </div>
             <div class="col-6 text-right">
-                <a th:onclick="'load_page(\'' + @{/social/vk/groups} + '\');'" th:if="${vk_connect}" type="button"
-                   class="btn sh-btn sh-btn-outline shadow" style="margin-right: 20px">Подключить группы ВК</a>
-                <a th:onclick="'load_page(\'' + @{/social/facebook/groups} + '\');'"  th:if="${facebook_connect}" type="button"
-                   class="btn sh-btn sh-btn-outline shadow" style="margin-right: 20px">Подключить группы FB</a>
+                <button th:onclick="'load_page(\'' + @{/social/vk/groups} + '\');'" th:if="${vk_connect}" type="button"
+                   class="btn sh-btn sh-btn-outline shadow" style="margin-right: 20px">Подключить группы ВК</button>
+                <button th:onclick="'load_page(\'' + @{/social/facebook/groups} + '\');'"  th:if="${facebook_connect}" type="button"
+                   class="btn sh-btn sh-btn-outline shadow" style="margin-right: 20px">Подключить группы FB</button>
             </div>
     </div>
     <!--Блок содержащий таблицу подклбченных социальных сетей -->

@@ -34,10 +34,17 @@ public class ErrorControllerHandler {
     }
 
     @ExceptionHandler(HttpUnauthorizedException.class)
-    public String unauthorized(HttpUnauthorizedException exception, ServletWebRequest webRequest, HttpServletResponse response,
-                               @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
-                               @CookieValue(value = "JWT_RT", defaultValue = "") String refreshToken) {
+    public String unauthorized(HttpUnauthorizedException exception, ServletWebRequest webRequest, HttpServletRequest request,
+                               HttpServletResponse response) {
         log.error("{}: {}", exception.getHttpStatus(), exception.getMessage());
+        String accessToken = "";
+        String refreshToken = "";
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals("JWT_AT"))
+                accessToken = cookie.getValue();
+            if (cookie.getName().equals("JWT_RT"))
+                refreshToken = cookie.getValue();
+        }
         if (!accessToken.isEmpty() && !refreshToken.isEmpty()) {
             try {
                 OAuth2TokenResponse res = authService.getToken(refreshToken);

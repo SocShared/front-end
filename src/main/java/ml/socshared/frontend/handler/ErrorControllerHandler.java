@@ -31,8 +31,9 @@ public class ErrorControllerHandler {
 
     @ExceptionHandler(HttpUnauthorizedException.class)
     public String unauthorized(HttpUnauthorizedException exception) {
-        log.error("{}: {}", exception.getHttpStatus(), exception.getMessage());
-        return "redirect:/refresh";
+//        log.error("{}: {}", exception.getHttpStatus(), exception.getMessage());
+//        return "redirect:/refresh";
+        return "500";
     }
 
     @ExceptionHandler(Exception.class)

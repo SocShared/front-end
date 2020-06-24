@@ -29,9 +29,43 @@
     <script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
     <script>
         $(document).ready(function(){
-            var jwt_at = $.cookie('JWT_AT');
-            console.log(jwt_at);
-            console.log(document.cookie);
+            const jwt_at = $.cookie('JWT_AT');
+            const jwt_rt = $.cookie('JWT_RT');
+            $.ajax({
+                type: "POST",
+                url: "https://auth.socshared.ml/oauth/validate_token",
+                data: JSON.stringify({token: jwt_at}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (!data.success) {
+                        $.ajax({
+                            type: "POST",
+                            url: "https://auth.socshared.ml/oauth/token",
+                            data: JSON.stringify({
+                                client_id: "360dad92-ecb1-44e7-990a-3152d2642919",
+                                client_secret: "cb456410-85ca-43b5-9a12-87171ad84516",
+                                grant_type: "refresh_token",
+                                refresh_token: jwt_rt
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                $.cookie('JWT_AT', data.access_token);
+                                $.cookie('JWT_RT', data.refresh_token);
+                            },
+                            failure: function (errMsg) {
+                                $.removeCookie('JWT_AT');
+                                $.removeCookie('JWT_RT');
+                            }
+                        })
+                    }
+                },
+                failure: function (errMsg) {
+                    $.removeCookie('JWT_AT');
+                    $.removeCookie('JWT_RT');
+                }
+            })
         });
     </script>
 

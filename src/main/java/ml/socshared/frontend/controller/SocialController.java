@@ -58,35 +58,36 @@ public class SocialController {
     public String refresh(Model model, HttpServletResponse response,
                           @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                           @CookieValue(value = "JWT_RT", defaultValue = "") String refreshToken) {
-        if (!accessToken.isEmpty() && !refreshToken.isEmpty()) {
-            try {
-                OAuth2TokenResponse res = authService.getToken(refreshToken);
-                Cookie accessTokenCookie = new Cookie("JWT_AT", res.getAccessToken());
-                accessTokenCookie.setMaxAge(24 * 60 * 60);
-                accessTokenCookie.setSecure(true);
-                accessTokenCookie.setHttpOnly(true);
-                accessTokenCookie.setPath("/");
-                accessTokenCookie.setDomain("socshared.ml");
-                response.addCookie(accessTokenCookie);
-
-                Cookie refreshTokenCookie = new Cookie("JWT_RT", res.getRefreshToken());
-                refreshTokenCookie.setMaxAge(24 * 60 * 60 * 30);
-                refreshTokenCookie.setSecure(true);
-                refreshTokenCookie.setHttpOnly(true);
-                refreshTokenCookie.setPath("/");
-                refreshTokenCookie.setDomain("socshared.ml");
-                response.addCookie(refreshTokenCookie);
-
-                model.addAttribute("isAuthorized", true);
-                return "redirect:/social";
-            } catch (Exception exc) {
-                model.addAttribute("isAuthorized", false);
-                return "redirect:/exit";
-            }
-        } else {
-            model.addAttribute("isAuthorized", false);
-            return "redirect:/exit";
-        }
+//        if (!accessToken.isEmpty() && !refreshToken.isEmpty()) {
+//            try {
+//                OAuth2TokenResponse res = authService.getToken(refreshToken);
+//                Cookie accessTokenCookie = new Cookie("JWT_AT", res.getAccessToken());
+//                accessTokenCookie.setMaxAge(24 * 60 * 60);
+//                accessTokenCookie.setSecure(true);
+//                accessTokenCookie.setHttpOnly(true);
+//                accessTokenCookie.setPath("/");
+//                accessTokenCookie.setDomain("socshared.ml");
+//                response.addCookie(accessTokenCookie);
+//
+//                Cookie refreshTokenCookie = new Cookie("JWT_RT", res.getRefreshToken());
+//                refreshTokenCookie.setMaxAge(24 * 60 * 60 * 30);
+//                refreshTokenCookie.setSecure(true);
+//                refreshTokenCookie.setHttpOnly(true);
+//                refreshTokenCookie.setPath("/");
+//                refreshTokenCookie.setDomain("socshared.ml");
+//                response.addCookie(refreshTokenCookie);
+//
+//                model.addAttribute("isAuthorized", true);
+//                return "redirect:/social";
+//            } catch (Exception exc) {
+//                model.addAttribute("isAuthorized", false);
+//                return "redirect:/exit";
+//            }
+//        } else {
+//            model.addAttribute("isAuthorized", false);
+//            return "redirect:/exit";
+//        }
+        return null;
     }
 
     @GetMapping("/exit")

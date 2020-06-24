@@ -2,6 +2,8 @@ package ml.socshared.frontend.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import ml.socshared.frontend.client.StatClient;
+import ml.socshared.frontend.domain.model.Breadcrumbs;
+import ml.socshared.frontend.domain.model.PieChartData;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.stat.SocCountResponse;
 import ml.socshared.frontend.domain.stat.TotalStatsResponse;
@@ -10,8 +12,14 @@ import ml.socshared.frontend.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.frontend.domain.stat.usingsocial.UsingSocialNetworkResponse;
 import ml.socshared.frontend.domain.user.UserResponse;
 import ml.socshared.frontend.service.StatService;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,6 +27,7 @@ import java.util.List;
 public class StatServiceImpl implements StatService {
 
     private final StatClient statClient;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM");
 
     @Override
     public UsingSocialNetworkResponse getUsingSocialNetworkStat(String token) {
@@ -99,4 +108,26 @@ public class StatServiceImpl implements StatService {
     public TotalStatsResponse getTotalCount(String token) {
         return statClient.getTotalCount("Bearer " + token);
     }
+
+//    @Override
+//    public void pageCommonSystemStat(Model model) {
+//
+//
+//        LocalDate d = LocalDate.now();
+//        Pair<List<Integer>, List<String>> chartAccounts = Pair.of(
+//                Arrays.asList(15, 19, 18, 12, 10, 11, 15, 14, 13),
+//                Arrays.asList(d.minusDays(8).format(formatter),
+//                        d.minusDays(7).format(formatter),
+//                        d.minusDays(6).format(formatter),
+//                        d.minusDays(5).format(formatter),
+//                        d.minusDays(4).format(formatter),
+//                        d.minusDays(3).format(formatter),
+//                        d.minusDays(2).format(formatter),
+//                        d.minusDays(1).format(formatter),
+//                        d.format(formatter)));
+//
+//        model.addAttribute("vk_number_chart", chartAccounts);
+//        model.addAttribute("fb_number_chart", chartAccounts);
+//
+//    }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+    </div>
+
+    <div class="row content shadow">
+        <div class="col-12">
+            <div style="text-align: center;"><h3>Статистика по социальным сетям</h3></div>
+        </div>
+        <div class="col-12">
+            <p>Общее соотношение использование Facebook и ВК</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: pie(1, 'Соотношение', ${soc_pie_chart.labels}, ${soc_pie_chart.data}, ${soc_pie_chart.colors})}">
+                </div>
+            </div>
+            <p>Количество подключенных аккаунтов Facebook: <b th:utext="${total_count.getFbAccountCount()}"></b></p>
+            <p>Количество подключенных аккаунтов ВК: <b th:utext="${total_count.getVkAccountCount()}"></b></p>
+            <p>Количество подключенных групп Facebook: <b th:utext="${total_count.getFbGroupCount()}"></b></p>
+            <p>Количество подключенных групп ВК: <b th:utext="${total_count.getVkGroupCount()}"></b></p>
+            <p>Общее количество выполненных публикаций: <b th:utext="${total_count.getPublishedPublicationCount()}"></b></p>
+            <p>Общее количество неуспешных публикаций: <b th:utext="${total_count.getNotSuccessfulPublicationCount()}"></b></p>
+            <p>Общее количество публикаций, ожидающие исполнения или имеющие статус "в процессе": <b th:utext="${total_count.getWaitingOrProcessingPublicationCount()}"></b></p>
+            <p>Количество публикаций, отправленных в Facebook: <b th:utext="${total_count.getFbPublicationCount()}"></b></p>
+            <p>Количество публикаций, отправленных в ВК: <b th:utext="${total_count.getVkPublicationCount()}"></b></p>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

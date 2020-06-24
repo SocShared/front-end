@@ -19,7 +19,7 @@
         <div class="col-12">
             <h3>Статистика по социальным сетям</h3>
             <hr/>
-            <p>Общее соотношение использование Facebook и ВК: <b>Facebook: </b><b th:utext="${using_facebook_perc}"></b><b>VK: </b><b th:utext="${using_vk_perc}"></b></p>
+            <p>Общее соотношение использование Facebook и ВК: <b>Facebook = </b><b th:utext="${using_facebook_perc}"></b><b>% VK = </b><b th:utext="${using_vk_perc}"></b><b>%</b></p>
             <p>Количество подключенных аккаунтов Facebook: <b th:utext="${soc_count.getFbAccountCount()}"></b></p>
             <p>Количество подключенных аккаунтов ВК: <b th:utext="${soc_count.getVkAccountCount()}"></b></p>
             <p>Количество подключенных групп Facebook: <b th:utext="${soc_count.getFacebookGroupCount()}"></b></p>

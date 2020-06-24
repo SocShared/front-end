@@ -45,6 +45,7 @@ public class SystemStatController {
         model.addAttribute("new_users_count", statService.getNewUsersCount(accessToken).getNewUsers());
         model.addAttribute("all_users_count", statService.getAllUsersCount(accessToken).getAllUsers());
        // model.addAttribute("errors_count", statService.getErrorsStat(accessToken).getAllErrorsCount());
+        model.addAttribute("errors_count", 0);
 
         return "sys_stat";
     }

@@ -86,22 +86,22 @@
         <hr style="color: white; background-color: white"/>
         <nav>
             <ul class="nav flex-column menu">
-                <li class="nav-item menu-item">
+                <li class="nav-item menu-item" th:if="${!content_manager.isEmpty()}">
                     <a class="nav-link active icon-options" th:href="@{/publication}">Публикация</a>
                 </li>
-                <li class="nav-item menu-item">
+                <li class="nav-item menu-item" th:if="${!content_manager.isEmpty()}">
                     <a class="nav-link active icon-options" th:href="@{/social}">Соц. аккаунты</a>
                 </li>
                 <!--            <li class="nav-item menu-item">-->
                 <!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
                 <!--            </li>-->
-                <li class="nav-item menu-item">
+                <li class="nav-item menu-item" th:if="${!content_manager.isEmpty()}">
                     <a class="nav-link icon-support" th:href="@{/support}">Поддержка</a>
                 </li>
-                <li class="nav-item menu-item">
+                <li class="nav-item menu-item" th:if="${!content_manager.isEmpty()}">
                     <a class="nav-link active icon-options" th:href="@{/app}">Приложения</a>
                 </li>
-                <li class="nav-item menu-item">
+                <li class="nav-item menu-item" th:if="${!admin.isEmpty()}">
                     <a class="nav-link active icon-options" th:href="@{/sys_stat}">Сист. статистика</a>
                 </li>
             </ul>

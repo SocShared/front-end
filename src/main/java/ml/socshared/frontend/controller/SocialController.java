@@ -7,9 +7,12 @@ import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.SocialNetwork;
 import ml.socshared.frontend.domain.model.form.AppUrlAccess;
 import ml.socshared.frontend.domain.response.SocialAccountResponse;
+import ml.socshared.frontend.domain.user.RoleResponse;
+import ml.socshared.frontend.domain.user.UserResponse;
 import ml.socshared.frontend.exception.impl.HttpUnauthorizedException;
 import ml.socshared.frontend.security.response.OAuth2TokenResponse;
 import ml.socshared.frontend.security.service.AuthService;
+import ml.socshared.frontend.service.AccountService;
 import ml.socshared.frontend.service.SocAccountService;
 import ml.socshared.frontend.service.VkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +34,21 @@ import java.util.*;
 public class SocialController {
 
     private final AuthService authService;
-    private final SocAccountService accountService;
+    private final AccountService accountService;
+    private final SocAccountService socAccountService;
 
     @GetMapping("/social")
     public String socConnectedPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         if (accessToken.isEmpty())
             return "redirect:/";
 
-        List<SocialAccountResponse> responses = accountService.getAccounts(accessToken);
-        model.addAttribute("facebook_connect", accountService.checkSocialAccount(responses, SocialNetwork.FACEBOOK));
-        model.addAttribute("vk_connect", accountService.checkSocialAccount(responses, SocialNetwork.VK));
+        UserResponse userResponse = accountService.getUserResponseInfo(accessToken);
+
+        setModelRole(model, userResponse.getRoles());
+
+        List<SocialAccountResponse> responses = socAccountService.getAccounts(accessToken);
+        model.addAttribute("facebook_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.FACEBOOK));
+        model.addAttribute("vk_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.VK));
         model.addAttribute("accounts_list", responses);
         AppUrlAccess appAccess = new AppUrlAccess();
         model.addAttribute("appUrlAccess", appAccess);
@@ -113,6 +121,19 @@ public class SocialController {
 
         model.addAttribute("isAuthorized", false);
         return "redirect:/";
+    }
+
+    private void setModelRole(Model model, Set<RoleResponse> roleResponses) {
+        for (RoleResponse role : roleResponses) {
+            if (role.getName().equals("CONTENT_MANAGER"))
+                model.addAttribute("content_manager", role.getName());
+            else
+                model.addAttribute("content_manager", "");
+            if (role.getName().equals("ADMIN"))
+                model.addAttribute("admin", role.getName());
+            else
+                model.addAttribute("admin", "");
+        }
     }
 
 }

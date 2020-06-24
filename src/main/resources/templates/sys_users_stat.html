@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+    </div>
+
+    <div class="row content shadow">
+        <div class="col-12">
+            <div style="text-align: center;"><h3>Статистика по пользователям</h3></div>
+        </div>
+        <div class="col-12">
+            <p>Онлайн пользователей</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: chart(1, 'Онлайн', ${online_number_chart.second}, ${online_number_chart.first}, '#3b5998', 'line')}">
+                </div>
+            </div>
+            <p>Активные пользователи</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: chart(2, 'Активные', ${active_number_chart.second}, ${active_number_chart.first}, '#3b5998', 'line')}">
+                </div>
+            </div>
+            <p>Новые пользователи</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: chart(3, 'Новые', ${new_number_chart.second}, ${new_number_chart.first}, '#3b5998', 'line')}">
+                </div>
+            </div>
+            <table class="table table-hover">
+                <tbody>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество всего пользователей</td>
+                    <td><b th:utext="${total_count.getAllUsersCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество новых пользователей</td>
+                    <td><b th:utext="${total_count.getNewUsersCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество активных пользователей</td>
+                    <td><b th:utext="${total_count.getActiveUsersCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество пользователей онлайн</td>
+                    <td><b th:utext="${total_count.getOnlineUsersCount()}"></b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

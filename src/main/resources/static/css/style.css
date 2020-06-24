@@ -311,7 +311,8 @@ a.col {
 }
 
 #sh-spinner {
-	margin-left: 50%;
-	margin-top: 30%;
-	/*position: absolute;*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
 }

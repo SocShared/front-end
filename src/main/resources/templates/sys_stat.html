@@ -91,7 +91,14 @@
             <hr/>
             <h3>Статистика по системе</h3>
             <hr/>
-            <p>Количество ошибок системы: <b th:utext="${total_count.getErrorsCount()}"></b></p>
+            <table class="table table-hover">
+                <tbody>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок системы</td>
+                    <td><b th:utext="${total_count.getErrorsCount()}"></b></td>
+                </tr>
+                </tbody>
+            </table>
             <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/system}">Подробнее</a>
             <hr/>
         </div>

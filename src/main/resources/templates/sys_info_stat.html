@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorate="~{index}">
+<body>
+
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col">
+            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
+        </div>
+    </div>
+
+    <div class="row content shadow">
+        <div class="col-12">
+            <div style="text-align: center;"><h3>Информация о системе</h3></div>
+        </div>
+        <div class="col-12">
+            <p>Соотношение ошибок между сервисами</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: pie(1, 'Соотношение ошибок между сервисами', ${errors_chart_data.labels}, ${errors_chart_data.data}, ${errors_chart_data.colors})}">
+                </div>
+            </div>
+            <table class="table table-hover">
+                <tbody>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса авторизации</td>
+                    <td><b th:utext="${errors_stat.getAuthErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса VK Adapter</td>
+                    <td><b th:utext="${errors_stat.getVkAdapterErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса Facebook Adapter</td>
+                    <td><b th:utext="${errors_stat.getFbAdapterErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса бизнес-статистики</td>
+                    <td><b th:utext="${errors_stat.getBstatErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса Gateway</td>
+                    <td><b th:utext="${errors_stat.getGatewayErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса рассылки электронной почты</td>
+                    <td><b th:utext="${errors_stat.getMailSenderErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса хранения данных</td>
+                    <td><b th:utext="${errors_stat.getStorageErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса технической поддержки</td>
+                    <td><b th:utext="${errors_stat.getTechSupportErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса анализа текста</td>
+                    <td><b th:utext="${errors_stat.getTextAnalyzerErrorsCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество ошибок сервиса выполнения задач</td>
+                    <td><b th:utext="${errors_stat.getWorkerErrorsCount()}"></b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

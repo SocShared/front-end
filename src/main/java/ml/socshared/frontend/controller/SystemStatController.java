@@ -6,6 +6,7 @@ import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.model.PieChartData;
 import ml.socshared.frontend.domain.stat.TotalStatsResponse;
+import ml.socshared.frontend.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.frontend.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.frontend.domain.stat.usingsocial.UsingSocialNetworkResponse;
 import ml.socshared.frontend.service.StatService;
@@ -138,5 +139,37 @@ public class SystemStatController {
         model.addAttribute("new_number_chart", newNumberChart);
 
         return "sys_users_stat";
+    }
+
+    @GetMapping("/sys_stat/info")
+    public String getInfoStat(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+        model.addAttribute("bread", new Breadcrumbs(Collections.singletonList(
+                new BreadcrumbElement("sys_stat", "Системная статистика")),
+                "Информация о системе"));
+
+        ErrorsStatResponse errorsStatResponse = statService.getErrorsStat(accessToken);
+
+        PieChartData<Long, String> errorsChartData = new PieChartData<>(
+                Arrays.asList(errorsStatResponse.getAuthErrorsCount(),
+                errorsStatResponse.getBstatErrorsCount(),
+                errorsStatResponse.getFbAdapterErrorsCount(),
+                errorsStatResponse.getGatewayErrorsCount(),
+                errorsStatResponse.getMailSenderErrorsCount(),
+                errorsStatResponse.getStorageErrorsCount(),
+                errorsStatResponse.getTechSupportErrorsCount(),
+                errorsStatResponse.getTextAnalyzerErrorsCount(),
+                errorsStatResponse.getVkAdapterErrorsCount(),
+                errorsStatResponse.getWorkerErrorsCount()),
+                Arrays.asList("Сервиса авторизации", "Сервиса бизнес-статистики", "Сервиса Facebook Adapter",
+                        "Сервис Gateway", "Сервис отправки почты", "Сервис хранения данных", "Сервис технической поддержки",
+                        "Сервис анализа текста", "Сервис VK Adapter", "Сервис выполнения задач"),
+                Arrays.asList("#B22222", "#FFFF00", "#FFFFE0", "#EE82EE", "#808080", "#000080", "#008000", "#2F4F4F", "#F8F8FF", "#4B0082")
+        );
+
+        model.addAttribute("errors_chart_data", errorsChartData);
+
+        model.addAttribute("errors_stat", errorsStatResponse);
+
+        return "sys_info_stat";
     }
 }

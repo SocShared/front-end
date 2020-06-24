@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import ml.socshared.frontend.client.StatClient;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.stat.SocCountResponse;
+import ml.socshared.frontend.domain.stat.TotalStatsResponse;
 import ml.socshared.frontend.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.frontend.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.frontend.domain.stat.usingsocial.UsingSocialNetworkResponse;
@@ -92,5 +93,10 @@ public class StatServiceImpl implements StatService {
     @Override
     public SocCountResponse getSocCount(String token) {
         return statClient.getSocCount("Bearer " + token);
+    }
+
+    @Override
+    public TotalStatsResponse getTotalCount(String token) {
+        return statClient.getTotalCount("Bearer " + token);
     }
 }

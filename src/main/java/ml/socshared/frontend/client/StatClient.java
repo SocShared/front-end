@@ -3,6 +3,7 @@ package ml.socshared.frontend.client;
 import ml.socshared.frontend.config.feign.DefaultClientConfiguration;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.stat.SocCountResponse;
+import ml.socshared.frontend.domain.stat.TotalStatsResponse;
 import ml.socshared.frontend.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.frontend.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.frontend.domain.stat.usingsocial.UsingSocialNetworkResponse;
@@ -70,5 +71,8 @@ public interface StatClient {
 
     @GetMapping(value = "/api/v1/protected/stat/soc/count")
     SocCountResponse getSocCount(@RequestHeader("Authorization") String token);
+
+    @GetMapping(value = "/api/v1/protected/stat/total/count")
+    TotalStatsResponse getTotalCount(@RequestHeader("Authorization") String token);
 
 }

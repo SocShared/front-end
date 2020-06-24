@@ -19,29 +19,29 @@
         <div class="col-12">
             <h3>Статистика по социальным сетям</h3>
             <hr/>
-            <p>Общее соотношение использование Facebook и ВК: <b>Facebook = </b><b th:utext="${using_facebook_perc}"></b><b>% VK = </b><b th:utext="${using_vk_perc}"></b><b>%</b></p>
-            <p>Количество подключенных аккаунтов Facebook: <b th:utext="${soc_count.getFbAccountCount()}"></b></p>
-            <p>Количество подключенных аккаунтов ВК: <b th:utext="${soc_count.getVkAccountCount()}"></b></p>
-            <p>Количество подключенных групп Facebook: <b th:utext="${soc_count.getFacebookGroupCount()}"></b></p>
-            <p>Количество подключенных групп ВК: <b th:utext="${soc_count.getVkGroupCount()}"></b></p>
-            <p>Общее количество выполненных публикаций: <b th:utext="${soc_count.getPublishedCount()}"></b></p>
-            <p>Общее количество неуспешных публикаций: <b th:utext="${soc_count.getNotSuccessfulCount()}"></b></p>
-            <p>Общее количество публикаций, ожидающие исполнения или имеющие статус "в процессе": <b th:utext="${soc_count.getWaitingOrProcessingCount()}"></b></p>
-            <p>Количество публикаций, отправленных в Facebook: <b th:utext="${soc_count.getFbPublicationCount()}"></b></p>
-            <p>Количество публикаций, отправленных в ВК: <b th:utext="${soc_count.getVkPublicationCount()}"></b></p>
+            <p>Общее соотношение использование Facebook и ВК: <b>Facebook = </b><b th:utext="${total_count.getUsingFacebookPercent()}"></b><b>% VK = </b><b th:utext="${total_count.getUsingVkPercent()}"></b><b>%</b></p>
+            <p>Количество подключенных аккаунтов Facebook: <b th:utext="${total_count.getFbAccountCount()}"></b></p>
+            <p>Количество подключенных аккаунтов ВК: <b th:utext="${total_count.getVkAccountCount()}"></b></p>
+            <p>Количество подключенных групп Facebook: <b th:utext="${total_count.getFbGroupCount()}"></b></p>
+            <p>Количество подключенных групп ВК: <b th:utext="${total_count.getVkGroupCount()}"></b></p>
+            <p>Общее количество выполненных публикаций: <b th:utext="${total_count.getPublishedPublicationCount()}"></b></p>
+            <p>Общее количество неуспешных публикаций: <b th:utext="${total_count.getNotSuccessfulPublicationCount()}"></b></p>
+            <p>Общее количество публикаций, ожидающие исполнения или имеющие статус "в процессе": <b th:utext="${total_count.getWaitingOrProcessingPublicationCount()}"></b></p>
+            <p>Количество публикаций, отправленных в Facebook: <b th:utext="${total_count.getFbPublicationCount()}"></b></p>
+            <p>Количество публикаций, отправленных в ВК: <b th:utext="${total_count.getVkPublicationCount()}"></b></p>
             <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/soc_network}">Подробнее</a>
             <hr/>
             <h3>Статистика по пользователям</h3>
             <hr/>
-            <p>Количество всего пользователей: <b th:utext="${all_users_count}"></b></p>
-            <p>Количество новых пользователей: <b th:utext="${new_users_count}"></b></p>
-            <p>Количество активных пользователей: <b th:utext="${active_users_count}"></b></p>
-            <p>Количество пользователей онлайн: <b th:utext="${online_users_count}"></b></p>
+            <p>Количество всего пользователей: <b th:utext="${total_count.getAllUsersCount()}"></b></p>
+            <p>Количество новых пользователей: <b th:utext="${total_count.getNewUsersCount()}"></b></p>
+            <p>Количество активных пользователей: <b th:utext="${total_count.getActiveUsersCount()}"></b></p>
+            <p>Количество пользователей онлайн: <b th:utext="${total_count.getOnlineUsersCount()}"></b></p>
             <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/users}">Подробнее</a>
             <hr/>
             <h3>Статистика по системе</h3>
             <hr/>
-            <p>Количество ошибок системы: <b th:utext="${errors_count}"></b></p>
+            <p>Количество ошибок системы: <b th:utext="${total_count.getErrorsCount()}"></b></p>
             <a type="submit" class="btn sh-btn sh-btn-fb shadow" th:href="@{/sys_stat/system}">Подробнее</a>
             <hr/>
         </div>

@@ -2,6 +2,7 @@ package ml.socshared.frontend.service;
 
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.domain.stat.SocCountResponse;
+import ml.socshared.frontend.domain.stat.TotalStatsResponse;
 import ml.socshared.frontend.domain.stat.errorstat.ErrorsStatResponse;
 import ml.socshared.frontend.domain.stat.userstat.UsersStatResponse;
 import ml.socshared.frontend.domain.stat.usingsocial.UsingSocialNetworkResponse;
@@ -29,5 +30,6 @@ public interface StatService {
     RestResponsePage<UserResponse> getAllUsers(Integer page, Integer size, String token);
     ErrorsStatResponse getErrorsStat(String token);
     SocCountResponse getSocCount(String token);
+    TotalStatsResponse getTotalCount(String token);
 
 }

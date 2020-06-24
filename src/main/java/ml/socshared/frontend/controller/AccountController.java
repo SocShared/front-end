@@ -33,7 +33,7 @@ public class AccountController {
 
         model.addAttribute("user", userResponse);
         model.addAttribute("access_confirmed", false);
-        return "account";
+        return "account :: content";
     }
 
     @PostMapping("/account")
@@ -53,7 +53,7 @@ public class AccountController {
     public String sendMailConfirmed(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
         SuccessResponse successResponse = accountService.sendMailConfirmed(accessToken);
         model.addAttribute("access_confirmed", successResponse.getSuccess());
-        return "account";
+        return "account :: content";
     }
 
 }

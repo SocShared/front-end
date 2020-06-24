@@ -52,7 +52,7 @@ public class SystemStatController {
         model.addAttribute("total_count", totalStatsResponse);
 
         model.addAttribute("bread", new Breadcrumbs(Collections.singletonList(
-                new BreadcrumbElement("sys_stat", "Системная статистика")),
+                new BreadcrumbElement("sys_stat :: content", "Системная статистика")),
                 "Статистика по социальным сетям"));
 
         PieChartData<Long, String> usingFacebookVkChartData = new PieChartData<>(
@@ -96,7 +96,7 @@ public class SystemStatController {
     @GetMapping("/sys_stat/users")
     public String getUsersStat(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
         model.addAttribute("bread", new Breadcrumbs(Collections.singletonList(
-                new BreadcrumbElement("sys_stat", "Системная статистика")),
+                new BreadcrumbElement("sys_stat :: content", "Системная статистика")),
                 "Статистика по пользователям"));
 
         TotalStatsResponse totalStatsResponse = statService.getTotalCount(accessToken);
@@ -144,7 +144,7 @@ public class SystemStatController {
     @GetMapping("/sys_stat/info")
     public String getInfoStat(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
         model.addAttribute("bread", new Breadcrumbs(Collections.singletonList(
-                new BreadcrumbElement("sys_stat", "Системная статистика")),
+                new BreadcrumbElement("sys_stat :: content", "Системная статистика")),
                 "Информация о системе"));
 
         ErrorsStatResponse errorsStatResponse = statService.getErrorsStat(accessToken);

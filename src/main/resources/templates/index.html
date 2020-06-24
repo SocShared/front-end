@@ -32,15 +32,17 @@
             const jwt_at = $.cookie('JWT_AT');
             const jwt_rt = $.cookie('JWT_RT');
             $.ajax({
-                type: 'POST',
                 url: 'https://auth.socshared.ml/oauth/validate_token',
-                data: JSON.stringify({token: jwt_at}),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
                 dataType: 'jsonp',
+                data: JSON.stringify({token: jwt_at}),
                 success: function (data) {
                     if (!data.success) {
                         $.ajax({
-                            type: 'POST',
                             url: 'https://auth.socshared.ml/oauth/token',
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
                             data: JSON.stringify({
                                 client_id: '360dad92-ecb1-44e7-990a-3152d2642919',
                                 client_secret: 'cb456410-85ca-43b5-9a12-87171ad84516',

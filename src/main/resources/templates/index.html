@@ -54,16 +54,18 @@
                                 $.cookie('JWT_AT', data.access_token);
                                 $.cookie('JWT_RT', data.refresh_token);
                             },
-                            failure: function (errMsg) {
+                            error: function (errMsg) {
                                 $.removeCookie('JWT_AT');
                                 $.removeCookie('JWT_RT');
+                                window.location.replace("https://socshared.ml");
                             }
                         })
                     }
                 },
-                failure: function (errMsg) {
+                error: function (errMsg) {
                     $.removeCookie('JWT_AT');
                     $.removeCookie('JWT_RT');
+                    window.location.replace("https://socshared.ml");
                 }
             })
         });

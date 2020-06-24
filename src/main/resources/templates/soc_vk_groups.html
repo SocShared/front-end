@@ -28,28 +28,24 @@
 
                 <tr data-toggle="modal" data-target="#exampleModal">
                     <th scope="row">
-                        <a style="display: block; color: black"
-                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${i.index + 1}"></a>
                     </th>
                     <td>
-                        <a style="display: block; color: black"
-                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getName()}"></a>
                     </td>
                     <td>
-                        <a style="display: block; color: black"
-                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getMembersCount()}"></a>
                     </td>
                     <td>
-                        <a style="display: block; color: black"
-                           href="#" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getType()}"></a>
                     </td>
                     <td>
-                        <a type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</a>
-                        <a type="button" style="color: white"  th:onclick="'load_page(\'' + @{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\');'"  th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</a>
+                        <button type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</button>
+                        <button type="button" style="color: white"  th:onclick="'load_page(\'' + @{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\');'"  th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</button>
                     </td>
                 </tr>
             </tbody>

@@ -33,8 +33,8 @@ public class SystemStatController {
         long allEventUsingSocial = usingSocialNetworkResponse.getFacebook().getAllEventsCount() +
                 usingSocialNetworkResponse.getVk().getAllEventsCount();
 
-        long usingFacebookPerc = (long) (1.0 * usingSocialNetworkResponse.getFacebook().getAllEventsCount() / allEventUsingSocial * 100);
-        long usingVkPerc = (long) (1.0 * usingSocialNetworkResponse.getVk().getAllEventsCount() / allEventUsingSocial * 100);
+        long usingFacebookPerc = Math.round(1.0 * usingSocialNetworkResponse.getFacebook().getAllEventsCount() / allEventUsingSocial * 100);
+        long usingVkPerc = Math.round(1.0 * usingSocialNetworkResponse.getVk().getAllEventsCount() / allEventUsingSocial * 100);
 
         model.addAttribute("using_social_network", usingSocialNetworkResponse);
         model.addAttribute("using_facebook_perc", usingFacebookPerc);

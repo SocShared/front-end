@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Builder;
 import lombok.Data;
-import ml.socshared.gateway.config.CustomLocalDateTimeSerializer;
+import ml.socshared.frontend.config.CustomLocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 

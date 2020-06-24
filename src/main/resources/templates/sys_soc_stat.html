@@ -17,21 +17,64 @@
             <div style="text-align: center;"><h3>Статистика по социальным сетям</h3></div>
         </div>
         <div class="col-12">
-            <p>Общее соотношение использование Facebook и ВК</p>
+            <p>Общее соотношение использования Facebook и ВК</p>
             <div class="row justify-content-center">
                 <div class="col-6"
-                     th:insert="~{fragments/Chart :: pie(1, 'Соотношение', ${soc_pie_chart.labels}, ${soc_pie_chart.data}, ${soc_pie_chart.colors})}">
+                     th:insert="~{fragments/Chart :: pie(1, 'Соотношение Facebook и VK', ${using_facebook_vk_chart_data.labels}, ${using_facebook_vk_chart_data.data}, ${using_facebook_vk_chart_data.colors})}">
                 </div>
             </div>
-            <p>Количество подключенных аккаунтов Facebook: <b th:utext="${total_count.getFbAccountCount()}"></b></p>
-            <p>Количество подключенных аккаунтов ВК: <b th:utext="${total_count.getVkAccountCount()}"></b></p>
-            <p>Количество подключенных групп Facebook: <b th:utext="${total_count.getFbGroupCount()}"></b></p>
-            <p>Количество подключенных групп ВК: <b th:utext="${total_count.getVkGroupCount()}"></b></p>
-            <p>Общее количество выполненных публикаций: <b th:utext="${total_count.getPublishedPublicationCount()}"></b></p>
-            <p>Общее количество неуспешных публикаций: <b th:utext="${total_count.getNotSuccessfulPublicationCount()}"></b></p>
-            <p>Общее количество публикаций, ожидающие исполнения или имеющие статус "в процессе": <b th:utext="${total_count.getWaitingOrProcessingPublicationCount()}"></b></p>
-            <p>Количество публикаций, отправленных в Facebook: <b th:utext="${total_count.getFbPublicationCount()}"></b></p>
-            <p>Количество публикаций, отправленных в ВК: <b th:utext="${total_count.getVkPublicationCount()}"></b></p>
+            <p>Соотношение событий использования Facebook</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: pie(1, 'Соотношение Facebook', ${using_facebook_chart_data.labels}, ${using_facebook_chart_data.data}, ${using_facebook_chart_data.colors})}">
+                </div>
+            </div>
+            <p>Соотношение событий использования VK</p>
+            <div class="row justify-content-center">
+                <div class="col-6"
+                     th:insert="~{fragments/Chart :: pie(1, 'Соотношение VK', ${using_vk_chart_data.labels}, ${using_vk_chart_data.data}, ${using_vk_chart_data.colors})}">
+                </div>
+            </div>
+            <table class="table table-hover">
+                <tbody>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество подключенных аккаунтов Facebook</td>
+                    <td><b th:utext="${total_count.getFbAccountCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество подключенных аккаунтов ВК</td>
+                    <td><b th:utext="${total_count.getVkAccountCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество подключенных групп Facebook</td>
+                    <td><b th:utext="${total_count.getFbGroupCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество подключенных групп ВК</td>
+                    <td><b th:utext="${total_count.getVkGroupCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Общее количество выполненных публикаций</td>
+                    <td><b th:utext="${total_count.getPublishedPublicationCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Общее количество неуспешных публикаций</td>
+                    <td><b th:utext="${total_count.getNotSuccessfulPublicationCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Общее количество публикаций, ожидающие исполнения или имеющие статус "в процессе"</td>
+                    <td><b th:utext="${total_count.getWaitingOrProcessingPublicationCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество публикаций, отправленных в Facebook</td>
+                    <td><b th:utext="${total_count.getFbPublicationCount()}"></b></td>
+                </tr>
+                <tr data-toggle="modal" data-target="#exampleModal">
+                    <td>Количество публикаций, отправленных в ВК</td>
+                    <td><b th:utext="${total_count.getVkPublicationCount()}"></b></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

@@ -34,7 +34,7 @@ public class ClientController {
 
         model.addAttribute("clients", clients);
 
-        return "app";
+        return "app :: content";
     }
 
     @GetMapping("/app/clients")
@@ -43,7 +43,7 @@ public class ClientController {
                 "Подключение приложения"));
 
         model.addAttribute("client", new NewClientRequest());
-        return "clients";
+        return "clients :: content";
     }
 
     @GetMapping("/app/clients/{clientId}")
@@ -55,7 +55,7 @@ public class ClientController {
         ClientResponse clientResponse = clientService.findByUserIdAndClientId(clientId, accessToken);
 
         model.addAttribute("client", clientResponse);
-        return "clients";
+        return "clients :: content";
     }
 
     @PostMapping("/app/clients")
@@ -65,7 +65,7 @@ public class ClientController {
                              @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         if (postBinding.hasErrors()) {
             model.addAttribute("client", newClientRequest);
-            return "clients";
+            return "clients :: content";
         }
 
         if (newClientRequest.getClientId() == null)

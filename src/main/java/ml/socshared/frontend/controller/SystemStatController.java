@@ -39,7 +39,7 @@ public class SystemStatController {
 
         model.addAttribute("total_count", totalStatsResponse);
 
-        return "sys_stat";
+        return "sys_stat :: content";
     }
 
     @GetMapping("/sys_stat/soc_network")
@@ -90,7 +90,7 @@ public class SystemStatController {
         );
         model.addAttribute("using_vk_chart_data", usingVkChartData);
 
-        return "sys_soc_stat";
+        return "sys_soc_stat :: content";
     }
 
     @GetMapping("/sys_stat/users")
@@ -138,7 +138,7 @@ public class SystemStatController {
         Pair<List<Long>, List<String>> newNumberChart = Pair.of(valuesNew, datesNew);
         model.addAttribute("new_number_chart", newNumberChart);
 
-        return "sys_users_stat";
+        return "sys_users_stat :: content";
     }
 
     @GetMapping("/sys_stat/info")
@@ -170,6 +170,6 @@ public class SystemStatController {
 
         model.addAttribute("errors_stat", errorsStatResponse);
 
-        return "sys_info_stat";
+        return "sys_info_stat :: content";
     }
 }

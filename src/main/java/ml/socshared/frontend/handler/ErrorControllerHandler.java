@@ -37,6 +37,7 @@ public class ErrorControllerHandler {
     public String unauthorized(HttpUnauthorizedException exception, ServletWebRequest webRequest, HttpServletRequest request,
                                HttpServletResponse response) {
         log.error("{}: {}", exception.getHttpStatus(), exception.getMessage());
+        log.error("path: {}", webRequest.getRequest().getRequestURI());
         String accessToken = "";
         String refreshToken = "";
         for (Cookie cookie : request.getCookies()) {
@@ -64,7 +65,7 @@ public class ErrorControllerHandler {
                 refreshTokenCookie.setDomain("socshared.ml");
                 response.addCookie(refreshTokenCookie);
 
-                return "redirect:" + webRequest.getContextPath();
+                return "redirect:" + webRequest.getRequest().getRequestURI();
             } catch (Exception exc) {
                 return "redirect:/exit";
             }

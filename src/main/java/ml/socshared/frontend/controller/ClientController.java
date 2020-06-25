@@ -73,7 +73,7 @@ public class ClientController {
         else
             clientService.updateClient(newClientRequest.getClientId(), newClientRequest, accessToken);
 
-        return "redirect:/app";
+        return "clients :: content";
     }
 
 }

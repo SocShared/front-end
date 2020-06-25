@@ -211,11 +211,10 @@
         window.onpopstate = function(event) {
             if (event.state != null) {
                 console.log("location: " + document.location + ", state: " + JSON.stringify(event.state) + ", url: " + event.state.url);
-                // let location = '#' + document.location;
-                // let id = location.replace(window.location.origin + '/', '');
-                let id = '#' + event.state.url;
+                let location = '#' + document.location;
+                let id = location.replace(window.location.origin + '/', '');
                 console.log("id: ", id);
-                $(id).trigger('click');
+                load_page('/' + id);
             }
         };
     })

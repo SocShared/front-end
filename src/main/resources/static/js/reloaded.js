@@ -1,18 +1,10 @@
 $(document).ready(function () {
-    const reloaded = function () {
+    var bodyIndex = document.getElementById('index');
+    if (bodyIndex == null) {
         let location = '' + document.location;
         let id = location.replace(window.location.origin + '/', '');
         if (id === 'lk') {} else
             load('/' + id);
-    };
-
-    window.onload = function () {
-        const loaded = sessionStorage.getItem('loaded');
-        if (loaded) {
-            reloaded();
-        } else {
-            sessionStorage.setItem('loaded', true);
-        }
     }
 });
 

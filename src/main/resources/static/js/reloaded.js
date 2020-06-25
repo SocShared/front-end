@@ -2,6 +2,7 @@ $(document).ready(function () {
     const reloaded = function () {
         let location = '' + document.location;
         let id = location.replace(window.location.origin + '/', '');
+        console.log("id: " + id);
         if (id === 'lk') {} else
             load('/' + id);
     };
@@ -23,6 +24,7 @@ function load(url, method) {
         dataType: "html",
         success: function (data_ext) {
             $('html').html($(data_ext).find('html'));
+            console.log(data_ext);
             $.ajax({
                 url: url,
                 method: method,

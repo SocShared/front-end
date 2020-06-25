@@ -320,3 +320,7 @@ a:hover {
 	left: 50%;
 	margin-right: -50%;
 }
+
+.select-client {
+	cursor: pointer;
+}

@@ -37,16 +37,16 @@
                 <tbody th:each=" client, i : ${clients}">
                 <tr th:id="${client.getClientId()}">
                     <th class="select-client" scope="row">
-                        <p class="select-client" th:text="${i.index + 1}"></p>
+                        <a class="select-client" th:text="${i.index + 1}"></a>
                     </th>
                     <td class="select-client">
-                        <p class="select-client" th:text="${client.getClientId()}"></p>
+                        <a class="select-client" th:text="${client.getClientId()}"></a>
                     </td>
                     <td class="select-client">
-                        <p class="select-client" th:text="${client.getName()}"></p>
+                        <a class="select-client" th:text="${client.getName()}"></a>
                     </td>
                     <td class="select-client">
-                        <p class="select-client" th:text="${client.getValidRedirectUri()}"></p>
+                        <a class="select-client" th:text="${client.getValidRedirectUri()}"></a>
                     </td>
                     <td>
                         <button th:id="${'removing_' + i.index}" type="button" style="color: white; width: 150px" th:onclick="'client_remove(this.id,\'' + @{/app/clients/{clientId}/remove(clientId=${client.getClientId()})} + '\', \'Удалить\');'" class="btn sh-btn sh-btn-fb shadow">Удаление</button>

@@ -199,22 +199,14 @@
 
     $(document).ready(function () {
         load_page(ext_url, "get");
-        // window.addEventListener('popstate', function (e) {
-        //     console.log("state: " + e.state);
-        //     if (e.state != null) {
-        //         let id = '#' + e.state.url;
-        //         console.log('url: ' + location.href);
-        //         console.log("id: " + id);
-        //         $(id).trigger('click');
-        //     }
-        // });
         window.onpopstate = function(event) {
             if (event.state != null) {
                 console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
                 let location = '' + document.location;
                 let id = location.replace(window.location.origin + '/', '');
-                console.log("id: ", id);
                 load_page('/' + id);
+            } else {
+                load_page(ext_url, "get");
             }
         };
     })

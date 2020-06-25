@@ -8,6 +8,7 @@ import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.service.ClientService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,17 +83,12 @@ public class ClientController {
     }
 
     @GetMapping("/app/clients/{clientId}/remove")
-    public String removeClient(@PathVariable UUID clientId,
+    public String removeClient(Pageable pageable, @PathVariable UUID clientId,
                                @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
         model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Приложения OAuth2"));
 
         clientService.deleteClientById(clientId, accessToken);
 
-        // TODO Сделать адекватную пагинацию
-        RestResponsePage<ClientResponse> clients = clientService.findByUserId(0, 100, accessToken);
-
-        model.addAttribute("clients", clients);
-
-        return "app :: content";
+        return getClients(pageable, accessToken, model);
     }
 }

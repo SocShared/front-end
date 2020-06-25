@@ -193,7 +193,7 @@
     $(document).ready(function () {
         load_page(ext_url, "get");
         window.onpopstate = function(event) {
-            console.log('pop: ' + event.state.id);
+            console.log('pop: ' + event.state.url);
         };
     })
 </script>

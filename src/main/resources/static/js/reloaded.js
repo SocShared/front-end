@@ -2,9 +2,7 @@ $(document).ready(function () {
     const reloaded = function () {
         let location = '' + document.location;
         let id = location.replace(window.location.origin + '/', '');
-        if (id === 'lk') {
-            load_page(ext_url);
-        } else
+        if (id === 'lk') {} else
             load_page('/' + id);
     };
 

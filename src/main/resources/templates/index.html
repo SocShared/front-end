@@ -91,21 +91,21 @@
         <nav>
             <ul class="nav flex-column menu">
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</a>
+                    <a style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</a>
+                    <a style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</a>
                 </li>
                 <!--            <li class="nav-item menu-item">-->
                 <!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
                 <!--            </li>-->
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" class="nav-link icon-support" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
+                    <a style="cursor: pointer" class="nav-link icon-support" th:if="${!content_manager.isEmpty() || !admin.isEmpty()}" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/app} + '\');'">Приложения</a>
+                    <a style="cursor: pointer" th:if="${!content_manager.isEmpty()}" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/app} + '\');'">Приложения</a>
                 </li>
-                <li class="nav-item menu-item">
+                <li class="nav-item menu-item" th:if="${!admin.isEmpty()}">
                     <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/sys_stat} + '\');'">Сист. статистика</a>
                 </li>
             </ul>

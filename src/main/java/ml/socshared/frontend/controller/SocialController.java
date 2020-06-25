@@ -21,7 +21,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.print.Pageable;
 import java.util.*;
 
@@ -41,9 +43,17 @@ public class SocialController {
     }
 
     @GetMapping("/lk")
-    public String basePage(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+    public String basePage(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
+                           HttpServletRequest request, Model model) {
         if (accessToken.isEmpty())
             return "redirect:/";
+
+        UserResponse userResponse = accountService.getUserResponseInfo(accessToken);
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("roles", userResponse.getRoles());
+
+        setModelRole(model, userResponse.getRoles());
+
         return "index";
     }
 

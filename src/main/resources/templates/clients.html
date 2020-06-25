@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="row content shadow">
+    <div id="client-div" class="row content shadow">
         <div class="col-12">
             <div style="text-align: center;"><h3>Подключение приложения</h3></div>
         </div>
@@ -75,9 +75,11 @@
                         `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Сохранение...`
                     );
                 },
-                success: function () {
+                success: function (data) {
                     $("#submit-button-form").html("Сохранить приложение");
                     $("#submit-button-form").prop("disabled", false);
+                    result = $(data).find('#client-div');
+                    $('#client-div').html(result);
                 }
             });
         });

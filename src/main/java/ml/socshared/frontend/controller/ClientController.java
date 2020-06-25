@@ -94,6 +94,10 @@ public class ClientController {
 
         clientService.deleteClientById(clientId, accessToken);
 
-        return getClients(pageable, accessToken, model);
+        RestResponsePage<ClientResponse> clients = clientService.findByUserId(pageable.getPageNumber(), pageable.getPageSize(), accessToken);
+
+        model.addAttribute("clients", clients);
+
+        return "app :: content";
     }
 }

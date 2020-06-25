@@ -199,15 +199,18 @@
 
     $(document).ready(function () {
         load_page(ext_url, "get");
-        window.addEventListener('popstate', function (e) {
-            console.log("state: " + e.state);
-            if (e.state != null) {
-                let id = '#' + e.state.url;
-                console.log('url: ' + location.href);
-                console.log("id: " + id);
-                $(id).trigger('click');
-            }
-        });
+        // window.addEventListener('popstate', function (e) {
+        //     console.log("state: " + e.state);
+        //     if (e.state != null) {
+        //         let id = '#' + e.state.url;
+        //         console.log('url: ' + location.href);
+        //         console.log("id: " + id);
+        //         $(id).trigger('click');
+        //     }
+        // });
+        window.onpopstate = function(event) {
+            console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+        };
     })
 </script>
 

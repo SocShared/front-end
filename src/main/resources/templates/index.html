@@ -193,8 +193,8 @@
 
     function load_page_menu(id, url, method) {
         ext_url = url;
-        window.history.pushState('forward', null, '/' + id);
-        window.history.pushState('forward', null, '/' + id);
+        window.history.pushState(id, null);
+        window.history.pushState(id, null);
         load_page(url, method);
     }
 
@@ -203,8 +203,8 @@
         $(window).bind("popstate", function(event) {
             console.log("state: " + event.originalEvent.state);
             if (event.originalEvent.state != null) {
-                console.log("url: " + event.originalEvent.state.url);
-                let id = event.originalEvent.state.url.replace('/', '#');
+                let id = '#' + event.originalEvent.state;
+                console.log("id: " + id);
                 $(id).trigger('click');
             }
         });

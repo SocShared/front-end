@@ -27,7 +27,9 @@
     <script type="text/javascript" th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
     <script type="text/javascript" th:src="@{/js/jquery.cookie.js}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"
+            integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn"
+            crossorigin="anonymous"></script>
     <script>
         // $(document).ready(function(){
         //     const jwt_at = $.cookie('JWT_AT');
@@ -75,17 +77,20 @@
     </script>
     <script th:inline="javascript">
         let ext_url = "/";
-        [# th:if="${!content_manager.isEmpty()}" ]
-            ext_url = "/social";
+        [# th
+        :
+        if= "${!content_manager.isEmpty()}" ]
+        ext_url = "/social";
         [/]
-        [# th:if="${content_manager.isEmpty() && !admin.isEmpty()}"]
-            ext_url = "/sys_stat";
+            [# th
+        :
+        if= "${content_manager.isEmpty() && !admin.isEmpty()}"]
+        ext_url = "/sys_stat";
         [/]
     </script>
 </head>
 
 <body>
-
 
 
 <div class="left-wrapper d-none d-sm-none d-md-block" style="position: absolute"></div>
@@ -99,22 +104,30 @@
         <nav>
             <ul class="nav flex-column menu">
                 <li class="nav-item menu-item">
-                    <a id="publication" style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page_menu(this.id,\'' + @{/publication} + '\');'">Публикация</a>
+                    <a id="publication" style="cursor: pointer" class="nav-link active icon-options"
+                       th:if="${!content_manager.isEmpty()}"
+                       th:onclick="'load_page_menu(this.id,\'' + @{/publication} + '\');'">Публикация</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a id="social" style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page_menu(this.id,\'' + @{/social} + '\');'">Соц. аккаунты</a>
+                    <a id="social" style="cursor: pointer" class="nav-link active icon-options"
+                       th:if="${!content_manager.isEmpty()}"
+                       th:onclick="'load_page_menu(this.id,\'' + @{/social} + '\');'">Соц. аккаунты</a>
                 </li>
                 <!--            <li class="nav-item menu-item">-->
                 <!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
                 <!--            </li>-->
                 <li class="nav-item menu-item">
-                    <a id="support" style="cursor: pointer" class="nav-link icon-support" th:if="${!content_manager.isEmpty() || !admin.isEmpty()}" th:onclick="'load_page_menu(this.id,\'' + @{/support} + '\');'">Поддержка</a>
+                    <a id="support" style="cursor: pointer" class="nav-link icon-support"
+                       th:if="${!content_manager.isEmpty() || !admin.isEmpty()}"
+                       th:onclick="'load_page_menu(this.id,\'' + @{/support} + '\');'">Поддержка</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a id="app" style="cursor: pointer" th:if="${!content_manager.isEmpty()}" class="nav-link active icon-options" th:onclick="'load_page_menu(this.id,\'' + @{/app} + '\');'">Приложения</a>
+                    <a id="app" style="cursor: pointer" th:if="${!content_manager.isEmpty()}"
+                       class="nav-link active icon-options" th:onclick="'load_page_menu(this.id,\'' + @{/app} + '\');'">Приложения</a>
                 </li>
                 <li class="nav-item menu-item" th:if="${!admin.isEmpty()}">
-                    <a id="sys_stat" style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page_menu(this.id,\'' + @{/sys_stat} + '\');'">Сист. статистика</a>
+                    <a id="sys_stat" style="cursor: pointer" class="nav-link active icon-options"
+                       th:onclick="'load_page_menu(this.id,\'' + @{/sys_stat} + '\');'">Сист. статистика</a>
                 </li>
             </ul>
         </nav>
@@ -133,22 +146,26 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <div class="d-block d-sm-block d-md-none">
-                        <a style="cursor: pointer" class="nav-item nav-link" th:onclick="'load_page(\'' + @{/publication} + '\');'">Создать публикацию</a>
-                        <a style="cursor: pointer" class="nav-item nav-link" th:onclick="'load_page(\'' + @{/social} + '\');'">Социальные аккаунты</a>
-                        <a style="cursor: pointer" class="nav-item nav-link" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
+                        <a style="cursor: pointer" class="nav-item nav-link"
+                           th:onclick="'load_page(\'' + @{/publication} + '\');'">Создать публикацию</a>
+                        <a style="cursor: pointer" class="nav-item nav-link"
+                           th:onclick="'load_page(\'' + @{/social} + '\');'">Социальные аккаунты</a>
+                        <a style="cursor: pointer" class="nav-item nav-link"
+                           th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
                     </div>
                 </div>
             </div>
             <div class="text-right">
-                <button th:onclick="'load_page(\'' + @{/account} + '\');'" class="btn sh-btn-outline my-2 my-sm-0" type="button" >Аккаунт</button>
+                <button th:onclick="'load_page(\'' + @{/account} + '\');'" class="btn sh-btn-outline my-2 my-sm-0"
+                        type="button">Аккаунт
+                </button>
                 <a th:href="@{/exit}" class="btn sh-btn-outline my-2 my-sm-0" type="button">Выйти</a>
             </div>
 
         </nav>
         <!-- таблица со списком подключенных аккаунтов-->
 
-<!--        <div layout:fragment="content">Ошибка загрузки страницы!</div>-->
-
+        <!--        <div layout:fragment="content">Ошибка загрузки страницы!</div>-->
 
 
         <div id="sh-content"></div>
@@ -169,12 +186,12 @@
             url: url,
             method: method,
             dataType: "html",
-            beforeSend: function() {
+            beforeSend: function () {
                 $("#sh-content").addClass("d-none");
                 $("#container-spinner").removeClass("d-none");
             },
             success: function (data) {
-                if(data.redirect) {
+                if (data.redirect) {
                     window.location.href = data.redirect;
                 } else {
                     $("#container-spinner").addClass("d-none");
@@ -182,7 +199,7 @@
                     $("#sh-content").removeClass("d-none");
                 }
             },
-            error: function(data) {
+            error: function (data) {
 
                 $("#container-spinner").addClass("d-none");
                 $("#sh-content").html(data.responseText);
@@ -198,15 +215,13 @@
 
     $(document).ready(function () {
         load_page(ext_url, "get");
-        window.onpopstate = function(event) {
-            if (event.state != null) {
-                console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-                let location = '' + document.location;
-                let id = location.replace(window.location.origin + '/', '');
-                load_page('/' + id);
-            } else {
-                load_page(ext_url, "get");
-            }
+        window.onpopstate = function (event) {
+            console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+            let location = '' + document.location;
+            let id = location.replace(window.location.origin + '/', '');
+            if (id === 'lk')
+                window.history.pushState('forward', null, id);
+            load_page('/' + id);
         };
     })
 </script>

@@ -200,10 +200,10 @@
 
     $(document).ready(function () {
         load_page(ext_url, "get");
-        $(window).bind("popstate", function(event) {
-            console.log("state: " + event.originalEvent.state);
-            if (event.originalEvent.state != null) {
-                let id = '#' + event.originalEvent.state.url;
+        window.addEventListener('popstate', function (e) {
+            console.log("state: " + e.state);
+            if (e.state != null) {
+                let id = '#' + e.state.url;
                 console.log('url: ' + location.href);
                 console.log("id: " + id);
                 $(id).trigger('click');

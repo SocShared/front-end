@@ -1,14 +1,13 @@
-$(document).ready(function () {
-    try {
-        if (ext_url == null) {}
-    } catch (e) {
-        // let location = '' + document.location;
-        // let id = location.replace(window.location.origin + '/', '');
-        // if (id === 'lk') {} else
-        //     load('/' + id);
-        window.location.replace(window.location.origin + '/lk');
+try {
+    if (ext_url == null) {
     }
-});
+} catch (e) {
+    // let location = '' + document.location;
+    // let id = location.replace(window.location.origin + '/', '');
+    // if (id === 'lk') {} else
+    //     load('/' + id);
+    window.location.replace(window.location.origin + '/lk');
+}
 
 // function load(url, method) {
 //     $.ajax({

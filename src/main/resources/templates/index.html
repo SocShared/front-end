@@ -203,6 +203,7 @@
         $(window).bind("popstate", function(event) {
             console.log("state: " + event.originalEvent.state);
             if (event.originalEvent.state != null) {
+                console.log("url: " + event.originalEvent.state.url);
                 $(event.originalEvent.state.url).trigger('click');
             }
         });

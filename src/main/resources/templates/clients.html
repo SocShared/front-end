@@ -62,6 +62,7 @@
                     </ul>
                 </div>
                 <button id="submit-button-form" type="submit" class="btn sh-btn sh-btn-fb shadow">Сохранить приложение</button>
+                <p id="info-text" style="visibility: hidden; color: darkgreen">Приложение успешно сохранено.</p>
             </form>
         </div>
     </div>
@@ -80,6 +81,7 @@
                     $("#submit-button-form").prop("disabled", false);
                     result = $(data).find('#client-div');
                     $('#client-div').html(result);
+                    $("#info-text").css("visibility", "visible");
                 }
             });
         });

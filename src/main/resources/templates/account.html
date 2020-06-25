@@ -59,6 +59,7 @@
                     </ul>
                 </div>
                 <button id="submit-button-form" type="submit" class="btn sh-btn sh-btn-fb shadow">Сохранить данные</button>
+                <p id="info-text" style="visibility: hidden; color: darkgreen">Данные аккаунта успешно сохранены.</p>
             </form>
         </div>
     </div>
@@ -75,6 +76,7 @@
                 success: function () {
                     $("#submit-button-form").html("Сохранить данные");
                     $("#submit-button-form").prop("disabled", false);
+                    $("#info-text").css("visibility", "visible");
                 }
             });
         });

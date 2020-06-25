@@ -76,6 +76,7 @@
         // });
     </script>
     <script th:inline="javascript">
+        sessionStorage.setItem("is_reloaded", true);
         let ext_url = "/";
         [# th:if="${!content_manager.isEmpty()}" ]
         ext_url = "/social";
@@ -176,6 +177,15 @@
 </div>
 
 <script>
+    if (sessionStorage.getItem("is_reloaded")) {
+        let location = '' + document.location;
+        let id = location.replace(window.location.origin + '/', '');
+        if (id === 'lk') {
+            load_page(ext_url);
+        } else
+            load_page('/' + id);
+    }
+
     function load_page(url, method) {
         $.ajax({
             url: url,

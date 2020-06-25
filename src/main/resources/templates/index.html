@@ -91,22 +91,22 @@
         <nav>
             <ul class="nav flex-column menu">
                 <li class="nav-item menu-item">
-                    <button class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</button>
+                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <button class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</button>
+                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</a>
                 </li>
                 <!--            <li class="nav-item menu-item">-->
                 <!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
                 <!--            </li>-->
                 <li class="nav-item menu-item">
-                    <button class="nav-link icon-support" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</button>
+                    <a style="cursor: pointer" class="nav-link icon-support" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <button class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/app} + '\');'">Приложения</button>
+                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/app} + '\');'">Приложения</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <button class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/sys_stat} + '\');'">Сист. статистика</button>
+                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/sys_stat} + '\');'">Сист. статистика</a>
                 </li>
             </ul>
         </nav>
@@ -125,9 +125,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <div class="d-block d-sm-block d-md-none">
-                        <button class="nav-item nav-link" th:onclick="'load_page(\'' + @{/publication} + '\');'">Создать публикацию</button>
-                        <button class="nav-item nav-link" th:onclick="'load_page(\'' + @{/social} + '\');'">Социальные аккаунты</button>
-                        <button class="nav-item nav-link" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</button>
+                        <a style="cursor: pointer" class="nav-item nav-link" th:onclick="'load_page(\'' + @{/publication} + '\');'">Создать публикацию</a>
+                        <a style="cursor: pointer" class="nav-item nav-link" th:onclick="'load_page(\'' + @{/social} + '\');'">Социальные аккаунты</a>
+                        <a style="cursor: pointer" class="nav-item nav-link" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
                     </div>
                 </div>
             </div>

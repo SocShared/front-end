@@ -306,6 +306,10 @@ a.col {
 	color: #000 !important;
 }
 
+a:hover {
+	text-decoration: underline;
+}
+
 .sh-container-wrapper {
 	position: relative;
 }

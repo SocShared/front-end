@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    var bodyIndex = document.getElementById('index');
-    if (bodyIndex == null) {
+    try {
+        if (ext_url == null) {}
+    } catch (e) {
         let location = '' + document.location;
         let id = location.replace(window.location.origin + '/', '');
         if (id === 'lk') {} else
@@ -14,7 +15,9 @@ function load(url, method) {
         method: 'get',
         dataType: "html",
         success: function (data_ext) {
-            $('html').html($(data_ext).find('html'));
+            $('head').html($(data_ext).find('head'));
+            $('body').html($(data_ext).find('body'));
+            console.log(data_ext);
             $.ajax({
                 url: url,
                 method: method,

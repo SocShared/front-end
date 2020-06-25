@@ -84,6 +84,7 @@ public class VkServiceImpl implements VkService {
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные Аккаунты")),
                 "Подключенные группы"));
+        model.addAttribute("socialNetwork", "vk");
     }
 
     @Override

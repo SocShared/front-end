@@ -190,7 +190,16 @@
 
     function load_page_menu(id, url, method) {
         ext_url = url;
-        window.history.pushState('forward', null, '#' + id);
+        if (id === 'publication-menu')
+            window.history.pushState('forward', null, '/publication');
+        else if (id === 'social-menu')
+            window.history.pushState('forward', null, '/social');
+        else if (id === 'support-menu')
+            window.history.pushState('forward', null, '/support');
+        else if (id === 'application-menu')
+            window.history.pushState('forward', null, '/app');
+        else if (id === 'sys-stat-menu')
+            window.history.pushState('forward', null, '/sys_stat');
         load_page(url, method);
     }
 
@@ -198,7 +207,8 @@
         load_page(ext_url, "get");
         $(window).bind("popstate", function(event) {
             var state = event.originalEvent.state;
-            console.log(state);
+            console.log("original event " + state);
+            console.log("event " + event.state);
         });
     })
 </script>

@@ -45,4 +45,9 @@ public class ClientServiceImpl implements ClientService {
     public void updateClient(UUID clientId, NewClientRequest newClientRequest, String token) {
         clientClient.updateClient(clientId, newClientRequest, "Bearer " + token);
     }
+
+    @Override
+    public void deleteClientById(UUID clientId, String token) {
+        clientClient.deleteClientById(clientId, "Bearer " + token);
+    }
 }

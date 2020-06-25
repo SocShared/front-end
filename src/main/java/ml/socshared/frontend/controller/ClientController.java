@@ -68,12 +68,30 @@ public class ClientController {
             return "clients :: content";
         }
 
+        ClientResponse clientResponse;
         if (newClientRequest.getClientId() == null)
-            clientService.addClient(newClientRequest, accessToken);
-        else
+            clientResponse = clientService.addClient(newClientRequest, accessToken);
+        else {
             clientService.updateClient(newClientRequest.getClientId(), newClientRequest, accessToken);
+            clientResponse = clientService.findByUserIdAndClientId(newClientRequest.getClientId(), accessToken);
+        }
+        model.addAttribute("client", clientResponse);
 
         return "clients :: content";
     }
 
+    @GetMapping("/app/clients/{clientId}/remove")
+    public String removeClient(@PathVariable UUID clientId,
+                               @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Приложения OAuth2"));
+
+        clientService.deleteClientById(clientId, accessToken);
+
+        // TODO Сделать адекватную пагинацию
+        RestResponsePage<ClientResponse> clients = clientService.findByUserId(0, 100, accessToken);
+
+        model.addAttribute("clients", clients);
+
+        return "app :: content";
+    }
 }

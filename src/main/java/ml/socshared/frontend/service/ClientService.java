@@ -14,5 +14,6 @@ public interface ClientService {
     RestResponsePage<ClientResponse> findByUserId(Integer page, Integer size, String token);
     ClientResponse addClient(NewClientRequest newClientRequest, String token);
     void updateClient(UUID clientId, NewClientRequest newClientRequest, String token);
+    void deleteClientById(UUID clientId, String token);
 
 }

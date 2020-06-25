@@ -37,4 +37,6 @@ public interface ClientClient {
     void updateClient(@PathVariable UUID clientId, @RequestBody NewClientRequest newClientRequest,
                       @RequestHeader("Authorization") String token);
 
+    @DeleteMapping(value = "/api/v1/protected/users/clients/{clientId}")
+    void deleteClientById(@PathVariable UUID clientId, @RequestHeader("Authorization") String token);
 }

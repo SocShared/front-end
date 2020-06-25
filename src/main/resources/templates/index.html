@@ -74,8 +74,8 @@
         // });
     </script>
     <script th:inline="javascript">
-        var contentManager = [[${content_manager} != "" ? true : false]];
-        var admin = [[${admin} != "" ? true : false]];
+        let contentManager = [[${content_manager} != "" ? true : false]];
+        let admin = [[${admin} != "" ? true : false]];
         let ext_url = "/";
         if (contentManager)
             ext_url = "/social";
@@ -219,8 +219,10 @@
     $(document).ready(function () {
         load_page(ext_url, "get");
         $(window).bind("popstate", function(event) {
-            if (event.originalEvent.state != null)
+            if (event.originalEvent.state != null) {
+                window.history.pushState('forward', null, event.originalEvent.state.url);
                 load_page(event.originalEvent.state.url, "get");
+            }
         });
     })
 </script>

@@ -181,7 +181,6 @@
 
 <script>
     function load_page(url, method) {
-        ext_url = url;
         $.ajax({
             url: url,
             method: method,
@@ -219,9 +218,11 @@
             console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
             let location = '' + document.location;
             let id = location.replace(window.location.origin + '/', '');
-            if (id === 'lk')
+            if (id === 'lk') {
                 window.history.pushState('forward', null, id);
-            load_page('/' + id);
+                load_page('/' + ext_url);
+            } else
+                load_page('/' + id);
         };
     })
 </script>

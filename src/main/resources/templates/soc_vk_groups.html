@@ -14,7 +14,7 @@
 
 
     <div class="row content shadow">
-        <table class="table table-hover">
+        <table id="group-data-table" class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -44,8 +44,8 @@
                            th:text="${group.getType()}"></a>
                     </td>
                     <td>
-                        <button id="connect" type="button" style="color: white" th:onclick="'group_connect(\'#connect\',\'' + @{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Подключить\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</button>
-                        <button id="disconnect" type="button" style="color: white"  th:onclick="'group_connect(\'#disconnect\',\'' + @{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Отключить\');'"  th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</button>
+                        <button th:id="${'connect_' + i.index}" type="button" style="color: white; width: 150px" th:onclick="'group_connect(this.id,\'' + @{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Подключить\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</button>
+                        <button th:id="${'disconnect_' + i.index}" type="button" style="color: white; width: 150px"  th:onclick="'group_connect(this.id,\'' + @{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Отключить\');'"  th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</button>
                     </td>
                 </tr>
             </tbody>
@@ -57,15 +57,17 @@
             $.ajax({
                 url: url,
                 method: "get",
-                before: function () {
-                    $(block_id).prop("disabled", true);
-                    $(block_id).html(
+                dataType: "html",
+                beforeSend: function () {
+                    $('#' + block_id).prop("disabled", true);
+                    $('#' + block_id).html(
                         `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
                     );
                 },
-                success: function () {
-                    $(block_id).prop("disabled", false);
-                    $(block_id).html(old_text);
+                success: function (data) {
+                    $('#' + block_id).prop("disabled", false);
+                    result = $(data).find('#group-data-table');
+                    $('#group-data-table').html(result);
                 }
             })
         }

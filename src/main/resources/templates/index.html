@@ -196,7 +196,7 @@
     $(document).ready(function () {
         load_page(ext_url, "get");
         $(window).bind("popstate", function(event) {
-            var state = event.state;
+            var state = event.originalEvent.state;
             console.log(state);
         });
     })

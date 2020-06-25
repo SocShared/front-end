@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    var bodyIndex = document.getElementById('index');
-    if (bodyIndex == null) {
+    if (ext_url == null) {
         let location = '' + document.location;
         let id = location.replace(window.location.origin + '/', '');
         if (id === 'lk') {} else

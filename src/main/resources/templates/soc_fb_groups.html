@@ -49,13 +49,32 @@
             <p style="display: block; color: black" th:unless="${group.getSelected()}" th:text="${group.getType()}"></p>
         </td>
         <td>
-            <button type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\');'"  th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</button>
-            <button type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\');'" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Отключить</button>
+            <button type="button" style="color: white" th:onclick="'group_connect(\'#connect\',\'' + @{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Подключить\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</button>
+            <button type="button" style="color: white" th:onclick="'group_connect(\'#disconnect\',\'' + @{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Отключить\');'" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Отключить</button>
         </td>
     </tr>
     </tbody>
     </table>
     </div>
+
+    <script>
+        function group_connect(block_id, url, old_text) {
+            $.ajax({
+                url: url,
+                method: "get",
+                before: function () {
+                    $(block_id).prop("disabled", true);
+                    $(block_id).html(
+                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
+                    );
+                },
+                success: function () {
+                    $(block_id).prop("disabled", false);
+                    $(block_id).html(old_text);
+                }
+            })
+        }
+    </script>
 
 </th:block>
 

@@ -44,8 +44,8 @@
                            th:text="${group.getType()}"></a>
                     </td>
                     <td>
-                        <button type="button" style="color: white" th:onclick="'load_page(\'' + @{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</button>
-                        <button type="button" style="color: white"  th:onclick="'load_page(\'' + @{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\');'"  th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</button>
+                        <button id="connect" type="button" style="color: white" th:onclick="'group_connect(\'#connect\',\'' + @{/social/vk/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Подключить\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Подключить</button>
+                        <button id="disconnect" type="button" style="color: white"  th:onclick="'group_connect(\'#disconnect\',\'' + @{/social/vk/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Отключить\');'"  th:if="${group.getSelected()}" class="btn sh-btn sh-btn-vk shadow">Отключить</button>
                     </td>
                 </tr>
             </tbody>
@@ -53,7 +53,6 @@
     </div>
 
     <script>
-        //TODO
         function group_connect(block_id, url, old_text) {
             $.ajax({
                 url: url,

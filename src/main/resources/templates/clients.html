@@ -85,6 +85,9 @@
                     $('#client-id').prop('value', clientId);
                     $('#client-secret').prop('value', clientSecret);
                     $("#info-text").css("visibility", "visible");
+                },
+                error: function (data) {
+                    $('#post-form').html($(data).find('#post-form'));
                 }
             });
         });

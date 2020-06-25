@@ -22,7 +22,7 @@ function load(url, method) {
         method: 'get',
         dataType: "html",
         success: function (data_ext) {
-            $('body').html($(data_ext).find('body'));
+            $('html').html($(data_ext).find('html'));
             $.ajax({
                 url: url,
                 method: method,

@@ -3,7 +3,7 @@ $(document).ready(function () {
         let location = '' + document.location;
         let id = location.replace(window.location.origin + '/', '');
         if (id === 'lk') {} else
-            load_page('/' + id);
+            load('/' + id);
     };
 
     window.onload = function () {
@@ -16,29 +16,39 @@ $(document).ready(function () {
     }
 });
 
-function load_page(url, method) {
+function load(url, method) {
     $.ajax({
-        url: url,
-        method: method,
+        url: '/lk',
+        method: 'get',
         dataType: "html",
-        beforeSend: function () {
-            $("#sh-content").addClass("d-none");
-            $("#container-spinner").removeClass("d-none");
-        },
-        success: function (data) {
-            if (data.redirect) {
-                window.location.href = data.redirect;
-            } else {
-                $("#container-spinner").addClass("d-none");
-                $("#sh-content").html(data);
-                $("#sh-content").removeClass("d-none");
-            }
+        success: function (data_ext) {
+            $.ajax({
+                url: url,
+                method: method,
+                dataType: "html",
+                beforeSend: function () {
+                    $("#sh-content").addClass("d-none");
+                    $("#container-spinner").removeClass("d-none");
+                },
+                success: function (data_int) {
+                    $('body').html($(data_ext).find('body'));
+                    if (data_int.redirect) {
+                        window.location.href = data_int.redirect;
+                    } else {
+                        $("#container-spinner").addClass("d-none");
+                        $("#sh-content").html(data_int);
+                        $("#sh-content").removeClass("d-none");
+                    }
+                },
+                error: function (data) {
+                    $("#container-spinner").addClass("d-none");
+                    $("#sh-content").html(data.responseText);
+                    $("#sh-content").removeClass("d-none");
+                }
+            })
         },
         error: function (data) {
-
-            $("#container-spinner").addClass("d-none");
-            $("#sh-content").html(data.responseText);
-            $("#sh-content").removeClass("d-none");
+            $('body').html($(data).find('body'));
         }
-    })
+    });
 }

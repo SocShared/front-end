@@ -31,6 +31,7 @@
                     <th scope="col">Client Id</th>
                     <th scope="col">Имя приложения</th>
                     <th scope="col">Valid Redirect URI</th>
+                    <th scope="col">Удаление</th>
                 </tr>
                 </thead>
                 <tbody th:each=" client, i : ${clients}">
@@ -47,12 +48,36 @@
                     <td>
                         <p th:text="${client.getValidRedirectUri()}"></p>
                     </td>
+                    <td>
+                        <button th:id="${'removing_' + i.index}" type="button" style="color: white; width: 150px" th:onclick="'client_remove(this.id,\'' + @{/app/clients/{clientId}/remove(clientId=${client.getClientId()})} + '\', \'Удалить\');'" class="btn sh-btn sh-btn-fb shadow">Удаление</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
             <p th:if="${clients.isEmpty()}">Ни одно приложение не создано!</p>
         </div>
     </div>
+
+    <script>
+        function client_remove(block_id, url, old_text) {
+            $.ajax({
+                url: url,
+                method: "get",
+                dataType: "html",
+                beforeSend: function () {
+                    $('#' + block_id).prop("disabled", true);
+                    $('#' + block_id).html(
+                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
+                    );
+                },
+                success: function (data) {
+                    $('#' + block_id).prop("disabled", false);
+                    result = $(data).find('#clients-table');
+                    $('#clients-table').html(result);
+                }
+            })
+        }
+    </script>
 
 </th:block>
 

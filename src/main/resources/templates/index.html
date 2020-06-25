@@ -216,7 +216,7 @@
             let id = location.replace(window.location.origin + '/', '');
             if (id === 'lk') {
                 window.history.pushState('forward', null, id);
-                load_page('/' + ext_url);
+                load_page(ext_url);
             } else
                 load_page('/' + id);
         };

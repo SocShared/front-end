@@ -114,7 +114,7 @@
         </th:block>
 
         <div class="row">
-            <div th:insert="~{fragments/pagination :: pagination(${posts},@{/social/{soc}/groups/{sgi}/(soc=${socialNetwork}, sgi=${systemGroupId)}})}" class="col sh-pagination-block"></div>
+            <div th:insert="~{fragments/pagination :: pagination(${posts},@{social/{soc}/groups/{sgi}(soc=${socialNetwork}, sgi=${systemGroupId)}})}" class="col sh-pagination-block"></div>
         </div>
 </div>
 

@@ -43,10 +43,10 @@ public class AccountController {
         accountService.updateUser(userRequest, accessToken);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", userRequest);
-            return "account";
+            return "account :: content";
         }
 
-        return "redirect:/account";
+        return "account :: content";
     }
 
     @GetMapping("/account/confirmed")

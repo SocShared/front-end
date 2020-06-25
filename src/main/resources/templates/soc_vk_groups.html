@@ -28,19 +28,19 @@
 
                 <tr data-toggle="modal" data-target="#exampleModal">
                     <th scope="row">
-                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}(id=${group.systemGroupId})} + '\');'"
                            th:text="${i.index + 1}"></a>
                     </th>
                     <td>
-                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getName()}"></a>
                     </td>
                     <td>
-                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getMembersCount()}"></a>
                     </td>
                     <td>
-                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}/(id=${group.systemGroupId})} + '\');'"
+                        <a style="display: block; color: black; cursor: pointer" th:onclick="'load_page(\'' + @{/social/vk/groups/{id}(id=${group.systemGroupId})} + '\');'"
                            th:text="${group.getType()}"></a>
                     </td>
                     <td>

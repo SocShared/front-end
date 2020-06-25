@@ -70,6 +70,7 @@
     <script>
         $(function() {
             $('#post-form').ajaxForm({
+                dataType: "html",
                 beforeSubmit: function(arr, $form, options) {
                     $("#submit-button-form").prop("disabled", true);
                     $("#submit-button-form").html(
@@ -79,6 +80,7 @@
                 success: function (data) {
                     $("#submit-button-form").html("Сохранить приложение");
                     $("#submit-button-form").prop("disabled", false);
+                    console.log(data);
                     result = $(data).find('#client-div');
                     $('#client-div').html(result);
                     $("#info-text").css("visibility", "visible");
@@ -86,7 +88,17 @@
             });
         });
     </script>
-
+    <script>
+        sessionStorage.setItem("is_reloaded", true);
+        if (sessionStorage.getItem("is_reloaded")) {
+            let location = '' + document.location;
+            let id = location.replace(window.location.origin + '/', '');
+            if (id === 'lk') {
+                load_page(ext_url);
+            } else
+                load_page('/' + id);
+        }
+    </script>
 </th:block>
 
 </body>

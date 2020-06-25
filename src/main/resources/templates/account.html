@@ -5,6 +5,17 @@
 <body>
 
 <th:block layout:fragment="content" th:fragment="content">
+    <script>
+        sessionStorage.setItem("is_reloaded", true);
+        if (sessionStorage.getItem("is_reloaded")) {
+            let location = '' + document.location;
+            let id = location.replace(window.location.origin + '/', '');
+            if (id === 'lk') {
+                load_page(ext_url);
+            } else
+                load_page('/' + id);
+        }
+    </script>
     <div class="row">
         <div class="col">
             <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>

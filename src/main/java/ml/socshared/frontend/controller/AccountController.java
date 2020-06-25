@@ -40,6 +40,7 @@ public class AccountController {
     public String updateAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken,
                                 @Valid @ModelAttribute("user") UpdateUserRequest userRequest,
                                 BindingResult bindingResult, Model model) {
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Аккаунт"));
         accountService.updateUser(userRequest, accessToken);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", userRequest);

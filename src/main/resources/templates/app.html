@@ -6,7 +6,7 @@
 
 <th:block layout:fragment="content" th:fragment="content">
     <script>
-        $(document).on('click', 'select-client', function(e){
+        $(document).on('click', '.select-client', function(e){
             load_page('/app/clients/' + e.target.parentNode.id);
         });
     </script>

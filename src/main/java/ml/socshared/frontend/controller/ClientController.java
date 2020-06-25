@@ -8,6 +8,7 @@ import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
 import ml.socshared.frontend.domain.response.RestResponsePage;
 import ml.socshared.frontend.service.ClientService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,11 +27,11 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping("/app")
-    public String getClients(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+    public String getClients(Pageable pageable, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
         model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Приложения OAuth2"));
 
         // TODO Сделать адекватную пагинацию
-        RestResponsePage<ClientResponse> clients = clientService.findByUserId(0, 100, accessToken);
+        RestResponsePage<ClientResponse> clients = clientService.findByUserId(pageable.getPageNumber(), pageable.getPageSize(), accessToken);
 
         model.addAttribute("clients", clients);
 

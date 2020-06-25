@@ -58,6 +58,10 @@
         </div>
     </div>
 
+    <div class="row">
+        <div th:insert="~{fragments/pagination :: pagination(${clients},@{app})}" class="col sh-pagination-block"></div>
+    </div>
+
     <script>
         function client_remove(block_id, url, old_text) {
             $.ajax({

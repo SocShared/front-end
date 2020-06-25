@@ -201,6 +201,7 @@
     $(document).ready(function () {
         load_page(ext_url, "get");
         $(window).bind("popstate", function(event) {
+            console.log("state: " + event.originalEvent.state);
             if (event.originalEvent.state != null) {
                 $(event.originalEvent.state.url).trigger('click');
             }

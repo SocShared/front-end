@@ -9,8 +9,6 @@
         $(document).on('click', '.select-client', function(e){
             if (e.target.parentNode.dataset != null)
                 load_page('/app/clients/' + e.target.parentNode.dataset.id);
-            else
-                load_page('/app/clients/' + e.target.dataset.id);
         });
     </script>
     <div class="row">
@@ -39,17 +37,17 @@
                 </thead>
                 <tbody th:each=" client, i : ${clients}">
                 <tr th:data-id="${client.getClientId()}">
-                    <th class="select-client" scope="row">
-                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${i.index + 1}"></a>
+                    <th class="select-client" th:data-id="${client.getClientId()}" scope="row">
+                        <a class="select-client" th:text="${i.index + 1}"></a>
                     </th>
-                    <td class="select-client">
-                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${client.getClientId()}"></a>
+                    <td class="select-client" th:data-id="${client.getClientId()}">
+                        <a class="select-client" th:text="${client.getClientId()}"></a>
                     </td>
-                    <td class="select-client">
-                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${client.getName()}"></a>
+                    <td class="select-client" th:data-id="${client.getClientId()}">
+                        <a class="select-client" th:text="${client.getName()}"></a>
                     </td>
-                    <td class="select-client">
-                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${client.getValidRedirectUri()}"></a>
+                    <td class="select-client" th:data-id="${client.getClientId()}">
+                        <a class="select-client" th:text="${client.getValidRedirectUri()}"></a>
                     </td>
                     <td>
                         <button th:id="${'removing_' + i.index}" type="button" style="color: white; width: 150px" th:onclick="'client_remove(this.id,\'' + @{/app/clients/{clientId}/remove(clientId=${client.getClientId()})} + '\', \'Удалить\');'" class="btn sh-btn sh-btn-fb shadow">Удаление</button>

@@ -7,7 +7,10 @@
 <th:block layout:fragment="content" th:fragment="content">
     <script>
         $(document).on('click', '.select-client', function(e){
-            load_page('/app/clients/' + e.target.parentNode.dataset.id);
+            if (e.target.parentNode.dataset != null)
+                load_page('/app/clients/' + e.target.parentNode.dataset.id);
+            else
+                load_page('/app/clients/' + e.target.dataset.id);
         });
     </script>
     <div class="row">

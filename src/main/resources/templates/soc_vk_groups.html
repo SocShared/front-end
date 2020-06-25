@@ -52,6 +52,10 @@
         </table>
     </div>
 
+    <div class="row">
+        <div th:insert="~{fragments/pagination :: pagination(${groups_page}, @{social/{soc}/groups(soc=${socialNetwork})} ) }" class="col sh-pagination-block"></div>
+    </div>
+
     <script>
         function group_connect(block_id, url, old_text) {
             $.ajax({

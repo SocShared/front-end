@@ -7,7 +7,7 @@
 <th:block layout:fragment="content" th:fragment="content">
     <script>
         $(document).on('click', '.select-client', function(e){
-            load_page('/app/clients/' + e.target.parentNode.id);
+            load_page('/app/clients/' + e.target.parentNode.dataset.id);
         });
     </script>
     <div class="row">
@@ -35,18 +35,18 @@
                 </tr>
                 </thead>
                 <tbody th:each=" client, i : ${clients}">
-                <tr th:id="${client.getClientId()}">
+                <tr th:data-id="${client.getClientId()}">
                     <th class="select-client" scope="row">
-                        <a class="select-client" th:text="${i.index + 1}"></a>
+                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${i.index + 1}"></a>
                     </th>
                     <td class="select-client">
-                        <a class="select-client" th:text="${client.getClientId()}"></a>
+                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${client.getClientId()}"></a>
                     </td>
                     <td class="select-client">
-                        <a class="select-client" th:text="${client.getName()}"></a>
+                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${client.getName()}"></a>
                     </td>
                     <td class="select-client">
-                        <a class="select-client" th:text="${client.getValidRedirectUri()}"></a>
+                        <a class="select-client" th:data-id="${client.getClientId()}" th:text="${client.getValidRedirectUri()}"></a>
                     </td>
                     <td>
                         <button th:id="${'removing_' + i.index}" type="button" style="color: white; width: 150px" th:onclick="'client_remove(this.id,\'' + @{/app/clients/{clientId}/remove(clientId=${client.getClientId()})} + '\', \'Удалить\');'" class="btn sh-btn sh-btn-fb shadow">Удаление</button>

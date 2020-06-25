@@ -49,8 +49,8 @@
             <p style="display: block; color: black" th:unless="${group.getSelected()}" th:text="${group.getType()}"></p>
         </td>
         <td>
-            <button type="button" style="color: white" th:onclick="'group_connect(\'#connect\',\'' + @{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Подключить\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</button>
-            <button type="button" style="color: white" th:onclick="'group_connect(\'#disconnect\',\'' + @{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Отключить\');'" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Отключить</button>
+            <button id="connect" type="button" style="color: white" th:onclick="'group_connect(\'#connect\',\'' + @{/social/facebook/groups/connection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Подключить\');'" th:if="${!group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Подключить</button>
+            <button id="disconnect" type="button" style="color: white" th:onclick="'group_connect(\'#disconnect\',\'' + @{/social/facebook/groups/disconnection/{groupId}(groupId=${group.getGroupId()})} + '\', \'Отключить\');'" th:if="${group.getSelected()}" class="btn sh-btn sh-btn-fb shadow">Отключить</button>
         </td>
     </tr>
     </tbody>

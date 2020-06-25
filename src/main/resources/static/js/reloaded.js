@@ -1,0 +1,38 @@
+$(document).ready(function () {
+    sessionStorage.setItem("is_reloaded", true);
+    if (sessionStorage.getItem("is_reloaded")) {
+        let location = '' + document.location;
+        let id = location.replace(window.location.origin + '/', '');
+        if (id === 'lk') {
+            load_page(ext_url);
+        } else
+            load_page('/' + id);
+    }
+});
+
+function load_page(url, method) {
+    $.ajax({
+        url: url,
+        method: method,
+        dataType: "html",
+        beforeSend: function () {
+            $("#sh-content").addClass("d-none");
+            $("#container-spinner").removeClass("d-none");
+        },
+        success: function (data) {
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            } else {
+                $("#container-spinner").addClass("d-none");
+                $("#sh-content").html(data);
+                $("#sh-content").removeClass("d-none");
+            }
+        },
+        error: function (data) {
+
+            $("#container-spinner").addClass("d-none");
+            $("#sh-content").html(data.responseText);
+            $("#sh-content").removeClass("d-none");
+        }
+    })
+}

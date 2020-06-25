@@ -5,17 +5,6 @@
 <body>
 
 <th:block layout:fragment="content" th:fragment="content">
-    <script>
-        sessionStorage.setItem("is_reloaded", true);
-        if (sessionStorage.getItem("is_reloaded")) {
-            let location = '' + document.location;
-            let id = location.replace(window.location.origin + '/', '');
-            if (id === 'lk') {
-                load_page(ext_url);
-            } else
-                load_page('/' + id);
-        }
-    </script>
     <div class="row">
         <div class="col">
             <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
@@ -75,23 +64,7 @@
         </div>
     </div>
 
-    <script>
-        $(function() {
-            $('#post-form').ajaxForm({
-                beforeSubmit: function(arr, $form, options) {
-                    $("#submit-button-form").prop("disabled", true);
-                    $("#submit-button-form").html(
-                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Сохранение...`
-                    );
-                },
-                success: function () {
-                    $("#submit-button-form").html("Сохранить данные");
-                    $("#submit-button-form").prop("disabled", false);
-                    $("#info-text").css("visibility", "visible");
-                }
-            });
-        });
-    </script>
+    <script th:src=@{/js/reloaded.js}></script>
 
 </th:block>
 

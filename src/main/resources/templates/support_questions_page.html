@@ -5,53 +5,46 @@
 <body>
 
 <th:block layout:fragment="content" th:fragment="content">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <button style="margin-left: 20px" th:onclick="'load_page(\'' + @{/support/questions/} + '\');'" type="button" class="btn sh-btn sh-btn-vk shadow">Задать вопрос</button>
-        </div>
-    </div>
-
-
-    <th:block th:each="question : ${questions_page.shortQuestions.content}">
-        <div class="row ">
-            <div class="col content shadow" >
-                <a class="sh-title-block" style="color: black; cursor: pointer" th:text="${question.title}"
-                   th:onclick="'load_page(\'' + @{/support/questions/{path}/(path=${question.id})} + '\');'"></a>
-                <div class="sh-info" th:text="${question.haveResponse}"></div>
-                <div class="sh-info" th:text="${question.time}"></div>
-            </div>
-        </div>
-    </th:block>
-    <th:block th:if="${questions_page.shortQuestions.getTotalElements() == 0}">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col content shadow" >
-                <center>Вопросы никто не задавал</center>
+            <div class="col">
+                <th:block th:replace="~{fragments/breadcrumbs :: breadcrumbs(${bread})}"></th:block>
             </div>
         </div>
-    </th:block>
 
-    <div class="row">
-        <div th:insert="~{fragments/pagination :: pagination(${questions_page.shortQuestions}, 'support')}" class="col sh-pagination-block"></div>
+        <div class="row">
+            <div class="col">
+                <button style="margin-left: 20px" th:onclick="'load_page(\'' + @{/support/questions/} + '\');'"
+                        type="button" class="btn sh-btn sh-btn-vk shadow">Задать вопрос
+                </button>
+            </div>
+        </div>
+
+
+        <th:block th:each="question : ${questions_page.shortQuestions.content}">
+            <div class="row ">
+                <div class="col content shadow">
+                    <a class="sh-title-block" style="color: black; cursor: pointer" th:text="${question.title}"
+                       th:onclick="'load_page(\'' + @{/support/questions/{path}/(path=${question.id})} + '\');'"></a>
+                    <div class="sh-info" th:text="${question.haveResponse}"></div>
+                    <div class="sh-info" th:text="${question.time}"></div>
+                </div>
+            </div>
+        </th:block>
+        <th:block th:if="${questions_page.shortQuestions.getTotalElements() == 0}">
+            <div class="row">
+                <div class="col content shadow">
+                    <center>Вопросы никто не задавал</center>
+                </div>
+            </div>
+        </th:block>
+
+        <div class="row">
+            <div th:insert="~{fragments/pagination :: pagination(${questions_page.shortQuestions}, 'support')}"
+                 class="col sh-pagination-block"></div>
+        </div>
     </div>
-</div>
-    <script>
-        sessionStorage.setItem("is_reloaded", true);
-        if (sessionStorage.getItem("is_reloaded")) {
-            let location = '' + document.location;
-            let id = location.replace(window.location.origin + '/', '');
-            if (id === 'lk') {
-                load_page(ext_url);
-            } else
-                load_page('/' + id);
-        }
-    </script>
+    <script th:src=@{/js/reloaded.js}></script>
 </th:block>
 
 </body>

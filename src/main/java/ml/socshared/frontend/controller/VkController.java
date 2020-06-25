@@ -85,6 +85,6 @@ public class VkController {
         log.info("Request disconnection group");
         service.disconnectionGroupById(vkGroupId, accessToken);
         service.getConnectedPageUserGroups(PageRequest.of(0, 20 ), model, accessToken);
-        return "redirect:/lk";
+        return "soc_vk_groups :: content";
     }
 }

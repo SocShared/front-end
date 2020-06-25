@@ -193,26 +193,8 @@
 
     function load_page_menu(id, url, method) {
         ext_url = url;
-        if (id === 'publication-menu') {
-            window.history.pushState('forward', null, '/publication');
-            window.history.pushState('forward', null, '/publication');
-        }
-        else if (id === 'social-menu') {
-            window.history.pushState('forward', null, '/social');
-            window.history.pushState('forward', null, '/social');
-        }
-        else if (id === 'support-menu') {
-            window.history.pushState('forward', null, '/support');
-            window.history.pushState('forward', null, '/support');
-        }
-        else if (id === 'application-menu') {
-            window.history.pushState('forward', null, '/app');
-            window.history.pushState('forward', null, '/app');
-        }
-        else if (id === 'sys-stat-menu') {
-            window.history.pushState('forward', null, '/sys_stat');
-            window.history.pushState('forward', null, '/sys_stat');
-        }
+        window.history.pushState('forward', null, '#' + id);
+        window.history.pushState('forward', null, '#' + id);
         load_page(url, method);
     }
 
@@ -220,8 +202,7 @@
         load_page(ext_url, "get");
         $(window).bind("popstate", function(event) {
             if (event.originalEvent.state != null) {
-                window.history.pushState('forward', null, event.originalEvent.state.url);
-                load_page(event.originalEvent.state.url, "get");
+                $(event.originalEvent.state.url).trigger('click');
             }
         });
     })

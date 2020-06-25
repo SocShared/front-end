@@ -77,9 +77,7 @@ public class ClientController {
             clientService.updateClient(newClientRequest.getClientId(), newClientRequest, accessToken);
             clientResponse = clientService.findByUserIdAndClientId(newClientRequest.getClientId(), accessToken);
         }
-        model.addAttribute("client", clientResponse);
-
-        return "clients :: content";
+        return getClient(clientResponse.getClientId(), accessToken, model);
     }
 
     @GetMapping("/app/clients/{clientId}/remove")

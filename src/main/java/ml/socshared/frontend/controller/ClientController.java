@@ -65,6 +65,9 @@ public class ClientController {
                              BindingResult postBinding,
                              Model model,
                              @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+        model.addAttribute("bread", new Breadcrumbs(Arrays.asList(new BreadcrumbElement("app", "Приложения OAuth2")),
+                "Подключение приложения"));
+
         if (postBinding.hasErrors()) {
             model.addAttribute("client", newClientRequest);
             return "clients :: content";
@@ -77,7 +80,11 @@ public class ClientController {
             clientService.updateClient(newClientRequest.getClientId(), newClientRequest, accessToken);
             clientResponse = clientService.findByUserIdAndClientId(newClientRequest.getClientId(), accessToken);
         }
-        return getClient(clientResponse.getClientId(), accessToken, model);
+
+        model.addAttribute("client", clientResponse);
+
+        return "clients :: content";
+
     }
 
     @GetMapping("/app/clients/{clientId}/remove")

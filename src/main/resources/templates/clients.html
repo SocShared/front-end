@@ -78,6 +78,7 @@
                     );
                 },
                 success: function (data) {
+                    console.log(data);
                     $("#submit-button-form").html("Сохранить приложение");
                     $("#submit-button-form").prop("disabled", false);
                     var clientId = $(data).find('#client-id').prop('value');
@@ -85,10 +86,6 @@
                     $('#client-id').prop('value', clientId);
                     $('#client-secret').prop('value', clientSecret);
                     $("#info-text").css("visibility", "visible");
-                },
-                error: function (data) {
-                    console.log($(data).find('#post-form').html());
-                    $('#post-form').html($(data).find('#post-form').html());
                 }
             });
         });

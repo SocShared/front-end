@@ -22,6 +22,7 @@ function load(url, method) {
         method: 'get',
         dataType: "html",
         success: function (data_ext) {
+            $('body').html($(data_ext).find('body'));
             $.ajax({
                 url: url,
                 method: method,
@@ -31,7 +32,6 @@ function load(url, method) {
                     $("#container-spinner").removeClass("d-none");
                 },
                 success: function (data_int) {
-                    $('body').html($(data_ext).find('body'));
                     if (data_int.redirect) {
                         window.location.href = data_int.redirect;
                     } else {

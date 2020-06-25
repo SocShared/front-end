@@ -73,11 +73,14 @@
         //     })
         // });
     </script>
-    <script th:if="${!content_manager.isEmpty()}">
-        let ext_url = "/social";
-    </script>
-    <script th:if="${content_manager.isEmpty() && !admin.isEmpty()}">
-        let ext_url = "/sys_stat";
+    <script th:inline="javascript">
+        var contentManager = [[${content_manager} != "" ? true : false]];
+        var admin = [[${admin} != "" ? true : false]];
+        let ext_url = "/";
+        if (contentManager)
+            ext_url = "/social";
+        else if (admin)
+            ext_url = "/sys_stat";
     </script>
 </head>
 

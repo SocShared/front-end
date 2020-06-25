@@ -6,7 +6,7 @@
 
 <th:block layout:fragment="content" th:fragment="content">
     <script>
-        $(document).on('click', '.row-select', function(e){
+        $(document).on('click', 'select-client', function(e){
             load_page('/app/clients/' + e.target.parentNode.id);
         });
     </script>
@@ -35,18 +35,18 @@
                 </tr>
                 </thead>
                 <tbody th:each=" client, i : ${clients}">
-                <tr class="row-select" th:id="${client.getClientId()}">
-                    <th scope="row">
-                        <p th:text="${i.index + 1}"></p>
+                <tr th:id="${client.getClientId()}">
+                    <th class="select-client" scope="row">
+                        <p class="select-client" th:text="${i.index + 1}"></p>
                     </th>
-                    <td>
-                        <p th:text="${client.getClientId()}"></p>
+                    <td class="select-client">
+                        <p class="select-client" th:text="${client.getClientId()}"></p>
                     </td>
-                    <td>
-                        <p th:text="${client.getName()}"></p>
+                    <td class="select-client">
+                        <p class="select-client" th:text="${client.getName()}"></p>
                     </td>
-                    <td>
-                        <p th:text="${client.getValidRedirectUri()}"></p>
+                    <td class="select-client">
+                        <p class="select-client" th:text="${client.getValidRedirectUri()}"></p>
                     </td>
                     <td>
                         <button th:id="${'removing_' + i.index}" type="button" style="color: white; width: 150px" th:onclick="'client_remove(this.id,\'' + @{/app/clients/{clientId}/remove(clientId=${client.getClientId()})} + '\', \'Удалить\');'" class="btn sh-btn sh-btn-fb shadow">Удаление</button>

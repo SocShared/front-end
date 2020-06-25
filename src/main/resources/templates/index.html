@@ -192,7 +192,6 @@
     }
 
     function load_page_menu(id, url, method) {
-        ext_url = url;
         window.history.pushState('forward', null, id);
         load_page(url, method);
     }
@@ -206,6 +205,7 @@
                 let id = location.replace(window.location.origin + '/', '');
                 load_page('/' + id);
             } else {
+
                 load_page(ext_url, "get");
             }
         };

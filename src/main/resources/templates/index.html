@@ -216,7 +216,8 @@
     $(document).ready(function () {
         load_page(ext_url, "get");
         $(window).bind("popstate", function(event) {
-            load_page(event.originalEvent.state.url, "get");
+            if (event.originalEvent.state != null)
+                load_page(event.originalEvent.state.url, "get");
         });
     })
 </script>

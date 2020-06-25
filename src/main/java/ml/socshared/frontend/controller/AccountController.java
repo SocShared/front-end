@@ -45,14 +45,22 @@ public class AccountController {
             model.addAttribute("user", userRequest);
             return "account :: content";
         }
+        UserResponse userResponse = accountService.getUserResponseInfo(accessToken);
+        model.addAttribute("user", userResponse);
+        model.addAttribute("access_confirmed", false);
 
         return "account :: content";
     }
 
     @GetMapping("/account/confirmed")
     public String sendMailConfirmed(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Аккаунт"));
         SuccessResponse successResponse = accountService.sendMailConfirmed(accessToken);
+        UserResponse userResponse = accountService.getUserResponseInfo(accessToken);
+
+        model.addAttribute("user", userResponse);
         model.addAttribute("access_confirmed", successResponse.getSuccess());
+
         return "account :: content";
     }
 

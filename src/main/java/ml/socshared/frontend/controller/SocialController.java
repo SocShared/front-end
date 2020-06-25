@@ -108,13 +108,13 @@ public class SocialController {
         for (RoleResponse role : roleResponses) {
             if (role.getName().equals("CONTENT_MANAGER"))
                 model.addAttribute("content_manager", role.getName());
-            else
-                model.addAttribute("content_manager", "");
-            if (role.getName().equals("ADMIN"))
+            else if (role.getName().equals("ADMIN"))
                 model.addAttribute("admin", role.getName());
-            else
-                model.addAttribute("admin", "");
         }
+        if (model.getAttribute("admin") == null)
+            model.addAttribute("admin", "");
+        if (model.getAttribute("content_manager") == null)
+            model.addAttribute("content_manager", "");
     }
 
 }

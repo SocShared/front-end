@@ -21,12 +21,12 @@
                class="btn sh-btn sh-btn-outline shadow">Добавить приложение</button>
         </div>
     </div>
-    <div id="clients-table" class="row  content shadow">
+    <div class="row  content shadow">
         <div class="col-12">
             <div style="text-align: center;"><h3>Приложения OAuth2</h3></div>
         </div>
         <div class="col-12">
-            <table  class="table table-hover" th:unless="${clients.isEmpty()}">
+            <table id="clients-table" class="table table-hover" th:unless="${clients.isEmpty()}">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -56,7 +56,7 @@
                 </tr>
                 </tbody>
             </table>
-            <p th:if="${clients.isEmpty()}">Ни одно приложение не создано!</p>
+            <p id="info-text" th:if="${clients.isEmpty()}">Ни одно приложение не создано!</p>
         </div>
     </div>
 
@@ -78,7 +78,9 @@
                 },
                 success: function (data) {
                     $('#' + block_id).prop("disabled", false);
+
                     $('#clients-table').html($(data).find('#clients-table'));
+                    $('#info-text').html($(data).find('#info-text'))
                 }
             })
         }

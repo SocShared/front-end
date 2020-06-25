@@ -204,6 +204,7 @@
             console.log("state: " + event.originalEvent.state);
             if (event.originalEvent.state != null) {
                 let id = '#' + event.originalEvent.state.url;
+                console.log('url: ' + location.href);
                 console.log("id: " + id);
                 $(id).trigger('click');
             }

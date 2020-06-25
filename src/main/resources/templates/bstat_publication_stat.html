@@ -77,9 +77,9 @@
 
     <div class="row no-gutters">
         <th:block  th:each="chart, i: ${charts}">
-
-            <div class="col-12 col-xl-6" th:insert="~{fragments/Chart :: chart(${i.index}, ${chart.name}, ${chart.labels}, ${chart.data}, 'blue', 'line')}"></div>
-
+            <div class="col-12 col-xl-6">
+                <div class="content shadow" th:insert="~{fragments/Chart :: chart(${i.index}, ${chart.name}, ${chart.labels}, ${chart.data}, 'blue', 'line')}"></div>
+            </div>
         </th:block>
     </div>
 

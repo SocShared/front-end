@@ -73,9 +73,9 @@
         </div>
     </div>
 
-        <div class="row" >
+        <div class="row" th:classappend="${charts.size() == 1 ? 'justify-content-center' : ''}">
             <th:block th:each="chart, i : ${charts}">
-                <div class="col-6">
+                <div  class="col-6">
                     <div class="row content shadow">
                         <div class="col"
                                 th:insert="~{fragments/Chart :: chart(${i.index}, ${chart.first}, ${chart.second.second}, ${chart.second.first}, 'blue', 'line')}">
@@ -114,7 +114,7 @@
         </th:block>
 
         <div class="row">
-            <div th:insert="~{fragments/pagination :: pagination(${posts},@{/social/{soc}/groups/{sgi}/(soc=${socialNetwork}, sgi=${systemGroupId)}})}" class="col sh-pagination-block"></div>
+            <div th:insert="~{fragments/pagination :: pagination(${posts},@{social/{soc}/groups/{sgi}(soc=${socialNetwork}, sgi=${systemGroupId)}})}" class="col sh-pagination-block"></div>
         </div>
 </div>
 

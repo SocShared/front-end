@@ -230,13 +230,15 @@ public class BStatServiceImpl implements BStatService {
                 response.getVariabilityNumberViews().getData());
         charts.add(new LinearChart<>(viewsChart.getFirst(), viewsChart.getSecond(), "Количество просмотров"));
 
-        String path = "social/vk/groups";
+        String breadSocGroupsPath = "social/vk/groups";
+        String breadSocGroupsname = "Группы ВКонтакте";
         if(soc == SocialNetwork.FACEBOOK) {
-            path = "social/fb/groups";
+            breadSocGroupsPath = "social/facebook/groups";
+            breadSocGroupsname = "Группы Facebook";
         }
         model.addAttribute("bread", new Breadcrumbs(Arrays.asList(
                 new BreadcrumbElement("social", "Социальные аккунты"),
-                new BreadcrumbElement(path, "Группы FB")),
+                new BreadcrumbElement(breadSocGroupsPath, breadSocGroupsname)),
                 "Статистика и публикации"));
 
         model.addAttribute("charts", charts);
@@ -253,7 +255,7 @@ public class BStatServiceImpl implements BStatService {
        List<String> labelList = new LinkedList<>();
        for(TimePoint<Integer> el : data) {
            dataList.add(el.getValue());
-           labelList.add(Instant.ofEpochMilli(el.getDateTime()).atZone(ZoneOffset.UTC).format(formatter));
+           labelList.add(Instant.ofEpochMilli(el.getDateTime()).atZone(ZoneOffset.UTC).plusHours(3).format(formatter));
        }
        return Pair.of(dataList, labelList);
     }

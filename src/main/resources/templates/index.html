@@ -180,8 +180,9 @@
                 }
             },
             error: function(data) {
+
                 $("#container-spinner").addClass("d-none");
-                $("#sh-content").html(data);
+                $("#sh-content").html(data.responseText);
                 $("#sh-content").removeClass("d-none");
             }
         })

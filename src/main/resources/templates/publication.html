@@ -70,6 +70,7 @@
                     </script>
                 </div>
                 <button id="submit-button-form" type="submit" class="btn sh-btn sh-btn-fb shadow">Произвести публикацию</button>
+                <p id="info-text" style="visibility: hidden; color: darkgreen">Публикация успешно поставлена в очередь. В ближайшее время она будет опубликована.</p>
             </form>
         </div>
     </div>
@@ -87,7 +88,7 @@
                 success: function () {
                     $("#submit-button-form").html("Произвести публикацию");
                     $("#submit-button-form").prop("disabled", false);
-                    alert("Публикация успешно поставлена в очередь. В ближайшее время она будет опубликована.");
+                    $("#info-text").css("visibility", "visible");
                 }
             });
         });

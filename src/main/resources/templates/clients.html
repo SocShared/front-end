@@ -17,7 +17,7 @@
             <div style="text-align: center;"><h3>Подключение приложения</h3></div>
         </div>
         <div class="col-12">
-            <form th:action="@{/app/clients}" th:object="${client}" method="post">
+            <form id="post-form" th:action="@{/app/clients}" th:object="${client}" method="post">
                 <div class="form-group">
                     <label for="name">Имя приложения</label>
                     <input id="name" class="form-control" th:field="*{name}">
@@ -61,10 +61,27 @@
                         </li>
                     </ul>
                 </div>
-                <button type="submit" class="btn sh-btn sh-btn-fb shadow">Сохранить приложение</button>
+                <button id="submit-button-form" type="submit" class="btn sh-btn sh-btn-fb shadow">Сохранить приложение</button>
             </form>
         </div>
     </div>
+
+    <script>
+        $(function() {
+            $('#post-form').ajaxForm({
+                beforeSubmit: function(arr, $form, options) {
+                    $("#submit-button-form").prop("disabled", true);
+                    $("#submit-button-form").html(
+                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Сохранение...`
+                    );
+                },
+                success: function () {
+                    $("#submit-button-form").html("Сохранить приложение");
+                    $("#submit-button-form").prop("disabled", false);
+                }
+            });
+        });
+    </script>
 
 </th:block>
 

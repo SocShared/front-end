@@ -87,7 +87,8 @@
                     $("#info-text").css("visibility", "visible");
                 },
                 error: function (data) {
-                    $('#post-form').html($(data).find('#post-form'));
+                    console.log($(data).find('#post-form').html());
+                    $('#post-form').html($(data).find('#post-form').html());
                 }
             });
         });

@@ -89,6 +89,9 @@
                     $("#submit-button-form").html("Произвести публикацию");
                     $("#submit-button-form").prop("disabled", false);
                     $("#info-text").css("visibility", "visible");
+                },
+                error: function (data) {
+
                 }
             });
         });

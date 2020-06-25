@@ -73,7 +73,12 @@
         //     })
         // });
     </script>
-
+    <script th:if="${!content_manager.isEmpty()}">
+        let ext_url = "/social";
+    </script>
+    <script th:if="${content_manager.isEmpty() && !admin.isEmpty()}">
+        let ext_url = "/sys_stat";
+    </script>
 </head>
 
 <body>
@@ -155,8 +160,6 @@
 </div>
 
 <script>
-    let ext_url = "/social";
-
     function load_page(url, method) {
         ext_url = url;
         $.ajax({
@@ -194,7 +197,7 @@
     $(document).ready(function () {
         load_page(ext_url, "get");
         $(window).bind("popstate", function(event) {
-            var state = event.originalEvent.state;
+            var state = event.state;
             console.log(state);
         });
     })

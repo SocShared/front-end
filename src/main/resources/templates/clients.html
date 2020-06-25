@@ -81,7 +81,7 @@
                     $("#submit-button-form").html("Сохранить приложение");
                     $("#submit-button-form").prop("disabled", false);
                     console.log(data);
-                    result = $(data).find('#client-div');
+                    const result = $(data).find('#client-div');
                     $('#client-div').html(result);
                     $("#info-text").css("visibility", "visible");
                 }

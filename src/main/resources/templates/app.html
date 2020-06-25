@@ -77,7 +77,7 @@
                 },
                 success: function (data) {
                     $('#' + block_id).prop("disabled", false);
-                    result = $(data).find('#clients-table');
+                    const result = $(data).find('#clients-table');
                     $('#clients-table').html(result);
                 }
             })

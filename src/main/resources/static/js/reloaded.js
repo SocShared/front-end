@@ -1,12 +1,20 @@
 $(document).ready(function () {
-    sessionStorage.setItem("is_reloaded", true);
-    if (sessionStorage.getItem("is_reloaded")) {
+    const reloaded = function () {
         let location = '' + document.location;
         let id = location.replace(window.location.origin + '/', '');
         if (id === 'lk') {
             load_page(ext_url);
         } else
             load_page('/' + id);
+    };
+
+    window.onload = function () {
+        const loaded = sessionStorage.getItem('loaded');
+        if (loaded) {
+            reloaded();
+        } else {
+            sessionStorage.setItem('loaded', true);
+        }
     }
 });
 

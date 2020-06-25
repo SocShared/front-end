@@ -80,8 +80,10 @@
                 success: function (data) {
                     $("#submit-button-form").html("Сохранить приложение");
                     $("#submit-button-form").prop("disabled", false);
-                    console.log(data);
-                    $('#client-div').html($(data).find('#client-div').html());
+                    var clientId = $(data).find('#client-id').prop('value');
+                    var clientSecret = $(data).find('#client-secret').prop('value');
+                    $('#client-id').prop('value', clientId);
+                    $('#client-secret').prop('value', clientSecret);
                     $("#info-text").css("visibility", "visible");
                 }
             });

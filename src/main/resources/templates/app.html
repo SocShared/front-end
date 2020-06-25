@@ -78,7 +78,7 @@
                 },
                 success: function (data) {
                     $('#' + block_id).prop("disabled", false);
-                    $('#clients-table').html($(data).find('#clients-table').html());
+                    $('#clients-table').html($(data).find('#clients-table'));
                 }
             })
         }

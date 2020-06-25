@@ -57,6 +57,21 @@
     </table>
     </div>
 
+    <div class="row">
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item" th:if="${groups_page.getHasNext()}">
+                    <span class="page-link"><a href="#" style="color: black" th:onclick="'load_page(\'' + @{/social/facebook/groups/(page=${page.page-1}, size=${page.getSize()})} + '\');'">&laquo;</a></span>
+                </li>
+
+                <li class="page-item" th:if="${groups_page.getHasPrev()}">
+                    <span class="page-link"><a href="#" style="color: black"
+                                               th:onclick="'load_page(\'' + @{/social/facebook/groups/(page=${page.page+1}, size=${page.getSize()})} + '\');'">&raquo;</a></span>
+                </li>
+
+            </ul>
+    </div>
+
     <script>
         function group_connect(block_id, url, old_text) {
             $.ajax({

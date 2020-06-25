@@ -91,22 +91,22 @@
         <nav>
             <ul class="nav flex-column menu">
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page(\'' + @{/publication} + '\');'">Публикация</a>
+                    <a id="publication-menu" style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page_menu(this.id,\'' + @{/publication} + '\');'">Публикация</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page(\'' + @{/social} + '\');'">Соц. аккаунты</a>
+                    <a id="social-menu" style="cursor: pointer" class="nav-link active icon-options" th:if="${!content_manager.isEmpty()}" th:onclick="'load_page_menu(this.id,\'' + @{/social} + '\');'">Соц. аккаунты</a>
                 </li>
                 <!--            <li class="nav-item menu-item">-->
                 <!--                <a class="nav-link icon-stat" th:href="@{/social}">Группы и статистика</a>-->
                 <!--            </li>-->
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" class="nav-link icon-support" th:if="${!content_manager.isEmpty() || !admin.isEmpty()}" th:onclick="'load_page(\'' + @{/support} + '\');'">Поддержка</a>
+                    <a id="support-menu" style="cursor: pointer" class="nav-link icon-support" th:if="${!content_manager.isEmpty() || !admin.isEmpty()}" th:onclick="'load_page_menu(this.id,\'' + @{/support} + '\');'">Поддержка</a>
                 </li>
                 <li class="nav-item menu-item">
-                    <a style="cursor: pointer" th:if="${!content_manager.isEmpty()}" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/app} + '\');'">Приложения</a>
+                    <a id="application-menu" style="cursor: pointer" th:if="${!content_manager.isEmpty()}" class="nav-link active icon-options" th:onclick="'load_page_menu(this.id,\'' + @{/app} + '\');'">Приложения</a>
                 </li>
                 <li class="nav-item menu-item" th:if="${!admin.isEmpty()}">
-                    <a style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page(\'' + @{/sys_stat} + '\');'">Сист. статистика</a>
+                    <a id="sys-stat-menu" style="cursor: pointer" class="nav-link active icon-options" th:onclick="'load_page_menu(this.id,\'' + @{/sys_stat} + '\');'">Сист. статистика</a>
                 </li>
             </ul>
         </nav>
@@ -185,8 +185,18 @@
         })
     }
 
+    function load_page_menu(id, url, method) {
+        ext_url = url;
+        window.history.pushState('forward', null, '#' + id);
+        load_page(url, method);
+    }
+
     $(document).ready(function () {
         load_page(ext_url, "get");
+        $(window).bind("popstate", function(event) {
+            var state = event.originalEvent.state;
+            console.log(state);
+        });
     })
 </script>
 

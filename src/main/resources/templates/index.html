@@ -77,14 +77,10 @@
     </script>
     <script th:inline="javascript">
         let ext_url = "/";
-        [# th
-        :
-        if= "${!content_manager.isEmpty()}" ]
+        [# th:if="${!content_manager.isEmpty()}" ]
         ext_url = "/social";
-        [/]
-            [# th
-        :
-        if= "${content_manager.isEmpty() && !admin.isEmpty()}"]
+        [/]\
+        [# th:if="${content_manager.isEmpty() && !admin.isEmpty()}"]
         ext_url = "/sys_stat";
         [/]
     </script>

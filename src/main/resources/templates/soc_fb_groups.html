@@ -62,16 +62,20 @@
             $.ajax({
                 url: url,
                 method: "get",
+                dataType: "html",
                 before: function () {
-                    alert(block_id);
-                    $('#' + block_id).prop("disabled", true);
-                    $('#' + block_id).html(
-                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
-                    );
+                    // $('#' + block_id).prop("disabled", true);
+                    // $('#' + block_id).html(
+                    //     `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Выполнение...`
+                    // );
                 },
-                success: function () {
-                    $('#' + block_id).prop("disabled", false);
-                    $('#' + block_id).html(old_text);
+                success: function (data) {
+                    console.log(block_id);
+                    console.log(url);
+                    console.log(old_text);
+                    console.log(data);
+                    // $('#' + block_id).prop("disabled", false);
+                    // $('#' + block_id).html(old_text);
                 }
             })
         }

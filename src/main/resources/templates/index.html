@@ -155,7 +155,10 @@
 </div>
 
 <script>
+    let ext_url = "/social";
+
     function load_page(url, method) {
+        ext_url = url;
         $.ajax({
             url: url,
             method: method,
@@ -182,10 +185,8 @@
     }
 
     $(document).ready(function () {
-        load_page("/social", "get");
+        load_page(ext_url, "get");
     })
-
-
 </script>
 
 

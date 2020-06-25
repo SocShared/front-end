@@ -15,10 +15,7 @@ function load(url, method) {
         method: 'get',
         dataType: "html",
         success: function (data_ext) {
-            $('head.inner').html($(data_ext).find('head'));
-            $('body.inner').html($(data_ext).find('body'));
-            console.log($(data_ext).find('head'));
-            console.log($(data_ext).find('body'))
+            $("html").html(data_ext);
             $.ajax({
                 url: url,
                 method: method,

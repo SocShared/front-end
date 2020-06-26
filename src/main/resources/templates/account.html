@@ -64,6 +64,29 @@
             </form>
         </div>
     </div>
+    <script>
+        $(function() {
+            $('#post-form').ajaxForm({
+                dataType: "html",
+                beforeSubmit: function(arr, $form, options) {
+                    $("#submit-button-form").prop("disabled", true);
+                    $("#submit-button-form").html(
+                        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Сохранение...`
+                    );
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#submit-button-form").html("Сохранить данные");
+                    $("#submit-button-form").prop("disabled", false);
+                    var firstname = $(data).find('#firstname').prop('value');
+                    var lastname = $(data).find('#lastname').prop('value');
+                    $('#firstname').prop('value', firstname);
+                    $('#lastname').prop('value', lastname);
+                    $("#info-text").css("visibility", "visible");
+                }
+            });
+        });
+    </script>
 </th:block>
 
 </body>

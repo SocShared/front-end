@@ -63,9 +63,6 @@ public class SocialController {
 
     @GetMapping("/social")
     public String socConnectedPage(Model model, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        if (accessToken.isEmpty())
-            return "redirect:/";
-
         List<SocialAccountResponse> responses = socAccountService.getAccounts(accessToken);
         model.addAttribute("facebook_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.FACEBOOK));
         model.addAttribute("vk_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.VK));

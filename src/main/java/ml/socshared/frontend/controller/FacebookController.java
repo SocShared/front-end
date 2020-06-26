@@ -7,6 +7,9 @@ import ml.socshared.frontend.domain.facebook.FacebookPage;
 import ml.socshared.frontend.domain.facebook.response.FacebookGroupResponse;
 import ml.socshared.frontend.domain.model.BreadcrumbElement;
 import ml.socshared.frontend.domain.model.Breadcrumbs;
+import ml.socshared.frontend.domain.model.SocialNetwork;
+import ml.socshared.frontend.domain.model.form.AppUrlAccess;
+import ml.socshared.frontend.domain.response.SocialAccountResponse;
 import ml.socshared.frontend.domain.response.SuccessResponse;
 import ml.socshared.frontend.service.FacebookService;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,12 +36,6 @@ public class FacebookController {
     @GetMapping("/facebook/callback")
     public String saveFacebookAccount(@RequestParam("code") String authorizationCode, @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         SuccessResponse successResponse = service.saveAccountFacebook(authorizationCode, accessToken);
-        return "redirect:/lk";
-    }
-
-    @GetMapping("/social/facebook/turn_off")
-    public String deleteFacebookAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
-        service.deleteFacebookAccount(accessToken);
         return "redirect:/lk";
     }
 

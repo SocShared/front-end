@@ -13,6 +13,7 @@ import ml.socshared.frontend.exception.impl.HttpUnauthorizedException;
 import ml.socshared.frontend.security.response.OAuth2TokenResponse;
 import ml.socshared.frontend.security.service.AuthService;
 import ml.socshared.frontend.service.AccountService;
+import ml.socshared.frontend.service.FacebookService;
 import ml.socshared.frontend.service.SocAccountService;
 import ml.socshared.frontend.service.VkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class SocialController {
     private final AuthService authService;
     private final AccountService accountService;
     private final SocAccountService socAccountService;
+    private final FacebookService fbService;
+    private final VkService vkService;
 
     @ModelAttribute("roles")
     public Set<RoleResponse> getRole() {
@@ -63,6 +66,34 @@ public class SocialController {
         if (accessToken.isEmpty())
             return "redirect:/";
 
+        List<SocialAccountResponse> responses = socAccountService.getAccounts(accessToken);
+        model.addAttribute("facebook_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.FACEBOOK));
+        model.addAttribute("vk_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.VK));
+        model.addAttribute("accounts_list", responses);
+        AppUrlAccess appAccess = new AppUrlAccess();
+        model.addAttribute("appUrlAccess", appAccess);
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Социальные аккаунты"));
+        return "soc_accounts :: content";
+    }
+
+    @GetMapping("/social/facebook/turn_off")
+    public String deleteFacebookAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+        fbService.deleteFacebookAccount(accessToken);
+        List<SocialAccountResponse> responses = socAccountService.getAccounts(accessToken);
+        model.addAttribute("facebook_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.FACEBOOK));
+        model.addAttribute("vk_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.VK));
+        model.addAttribute("accounts_list", responses);
+        AppUrlAccess appAccess = new AppUrlAccess();
+        model.addAttribute("appUrlAccess", appAccess);
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Социальные аккаунты"));
+        return "soc_accounts :: content";
+    }
+
+
+    @GetMapping("social/disconnection/vk")
+    public String disconnectionVkAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+        log.info("Request disconnection vk account");
+        vkService.vkDisconnection("Bearer " +  accessToken);
         List<SocialAccountResponse> responses = socAccountService.getAccounts(accessToken);
         model.addAttribute("facebook_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.FACEBOOK));
         model.addAttribute("vk_connect", socAccountService.checkSocialAccount(responses, SocialNetwork.VK));

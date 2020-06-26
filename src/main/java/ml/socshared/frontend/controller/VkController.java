@@ -38,13 +38,6 @@ public class VkController {
         return "connection_vk :: content";
     }
 
-    @GetMapping("social/disconnection/vk")
-    public String disconnectionVkAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
-        log.info("Request disconnection vk account");
-        service.vkDisconnection("Bearer " +  accessToken);
-        return "redirect:/lk";
-    }
-
     @PostMapping("/social/connection/vk")
     public String applicationUrl(@ModelAttribute AppUrlAccess appUrl,
                                  @CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {

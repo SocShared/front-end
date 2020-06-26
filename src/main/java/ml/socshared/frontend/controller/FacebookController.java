@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,7 +36,8 @@ public class FacebookController {
     }
 
     @GetMapping("/social/facebook/turn_off")
-    public String deleteFacebookAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
+    public String deleteFacebookAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken, Model model) {
+        model.addAttribute("bread", new Breadcrumbs(Collections.emptyList(), "Социальные аккаунты"));
         service.deleteFacebookAccount(accessToken);
         return "soc_accounts :: content";
     }

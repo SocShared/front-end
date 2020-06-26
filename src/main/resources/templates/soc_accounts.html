@@ -19,10 +19,10 @@
                    class="btn sh-btn sh-btn-vk shadow" style="margin-left: 20px; color: white">Подключить
                     <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></button>
 
-                <button id="facebook-disconnect" type="button" th:onclick="'turn_off(this.id,\'' + @{/social/facebook/turn_off} + '\');'"  th:if="${facebook_connect}"
+                <button id="facebook-disconnect" type="button" th:onclick="'load_page(\'' + @{/social/facebook/turn_off} + '\');'"  th:if="${facebook_connect}"
                    class="btn sh-btn sh-btn-fb shadow" style="margin-left: 20px; color: white">Отключить
                     <img th:src="@{/img/ico-fb.svg}" width="30px" height="30px"></button>
-                <button id="vk-disconnect" type="button" th:onclick="'turn_off(this.id,\'' + @{/social/disconnection/vk} + '\');'" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow"
+                <button id="vk-disconnect" type="button" th:onclick="'load_page(\'' + @{/social/disconnection/vk} + '\');'" th:if="${vk_connect}" class="btn sh-btn sh-btn-vk shadow"
                    style="margin-left: 20px; color: white">Отключить
                     <img th:src="@{/img/ico-vk.ico}" width="30px" height="30px"></button>
             </div>

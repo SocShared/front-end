@@ -30,9 +30,9 @@ public class FeignErrorDecoder implements ErrorDecoder {
         } else if (response.status() == 403) {
             return new HttpForbiddenException("forbidden");
         } else if (response.status() == 400) {
-            String msg = methodKey + " return error (400): " + body ;
+            String msg = methodKey + " return error (400): " + body;
             log.warn(msg);
-            return new HttpNotFoundException(msg);
+            return new HttpBadRequestException(msg);
         }
 
         String msg = "Unexpected error: " + response.status() + "; " + body;

@@ -37,7 +37,7 @@ public class FacebookController {
     @GetMapping("/social/facebook/turn_off")
     public String deleteFacebookAccount(@CookieValue(name = "JWT_AT", defaultValue = "") String accessToken) {
         service.deleteFacebookAccount(accessToken);
-        return "redirect:/lk";
+        return "soc_accounts :: content";
     }
 
     @GetMapping("/social/facebook/groups")

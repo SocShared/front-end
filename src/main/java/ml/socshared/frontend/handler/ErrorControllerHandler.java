@@ -27,12 +27,6 @@ public class ErrorControllerHandler {
 
     private final AuthService authService;
 
-    @ExceptionHandler({HttpForbiddenException.class, HttpNotFoundException.class})
-    public String forbidden(AbstractRestHandleableException exception) {
-        log.error("{}: {}", exception.getHttpStatus(), exception.getMessage());
-        return "404";
-    }
-
     @ExceptionHandler(HttpUnauthorizedException.class)
     public String unauthorized(HttpUnauthorizedException exception, ServletWebRequest webRequest, HttpServletRequest request,
                                HttpServletResponse response) {
@@ -74,10 +68,4 @@ public class ErrorControllerHandler {
         }
     }
 
-    @ExceptionHandler(Exception.class)
-    public String otherException(Exception exc) {
-        exc.printStackTrace();
-        log.error("{}: {}", HttpStatus.INTERNAL_SERVER_ERROR, exc);
-        return "500";
-    }
 }
